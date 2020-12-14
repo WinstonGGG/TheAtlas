@@ -12,7 +12,7 @@
 sysinfo.txt
 # Unity3D generated meta files
 *.pidb.meta
-gameJam/ProjectSettings/EditorBuildSettings.asset
+TheAtlasRebirth/ProjectSettings/EditorBuildSettings.asset
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -57,8 +57,8 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
-gameJam/Library/*
-gameJam/Library/
+TheAtlasRebirth/Library/*
+TheAtlasRebirth/Library/
 *.log
 
 # Unity3D generated meta files
