@@ -31,7 +31,7 @@ public class MainMenuButtons : MonoBehaviour
 
             foreach (RaycastResult result in results) {
                 string name = result.gameObject.name;
-                Debug.Log("print" + name);
+                // Debug.Log("print" + name);
                 if (name.CompareTo("LoadButton") == 0) {
                     PlayGame();
                 }
