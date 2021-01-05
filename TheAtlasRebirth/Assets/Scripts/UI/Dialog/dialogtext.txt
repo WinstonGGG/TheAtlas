@@ -1,0 +1,358 @@
+TalismanTip
+【Use 'G' to generate the spell】
+---
+River
+The river is unmistakably deep and I never learned how to swim.
+---
+Check Tao Book First
+I should check the Tao-Book first.
+---
+Earth Key
+I feel both Yin and Yang energies from this key. But what is it used for?
+---
+Lobby
+Wow! An Eight-Trigram-Atlas! I can feel the powerful energy of the other four elements from four opposing directions. 
+According to what The Master taught me, Water was the first element born into this world. 
+Maybe I should go investigate the energy of Water first. 
+---
+Spelltree 1
+All talisman wizards have their own Tao-Books to record spells they have learned in the past. 
+Wizards draw those characters in the talisman to cast a specific spell.
+【Press 'Q' or click the icon to open/close the Tao-Book】
+---
+Spelltree 2
+That's odd. The book is covered by magical seals I cannot seem to remember the meaning of.
+Something must be wrong! I must figure it out!
+---
+Talisman 1
+Thank God, I still know how to use the talisman.
+【Press ‘T’ or click the icon to open/close the talisman】=【Check the Tao-Book to check the new spell】
+---
+Talisman 2
+A talisman is a piece of paper that is written with different symbols of magic, utilizing energies those symbols represent, to cast spells.
+I cannot remember anything but the symbol for Earth right now. Maybe I should see if the talisman is still usable.
+【Left-click the first symbol on the left scroll】
+【Press 'G' to finish drawing the talisman】=【Press 'DELETE' to replace with a new talisman】
+---
+Self Introduction
+Ouch! =【Press 'SPACE' or click 'NEXT' to continue】
+...
+This should be the interior world of the Five-Element-Signet! The map The Master left for me is real! 
+I must save him!
+【Use ‘WSAD’ to move around】=【Use mouse to explore the world】
+【Use mouse wheel to zoom in/out】
+...
+Oh, wait! I almost forgot something important. 
+In such an unknown space, I need to review my safety incantations        -- Tao-Book and Talismans.
+They should be in my gourd, which I fashioned into a pack for all my things.
+【Click and drag the 'Tao-Book' and the 'Talisman' out】
+---
+EarthPortal
+It seems like an extremely strong power is locked behind this scroll portal, I need a key to go through it, however.
+---
+EarthPortal Open
+The portal is open now! Time to move! 
+---
+EarthPortal Wait Key
+I need a key to enter the portal.
+---
+EarthGround
+The energy of Earth is so strong everywhere in this room, but, for sure, this is just normal soil.
+---
+法阵-scene3
+Oh, another scroll. Seems like it's already unfurled this time.
+---
+法阵-scene3 Open
+Nothing restricts me from going through the portal.
+---
+法阵-scene2
+I better stay away from it. I don’t want to burn my brush.
+---
+atlasmap2
+I feel like I am stepping on water, but the ground is surely dry.
+---
+starground
+It’s like I am standing above an evening sky, painted with stars. 
+---
+Water Seed
+A seed that looks like the planet Mercury. I can feel the energy of Water surrounding it.
+---
+Flowerpot
+An ancient flower pot. Far older than me.
+---
+Flower Need Sun
+The bud needs more Yang energy in order to grow up. Growth requires balance.
+---
+Water Boss Door
+An iron gate with some strange decorations on it. What are their meanings?
+【Use 'Z' again to observe the gate】
+---
+6_water-white
+Oh my God... I can’t believe there is such pure energy of Water.
+---
+1_water-dark
+Oh my God... I can’t believe there is such pure energy of Water.
+---
+wind
+The wind is unyielding! I can’t move forward against it.
+---
+wind (1)
+The wind is unyielding! I can’t move forward against it.
+---
+wind (2)
+The wind is unyielding! I can’t move forward against it.
+---
+wind (3)
+The wind is unyielding! I can’t move forward against it.
+---
+wind (4)
+The wind is unyielding! I can’t move forward against it.
+---
+wind (5)
+The wind is unyielding! I can’t move forward against it.
+---
+wind (6)
+The wind is unyielding! I can’t move forward against it.
+---
+wind (7)
+The wind is unyielding! I can’t move forward against it.
+---
+Break Mirror
+Someone: Nice job, human. The reversed magic has been quelled. I will wait for you behind this iron gate.
+---
+Mirror no effect
+Six mirrors with six beautiful flowers, are they all the same? 
+The space became bent after I entered the mirror, a feeling like everything was illusory.
+---
+Mirror need flower
+These flowers look similar to the bud I just planted.
+---
+Water Boss
+Qiang Yu: I am Qiang Yu, the god of Water. 
+Qiang Yu: You have piqued my curiosity, a rare event.
+Qiang Yu: As such, I will give you a precious gift:             -- A prediction of your future.
+Qiang Yu: And I have some questions for you:=【Click on the choices】
+Who are you?
+Shan
+A Taoist Wizard
+The Master 
+I don't need to tell you
+Why would you enter the Water scroll first?
+The Master told me to do that
+I feel like I have been here before
+Water is the easiest element to control
+I don’t know
+Which two numbers have the strongest Yin and Yang energy? 
+6, 9
+1, 10
+5, 3
+9, 6
+What does Water represent?
+An illusory and reversed world
+North, Winter, and everything that is permeated
+The most Yin element among the five basic elements
+Me
+---
+Water Boss 2
+.
+..
+...
+....
+Qiang Yu: That is all I have for you:
+Qiang Yu: Interesting... Fighting against your fate, please don’t let me down, human...
+---
+Water Seed Grow Order 0
+The flower pot is full of soil.
+---
+Water Seed Grow Order 1
+The seed needs soil to grow.
+---
+Water Seed Grow Order 2
+I better plant the seed first.
+---
+Water Seed Grow Order 2.1
+The bud cannot accept more energy. 
+---
+Water Seed Grow Order 3
+The sun might burn the plant now. Let it grow first.
+---
+Water Seed Grow Order 3.1
+The sun is warm and shining. A beautiful prunus mume is blooming.
+---
+Wrong Spell
+Nothing happens.
+---
+Baguamap
+A Eight-Trigrams-Atlas. Different Trigrams represent different meanings and elements. 
+The Master said that everything could be comprehended through studying the Atlas.
+---
+Zoom In Active
+【Press 'z' to look at the details of flowers.】
+【Use the arrow keys to check different mirrors】
+---
+Moving Puzzle Tip
+Damn, I knew it! There can’t be anything without a trap! I guess this room is the lock I need to solve to get to the other side of the scroll portal.
+【Use 'WASD' to move puzzle pieces】
+---
+Rock1
+The remainder of a sentence is curved on the hard rock:
+"The world is constr cted of      basic ele ents: M   l, Wood, Wa er, Fire, Ear h."             --   e  a   r
+Some characters are hard to recognize now.
+---
+Rock2
+The remainder of a sentence is curved on the hard rock:
+"There a   genera ing and over oming relationships betw en each t o elements.”             -- T       e    
+Some characters are hard to recognize now.
+---
+Rock3
+The remainder of a sentence is curved on the hard rock:
+"By pr moting a d restra ning loop, t   balance of the w rld is maintained.             --  h  M st
+Some characters are hard to recognize now.
+---
+Rock4
+The remainder of a sentence is curved on the hard rock:
+"Please! someone please rescue me from this f  kin  place... I don’t wan  to die here."
+Some characters are hard to recognize now. I am sure this guy was definitely disappointed at that moment.
+---
+Backpack Full
+My Gourd is full. I can’t carry anything else.
+【Right-click to eliminate the spell】
+---
+Fire Boss
+Fei: Look at this, a human. The last time I saw a human was five years ago! You are here for the Fire element, aren’t you? I will give you the power as a gift for feeding me more flames. 
+Let me tell you one last thing. The ‘snake-bird-man’ controls winds blowing from the north-west direction, you should pay attention to that. Blow him back! 
+…
+Five years ago… That must be The Master...
+---
+Walking Puzzle Hint 1
+The remainder of some sentence shows up on the star:
+“Hi there, brave latecomer, I have studied the long walking maze for a while, the spiritual power in the maze led me to the secret of the mirrored world.
+I believe the power to unlock the mirrored status is to eventually grow a plant somewhere. A complex plant that needs a lot of effort to take care of.
+Hopefully, this message can help you, and I’ll try to record some other information deeper in the maze.”
+---
+Walking Puzzle Hint 2
+The remainder of some sentence shows up on the star:
+“You have probably seen my first message, the secret behind this mirrored situation is far more serious than I imagined.
+I think there is a great power controlling the maze and this environment. Based on my interpretation of energy flow in the maze, I feel the plant has a special seed somewhere,
+and planting the seed with dirt will be a great attempt to solve this strange situation, and oh, don’t forget to water the seed to see what happens.”
+---
+Walking Puzzle Hint 3
+The remainder of several sentences appear on the star:
+“I have carved a message about how to start the growing of the plant somewhere in the maze, don’t know if you’ve seen it.
+But, anyway, you will see the strong wood energy of that plant after it grows. In the sense of wood energy, I think the energy will take 
+you on a path to the fire energy in the previous environment if you remember.
+Well, I’ll be brief here, because I am going to try to get back to the previous environment according to the wood energy trajectory.”
+---
+Walking Puzzle Hint 4
+The remainder of several sentences appear up on the star:
+“Shit, this could be the last message I leave here, this is the far end of the maze, it shows the existence of fire energy after the 
+wood energy is needed to make the most Yang sun element to complete the growing process.
+But unfortunately, I failed once in teleporting back to the previous environment because I used the wrong components to create the teleport magic.
+Good luck on your adventure, mine is likely over.”
+---
+rockInWaterRoom
+The remainder of several sentences is carved on the rock:
+“Hopefully you have found the four messages I left in the maze, I think the last piece of advice I can give is this: you need to find 
+the mirror that contains the exact same plant, but you won’t be able to see the ultimate secret.
+This is the last piece of strength that I can use…”
+The sentence just ends here...
+---
+Ditto Mirror
+Ditto board copied
+Someone: I didn’t imagine that, human. The reverse magic has been quelled. 
+I will be waiting for you behind this iron gate.
+---
+Ditto No Mirror
+Ditto Board has copied a useless flowerpot.
+---
+Fire Seed
+The Fire energy is protecting the seed from being picked.
+---
+Cooled down
+The fire seed is completely cool now.
+---
+Cold Fire Seed
+So… That’s one way to get the Fire element.
+---
+Stick Destroy Rock
+The vitality of the rock is absorbed by sticks. It has broken apart.
+---
+Enter the platform
+Someone: Welcome to my world, human. I see you.
+…
+Who’s that? Is there anyone else in the Five Element Seal?
+---
+EastClouds
+The clouds are trying to hide something.
+---
+WestClouds
+The clouds are trying to hide something.
+---
+coral1
+A beautiful coral shining in vivid colors.
+---
+Separate Mirror
+It's definitely not a normal mirror. But that's me.
+---
+stargc
+It’s like I am standing above an evening sky, painted with stars. 
+---
+coral1 (1)
+A beautiful coral shining in vivid colors.
+---
+coral1 (2)
+A beautiful coral shining in vivid colors.
+---
+coral1 (3)
+A beautiful coral shining in vivid colors.
+---
+coral1 (4)
+A beautiful coral shining in vivid colors.
+---
+coral1 (5)
+A beautiful coral shining in vivid colors.
+---
+coral1 (6)
+A beautiful coral shining in vivid colors.
+---
+coral1 (7)
+A beautiful coral shining in vivid colors.
+---
+coral1 (8)
+A beautiful coral shining in vivid colors.
+---
+coral1 (9)
+A beautiful coral shining in vivid colors.
+---
+coral1 (10)
+A beautiful coral shining in vivid colors.
+---
+coral1 (11)
+A beautiful coral shining in vivid colors.
+---
+coral1 (12)
+A beautiful coral shining in vivid colors.
+---
+coral1 (13)
+A beautiful coral shining in vivid colors.
+---
+coral1 (14)
+A beautiful coral shining in vivid colors.
+---
+coral1 (15)
+A beautiful coral shining in vivid colors.
+---
+coral1 (16)
+A beautiful coral shining in vivid colors.
+---
+coral1 (17)
+A beautiful coral shining in vivid colors.
+---
+Left Reefs
+The reefs are too steep to climb.
+---
+Right Reefs
+The reefs are too steep to climb.
+---
+Flowerpot cld
+An ancient flower pot. Far older than me.
