@@ -158,32 +158,31 @@ public class ClickManagement : MonoBehaviour
             // if (resultSize == 0)
             //     pick.ClickOnGround();
         }
-        // else if (Input.GetMouseButtonDown(1)) {
-        //     //Set up the new Pointer Event
-        //     pointerData = new PointerEventData(eventSystem);
-        //     pointerData.position = Input.mousePosition;
-        //     List<RaycastResult> results = new List<RaycastResult>();
-        //     raycaster.Raycast(pointerData, results);
+        else if (Input.GetMouseButtonDown(1)) {
+            //Set up the new Pointer Event
+            pointerData = new PointerEventData(eventSystem);
+            pointerData.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            raycaster.Raycast(pointerData, results);
 
-        //     int resultSize = 0;
+            int resultSize = 0;
 
-        //     //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-        //     foreach (RaycastResult result in results) {
-        //         resultSize += 1;
-        //         string name = result.gameObject.name;
-        //         string tag = result.gameObject.tag;
+            //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+            foreach (RaycastResult result in results) {
+                resultSize += 1;
+                string name = result.gameObject.name;
+                string tag = result.gameObject.tag;
 
-        //         if (tag.CompareTo("Item") == 0 && canAct) {
-        //             // print("obj names: " + name);
-        //             pick.descShow = false;
-        //             if (!ItemDragHandler.holdItem) {
-        //                 int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
-        //                 Backpack.backpack.GetComponent<Backpack>().RemoveItem(result.gameObject, position);
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // }
+                if (tag.CompareTo("Item") == 0 && canAct) {
+                    // pick.descShow = false;
+                    if (!ItemDragHandler.holdItem) {
+                        int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
+                        go.backpack.GetComponent<Backpack>().RemoveItem(result.gameObject, position);
+                        break;
+                    }
+                }
+            }
+        }
         // else if (Input.GetKeyDown(KeyCode.Q) && canAct && spellTreeUnlocked) {
         //     pick.descShow = false;
         //     UISoundScript.OpenSpellTree();
@@ -210,7 +209,7 @@ public class ClickManagement : MonoBehaviour
     // }
 
     public void CloseDisplays() {
-        // Backpack.backpack.GetComponent<Backpack>().Show(false);
+        go.backpack.GetComponent<Backpack>().Show(false);
         // spellTreeDisp.SetActive(false);
     }
 
@@ -252,7 +251,7 @@ public class ClickManagement : MonoBehaviour
         if (!isOn || talismanUnlocked) GameObject.Find("TalismanIcon").GetComponent<Image>().enabled = isOn;
 
         if (!isOn) CloseDisplays();
-        // else if(backpackUnlocked) Backpack.backpack.GetComponent<Backpack>().Show(true);
+        else if(backpackUnlocked) go.backpack.GetComponent<Backpack>().Show(true);
     }
 
     public void ToggleLock(bool isLock) {

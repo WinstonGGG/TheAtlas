@@ -9,8 +9,8 @@ public class Backpack : MonoBehaviour
     
     private GameObject[] imageObjects;
     private int length;
-    public static GameObject backpack;
-    public static GameObject canvas;
+    public GameObject backpack;
+    public GameObject canvas;
 
     public GameObject textbox;
     public Text itemName;
@@ -84,7 +84,7 @@ public class Backpack : MonoBehaviour
         }
         
         // UISoundScript.PlayGetItem();
-        imageObj.SetActive(Backpack.backpack.activeSelf);
+        imageObj.SetActive(backpack.activeSelf);
     }
 
     public void RemoveItem(GameObject itemObject, int removeIndex) {
