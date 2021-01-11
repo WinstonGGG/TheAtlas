@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 7840945792563687781}
   - component: {fileID: 7840945792563687787}
   - component: {fileID: 7840945792563687780}
+  - component: {fileID: 3927320802843207483}
   m_Layer: 5
   m_Name: ElementIcon
   m_TagString: Untagged
@@ -296,6 +297,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3927320802843207483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7840945792563687782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18caf516b7b94b3f9574d561dc6da03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 0
+  spellName: Wood
+  recipe: 
+  level: 1
+  knownResp: 
+  knownDes: 
+  unlockedDes: The element of East and Spring. It represents everything that is growing
+    and vivid. It's also one of the five basic elements.
+  element: 1
+  locked: {fileID: 7840945792206012799}
+  newIcon: {fileID: 7840945792256507385}
+  glow: {fileID: 0}
 --- !u!1 &7840945793076741559
 GameObject:
   m_ObjectHideFlags: 0

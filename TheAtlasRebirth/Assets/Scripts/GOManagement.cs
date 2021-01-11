@@ -6,18 +6,30 @@ using UnityEngine.UI;
 public class GOManagement : MonoBehaviour
 {
     public GameObject backpackIcon;
-    public GameObject spellTreeIcon;
+    public GameObject spelltreeIcon;
+    public GameObject talismanIcon;
     public GameObject backpack;
     public GameObject mainUI;
+    public GameObject talisman;
+    public GameObject spelltree;
+    public GameObject talisElementDesc;
+    public GameObject talisElementText;
+    // public GameObject spellDesc;
 
     public GameObject itemHolder;
     // Start is called before the first frame update
     void Awake()
     {
         backpackIcon = GameObject.Find("BackpackIcon");
-        spellTreeIcon = GameObject.Find("SpellTreeIcon");
+        spelltreeIcon = GameObject.Find("SpelltreeIcon");
+        talismanIcon = GameObject.Find("TalismanIcon");
         backpack = GameObject.Find("Backpack");
         mainUI = GameObject.Find("MainUI");
+        talisman = GameObject.Find("Talisman");
+        spelltree = GameObject.Find("Spelltree");
+        talisElementDesc = GameObject.Find("TElementDesc");
+        talisElementText = GameObject.Find("W_TElementDesc");
+        // spellDesc = GameObject.Find("spellDesc");
 
         itemHolder = GameObject.Find("ItemHolder");
     }

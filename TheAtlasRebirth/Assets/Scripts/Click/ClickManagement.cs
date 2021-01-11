@@ -8,14 +8,15 @@ using UnityEngine.SceneManagement;
 // [RequireComponent(typeof(TalismanManager))]
 public class ClickManagement : MonoBehaviour
 {
-    public GOManagement go;
+    private GameObject goManager;
+    private GOManagement go;
     
     public bool canAct => !dialogShown && !lockGame;
-    public bool lockGame;
-    public bool dialogShown = true;
+    public bool lockGame = false;
+    public bool dialogShown = false;
     //     => FindObjectOfType<TipsDialog>() != null;
-    public GameObject spellTreeDisp;
-    // private TalismanManager talisDisp;
+    private GameObject spellTreeDisp;
+    private TalismanManager talisDisp;
     private bool earthUnlocked;
     public bool clickedObject = false;
     public bool brightBackpack = false;
@@ -23,14 +24,14 @@ public class ClickManagement : MonoBehaviour
     private bool brightSpell = false;
     private bool backpackUnlocked, spellTreeUnlocked, talismanUnlocked;
     public bool seenSpellTree = false;
-    public Sprite talismanIcon;
-    // PickObject pick;
+    private Sprite talismanIcon;
+    private ClickInScene pick;
     GraphicRaycaster raycaster;
     PointerEventData pointerData;
     EventSystem eventSystem;
 
     // private LeaveIconBright light;
-    private bool isTalis;
+    private bool isTalis = false;
 
     private static ClickManagement showInstance;
     void Awake() {
@@ -51,21 +52,25 @@ public class ClickManagement : MonoBehaviour
     private void Start() {
         raycaster = GetComponent<GraphicRaycaster>();
         eventSystem = GetComponent<EventSystem>();
-        // pick = GameObject.FindWithTag("Ground").GetComponent<PickObject>();
-        // talisDisp = GetComponent<TalismanManager>();
 
-        go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
-        // go.backpackIcon.GetComponent<Image>().enabled = false;
-        // go.spellTreeIcon.GetComponent<Image>().enabled = false;
+        goManager = GameObject.Find("GameObjectManager");
+        go = goManager.GetComponent<GOManagement>();
+
+        pick = goManager.GetComponent<ClickInScene>();
+        talisDisp = go.talisman.GetComponent<TalismanManager>();
+        spellTreeDisp = go.spelltree;
+
+        
+        go.backpackIcon.GetComponent<Image>().enabled = false;
+        go.spelltreeIcon.GetComponent<Image>().enabled = false;
     }
 
-    // public Backpack bk;
     private void Update() {
-        // if (talisDisp.display.activeSelf || spellTreeDisp.activeSelf) {
-        //     pick.descShow = false;
-        // } else {
-        //     pick.descShow = true;
-        // }
+        if (talisDisp.display.activeSelf || spellTreeDisp.activeSelf) {
+            pick.descShow = false;
+        } else {
+            pick.descShow = true;
+        }
 
         //Check if the left Mouse button is clicked
         if (raycaster == null) {
@@ -76,56 +81,59 @@ public class ClickManagement : MonoBehaviour
             pointerData = new PointerEventData(eventSystem);
             pointerData.position = Input.mousePosition;
             List<RaycastResult> results = new List<RaycastResult>();
-            // print("raycaster");
-            // print(raycaster);
+            
             //Raycast using the Graphics Raycaster and mouse click position
             raycaster.Raycast(pointerData, results);
 
             int resultSize = 0;
+
+            Debug.Log("click somewhere");
 
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results) {
                 resultSize += 1;
                 string name = result.gameObject.name;
                 string tag = result.gameObject.tag;
-                // print("obj names: " + name);
                 
-                if (tag.CompareTo("TalismanIcon") == 0 && canAct) {
-                    // pick.descShow = false;
-                    // if(!isTalis) GameObject.Find("MainUI").GetComponent<TalismanManager>().OpenTalisman();
-                    // else GameObject.Find("MainUI").GetComponent<TalismanManager>().CloseDisplay();
+                if (name.CompareTo("TalismanIcon") == 0 && canAct) {
+                    Debug.Log("click talismanIcon");
+                    pick.descShow = false;
+                    if(!isTalis) 
+                        talisDisp.OpenTalisman();
+                    else 
+                        talisDisp.CloseDisplay();
                 }
                 else if (tag.CompareTo("Item") == 0 && canAct) {
-                    // pick.descShow = false;
-                    // if (!ItemDragHandler.holdItem) {
-                    //     ItemDragHandler.itemOnGround = result.gameObject;
-                    //     ItemDragHandler.previousPosition = result.gameObject.GetComponent<RectTransform>().anchoredPosition;
-                    //     ItemDragHandler.holdItem = true;
-                    //     ItemDragHandler.x = ItemDragHandler.previousPosition.x;
-                    //     RectTransform item_transform = ItemDragHandler.itemOnGround.GetComponent<RectTransform>();
-                    //     ItemDragHandler.originalSize = item_transform.sizeDelta;
-                    // }
+                    pick.descShow = false;
+                    if (!ItemDragHandler.holdItem) {
+                        ItemDragHandler.itemOnGround = result.gameObject;
+                        ItemDragHandler.previousPosition = result.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                        ItemDragHandler.holdItem = true;
+                        ItemDragHandler.x = ItemDragHandler.previousPosition.x;
+                        RectTransform item_transform = ItemDragHandler.itemOnGround.GetComponent<RectTransform>();
+                        ItemDragHandler.originalSize = item_transform.sizeDelta;
+                    }
                 }
-                else if (tag.CompareTo("SpellTreeIcon") == 0 && canAct) {
-                    // pick.descShow = false;
+                else if (name.CompareTo("SpelltreeIcon") == 0 && canAct) {
+                    pick.descShow = false;
                     // UISoundScript.OpenSpellTree();
-                    // if (brightSpell) {
-                    //     GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().DarkBackpack();
-                    //     TipsDialog.PrintDialog("Spelltree 2");
-                    //     brightSpell = false;
-                    //     GameObject spellTree = GameObject.FindGameObjectWithTag("SpellTreeIcon");
-                    //     spellTree.GetComponent<Image>().sprite = Resources.Load<Sprite>("ChangeAsset/All elements");
-                    //     seenSpellTree = true;
-                    // }
-                    // spellTreeDisp.SetActive(!spellTreeDisp.activeSelf);
+                    if (brightSpell) {
+                        // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().DarkBackpack();
+                        // TipsDialog.PrintDialog("Spelltree 2");
+                        brightSpell = false;
+                        GameObject spellTree = GameObject.Find("SpelltreeIcon");
+                        spellTree.GetComponent<Image>().sprite = Resources.Load<Sprite>("ChangeAsset/All elements");
+                        seenSpellTree = true;
+                    }
+                    spellTreeDisp.SetActive(!spellTreeDisp.activeSelf);
 
                     // Close other canvas
-                    // talisDisp.CloseDisplay();
+                    talisDisp.CloseDisplay();
 
-                    // Backpack.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
+                    go.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
                 }
                 else if (name.CompareTo("Next Button") == 0) {
-                    // pick.descShow = false;
+                    pick.descShow = false;
                     // TipsDialog.nextButton.GetComponent<NextButtonEffect>().ChangeNextButton();
                     // if (TipsDialog.isTyping){ // type full text
                     //     TipsDialog.PrintFullDialog();
@@ -155,8 +163,8 @@ public class ClickManagement : MonoBehaviour
                 //     InGameMenu.QuitGame();
                 // }
             }
-            // if (resultSize == 0)
-            //     pick.ClickOnGround();
+            if (resultSize == 0)
+                pick.ClickOnGround();
         }
         else if (Input.GetMouseButtonDown(1)) {
             //Set up the new Pointer Event
@@ -174,7 +182,7 @@ public class ClickManagement : MonoBehaviour
                 string tag = result.gameObject.tag;
 
                 if (tag.CompareTo("Item") == 0 && canAct) {
-                    // pick.descShow = false;
+                    pick.descShow = false;
                     if (!ItemDragHandler.holdItem) {
                         int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
                         go.backpack.GetComponent<Backpack>().RemoveItem(result.gameObject, position);
@@ -183,34 +191,32 @@ public class ClickManagement : MonoBehaviour
                 }
             }
         }
-        // else if (Input.GetKeyDown(KeyCode.Q) && canAct && spellTreeUnlocked) {
-        //     pick.descShow = false;
-        //     UISoundScript.OpenSpellTree();
-        //     if (brightSpell) {
-        //         GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().DarkBackpack();
-        //         TipsDialog.PrintDialog("Spelltree 2");
-        //         brightSpell = false;
-        //         GameObject spellTree = GameObject.FindGameObjectWithTag("SpellTreeIcon");
-        //         spellTree.GetComponent<Image>().sprite = Resources.Load<Sprite>("ChangeAsset/All elements");
-        //         // spellTree.transform.localScale = new Vector2(2.6f, 2.5f);
-        //         seenSpellTree = true;
-        //     }
-        //     spellTreeDisp.SetActive(!spellTreeDisp.activeSelf);
-        //     Backpack.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
+        else if (Input.GetKeyDown(KeyCode.Q) && canAct && spellTreeUnlocked) {
+            pick.descShow = false;
+            // UISoundScript.OpenSpellTree();
+            if (brightSpell) {
+                // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().DarkBackpack();
+                // TipsDialog.PrintDialog("Spelltree 2");
+                brightSpell = false;
+                // go.spelltreeIcon.GetComponent<Image>().sprite = Resources.Load<Sprite>("ChangeAsset/All elements");
+                seenSpellTree = true;
+            }
+            spellTreeDisp.SetActive(!spellTreeDisp.activeSelf);
+            go.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
 
-        //     // Close other canvas
-        //     talisDisp.CloseDisplay();
-        // }
+            // Close other canvas
+            talisDisp.CloseDisplay();
+        }
     }
 
-    // public void ToggleTalis(bool isShow) {
-    //     isTalis = isShow;
-    //     GameObject.FindGameObjectWithTag("TalismanIcon").GetComponent<Image>().enabled = isShow;
-    // }
+    public void ToggleTalis(bool isShow) {
+        isTalis = isShow;
+        GameObject.Find("TalismanIcon").GetComponent<Image>().enabled = isShow;
+    }
 
     public void CloseDisplays() {
         go.backpack.GetComponent<Backpack>().Show(false);
-        // spellTreeDisp.SetActive(false);
+        spellTreeDisp.SetActive(false);
     }
 
     public void ShowBackpackIcon() { 
@@ -234,34 +240,36 @@ public class ClickManagement : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        // if (scene.name == "scene0" && !earthUnlocked
-        //     && GameObject.FindGameObjectWithTag("SpellTreeIcon").GetComponent<Image>().enabled) {
-        //     earthUnlocked = true;
-        //     GetComponent<SpellTreeManager>().UnlockElement(TalisDrag.Elements.EARTH);
-        // }
+        if (scene.name == "scene0" && !earthUnlocked
+            && go.spelltreeIcon.GetComponent<Image>().enabled) {
+            earthUnlocked = true;
+            GetComponent<SpelltreeManager>().UnlockElement(TalisDrag.Elements.EARTH);
+        }
 
-        // if (SceneManager.GetActiveScene().name == "EarthRoom" && !earthUnlocked) {
-        //     earthUnlocked = true;
-        // }
+        if (SceneManager.GetActiveScene().name == "EarthRoom" && !earthUnlocked) {
+            earthUnlocked = true;
+        }
     }
 
     public void ToggleIcons(bool isOn) {
-        if (!isOn || backpackUnlocked) GameObject.Find("BackpackIcon").GetComponent<Image>().enabled = isOn;
-        if (!isOn || spellTreeUnlocked) GameObject.Find("SpellTreeIcon").GetComponent<Image>().enabled = isOn;
-        if (!isOn || talismanUnlocked) GameObject.Find("TalismanIcon").GetComponent<Image>().enabled = isOn;
+        if (!isOn || backpackUnlocked) go.backpackIcon.GetComponent<Image>().enabled = isOn;
+        if (!isOn || spellTreeUnlocked) go.spelltreeIcon.GetComponent<Image>().enabled = isOn;
+        if (!isOn || talismanUnlocked) go.talismanIcon.GetComponent<Image>().enabled = isOn;
 
         if (!isOn) CloseDisplays();
-        else if(backpackUnlocked) go.backpack.GetComponent<Backpack>().Show(true);
+        else if (backpackUnlocked) 
+            go.backpack.GetComponent<Backpack>().Show(true);
     }
 
     public void ToggleLock(bool isLock) {
         ToggleIcons(!isLock);
         if(isLock){
-            // GameObject.Find("MainUI").GetComponent<TalismanManager>().CloseDisplay();
+            go.talisman.GetComponent<TalismanManager>().CloseDisplay();
         }
         // TipsDialog.ToggleTextBox(!isLock);
         lockGame = isLock;
         
-        // if(light != null) light.gameObject.SetActive(!isLock);
+        // if(light != null) 
+        //     light.gameObject.SetActive(!isLock);
     }
 }

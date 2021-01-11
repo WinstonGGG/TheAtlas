@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2588369882079190429}
   - component: {fileID: 2588369882079190419}
   - component: {fileID: 2588369882079190428}
+  - component: {fileID: 7817021184202270490}
   m_Layer: 5
   m_Name: SpellIcon
   m_TagString: Untagged
@@ -74,6 +75,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7817021184202270490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588369882079190430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18caf516b7b94b3f9574d561dc6da03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 0
+  spellName: Taiji Key
+  recipe: 
+  level: 3
+  knownResp: 
+  knownDes: 
+  unlockedDes: 
+  element: 9
+  locked: {fileID: 2588369882268888455}
+  newIcon: {fileID: 2588369882453545217}
+  glow: {fileID: 0}
 --- !u!1 &2588369882268888455
 GameObject:
   m_ObjectHideFlags: 0

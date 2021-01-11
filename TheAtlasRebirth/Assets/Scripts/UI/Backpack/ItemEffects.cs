@@ -14,7 +14,7 @@ public class ItemEffects : MonoBehaviour
     public static ClickManagement dispManager;
     // public static TalismanManager talisDisp;
     private static bool spell = false;
-    private static string[] groundNames;
+    // private static string[] groundNames;
     private static bool taoBookOpened = false;
 
     void Start() {
@@ -40,9 +40,9 @@ public class ItemEffects : MonoBehaviour
         dispManager = GameObject.FindObjectOfType<ClickManagement>();
     }
 
-    public static void getGroundNames() {
-        groundNames = GameObject.FindGameObjectsWithTag("Ground").Select(x => x.name).ToArray();
-    }
+    // public static void getGroundNames() {
+    //     groundNames = GameObject.FindGameObjectsWithTag("Ground").Select(x => x.name).ToArray();
+    // }
 
     public static bool canPlace(string item, string targetObj) {
         spell = false;
