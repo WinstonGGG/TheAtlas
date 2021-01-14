@@ -5,20 +5,33 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TalisDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {
+    private GameObject goManager;
+    private GOManagement go;
+    
     public enum Elements { METAL, WOOD, WATER, FIRE, EARTH, THUNDER, SUN, WIND, MOON, NONE };
     public Elements element;
     public bool locked, known;
-    public Transform talisman, dispManager;
 
+    private Transform talisman, dispManager;
     private Vector3 origin;
     private bool setTalis;
+    private TalismanManager talismanManager;
 
-    private TalismanManager Tmanager;
+    // Start is called before the first frame update
+    void Start() {
+        goManager = GameObject.Find("GameObjectManager");
+        go = goManager.GetComponent<GOManagement>();
+
+        origin = gameObject.GetComponent<RectTransform>().localPosition;
+        talismanManager = go.talisman.GetComponent<TalismanManager>();
+        talisman = go.talisman1.GetComponent<RectTransform>();
+        dispManager = go.mainUI.GetComponent<RectTransform>();
+    }
 
     public void OnPointerDown(PointerEventData pointerEventData) {
         //Output the name of the GameObject that is being clicked
         dispManager.GetComponent<TalismanManager>().AddCraft(element, GetComponentInChildren<Image>().sprite);
-        if (Tmanager.TenSecTimer) Tmanager.timeLeft = Tmanager.countdownTime;
+        if (talismanManager.TenSecTimer) talismanManager.timeLeft = talismanManager.countdownTime;
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -38,13 +51,6 @@ public class TalisDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     // Reset position of talisman
     private void OnDisable() {
         transform.position = origin;
-    }
-
-    // Start is called before the first frame update
-    void Start() {
-        origin = gameObject.GetComponent<RectTransform>().localPosition;
-
-        Tmanager = GameObject.Find("MainUI").GetComponent<TalismanManager>();
     }
 
     // Update is called once per frame

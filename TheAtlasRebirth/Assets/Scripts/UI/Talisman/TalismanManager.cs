@@ -90,7 +90,6 @@ public class TalismanManager : MonoBehaviour {
     }
 
     public void OpenTalisman() {
-        Debug.Log("open talisman");
         if (dispManager.brightTalisman) {
             // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().DarkBackpack();
             dispManager.brightTalisman = false;
@@ -222,7 +221,7 @@ public class TalismanManager : MonoBehaviour {
             display.SetActive(false);
             dispManager.ToggleTalis(false);
             dispManager.ToggleIcons(true);
-            go.backpack.GetComponent<Backpack>().Show(true);
+            // go.backpack.GetComponent<Backpack>().Show(true);
             ResetCraft();
             curTime = 0;
 

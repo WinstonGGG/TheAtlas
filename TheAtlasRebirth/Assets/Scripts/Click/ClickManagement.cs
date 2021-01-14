@@ -60,9 +60,8 @@ public class ClickManagement : MonoBehaviour
         talisDisp = go.talisman.GetComponent<TalismanManager>();
         spellTreeDisp = go.spelltree;
 
-        
-        go.backpackIcon.GetComponent<Image>().enabled = false;
-        go.spelltreeIcon.GetComponent<Image>().enabled = false;
+        // go.backpackIcon.GetComponent<Image>().enabled = false;
+        // go.spelltreeIcon.GetComponent<Image>().enabled = false;
     }
 
     private void Update() {
@@ -87,8 +86,6 @@ public class ClickManagement : MonoBehaviour
 
             int resultSize = 0;
 
-            Debug.Log("click somewhere");
-
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results) {
                 resultSize += 1;
@@ -96,7 +93,6 @@ public class ClickManagement : MonoBehaviour
                 string tag = result.gameObject.tag;
                 
                 if (name.CompareTo("TalismanIcon") == 0 && canAct) {
-                    Debug.Log("click talismanIcon");
                     pick.descShow = false;
                     if(!isTalis) 
                         talisDisp.OpenTalisman();
@@ -211,7 +207,7 @@ public class ClickManagement : MonoBehaviour
 
     public void ToggleTalis(bool isShow) {
         isTalis = isShow;
-        GameObject.Find("TalismanIcon").GetComponent<Image>().enabled = isShow;
+        go.talismanIcon.GetComponent<Image>().enabled = isShow;
     }
 
     public void CloseDisplays() {

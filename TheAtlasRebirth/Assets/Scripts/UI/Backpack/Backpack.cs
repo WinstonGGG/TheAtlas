@@ -25,9 +25,9 @@ public class Backpack : MonoBehaviour
         canvas = go.mainUI;
         imageObjects = new GameObject[18];
         length = 0;
-        this.AddItem("TheAtlas");
-        this.AddItem("SpelltreeIcon");
-        this.AddItem("TalismanIcon");
+        // this.AddItem("TheAtlas");
+        // this.AddItem("SpelltreeIcon");
+        // this.AddItem("TalismanIcon");
         // this.AddItem("Taoism Wind");
         this.Show(false);
     }

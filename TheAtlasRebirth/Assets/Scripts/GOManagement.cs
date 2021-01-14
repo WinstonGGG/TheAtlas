@@ -14,6 +14,7 @@ public class GOManagement : MonoBehaviour
     public GameObject spelltree;
     public GameObject talisElementDesc;
     public GameObject talisElementText;
+    public GameObject talisman1;
     // public GameObject spellDesc;
 
     public GameObject itemHolder;
@@ -29,6 +30,7 @@ public class GOManagement : MonoBehaviour
         spelltree = GameObject.Find("Spelltree");
         talisElementDesc = GameObject.Find("TElementDesc");
         talisElementText = GameObject.Find("W_TElementDesc");
+        talisman1 = GameObject.Find("B_Talisman1");
         // spellDesc = GameObject.Find("spellDesc");
 
         itemHolder = GameObject.Find("ItemHolder");
