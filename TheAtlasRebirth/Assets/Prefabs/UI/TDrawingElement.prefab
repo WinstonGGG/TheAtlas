@@ -126,5 +126,3 @@ MonoBehaviour:
   element: 0
   locked: 0
   known: 0
-  talisman: {fileID: 0}
-  dispManager: {fileID: 0}
