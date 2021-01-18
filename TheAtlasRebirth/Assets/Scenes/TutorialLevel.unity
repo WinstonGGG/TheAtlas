@@ -197,13 +197,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117514410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.27652445, y: 0.6386535, z: -0.26453894, w: 0.66758907}
+  m_LocalPosition: {x: 130.3, y: 128.5, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 87.462006, z: 0}
 --- !u!1 &150277160
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 906051310}
   - component: {fileID: 906051309}
   m_Layer: 0
-  m_Name: A_TutorialGround2
+  m_Name: A_TutorialGroundMaze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 1370742810}
   - component: {fileID: 1370742809}
   m_Layer: 0
-  m_Name: IMG_0182
+  m_Name: Main Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -694,13 +694,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370742808}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.27059805, y: 0.6532815, z: -0.27059805, w: 0.6532815}
   m_LocalPosition: {x: 143.7, y: 113.2, z: 1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 90, z: 0}
 --- !u!1 &1573131510
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 1573131512}
   - component: {fileID: 1573131511}
   m_Layer: 0
-  m_Name: A_TutorialGroundPt1
+  m_Name: A_TutorialGroundCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
