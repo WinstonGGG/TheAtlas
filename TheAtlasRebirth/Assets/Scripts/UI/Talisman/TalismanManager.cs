@@ -10,40 +10,40 @@ public class TalismanManager : MonoBehaviour {
     private GameObject goManager;
     private GOManagement go;
 
-    public bool dialogShown = false;
-        // FindObjectOfType<TipsDialog>() != null && !FindObjectOfType<ClickManagement>().lockGame;
+    public bool dialogShown = false; //文本框是否显示
+        // => FindObjectOfType<TipsDialog>() != null && !FindObjectOfType<ClickManagement>().lockGame;
 
     // Main display variables
-    public GameObject display;
-    public float timer;
+    public GameObject display; //符箓GameObject
+    public float timer; //初步判定 是废的
     // Element variables
-    public GameObject[] elements;
-    public Vector3[] elePos;
+    public GameObject[] elements; //所有符箓上的元素GameObject
+    public Vector3[] elePos; //前一行元素的位置
 
     private float curTime;
     // Cookbook variables
-    private TalisDrag.Elements[] craft = new TalisDrag.Elements[3];
-    public Image[] slots;
-    private Spell[] recipeBook;
+    private TalisDrag.Elements[] craft = new TalisDrag.Elements[3]; //当前符箓上的元素
+    public Image[] slots; //符箓内放置元素的三个位置
+    private Spell[] recipeBook; //Recipe（技能配方）
 
     private Backpack backpack;
     private ClickManagement dispManager;
     private SpelltreeManager spelltreeManager;
 
-    private GameObject textbox;
-    private Text eleName;
+    private GameObject textbox; //符箓上显示元素的文本框
+    private Text eleName; //前一行的文本
 
-    private bool firstAccess = true;
+    private bool firstAccess = true; //第一次调出符箓界面
     // public Animator talis;
 
-    public bool TenSecTimer = false;
+    public bool TenSecTimer = false; //十秒之后变true；十秒不动，提醒玩家符箓操作
     public float countdownTime = 20.0f;
-    public float timeLeft;
+    public float timeLeft; //这两行是辅助TenSecTimer的工具
     // public GameObject atlas;
 
     void Awake() {
         ResetCraft();
-        ResetCraft();
+        ResetCraft();//不太懂为啥有俩
         curTime = 0;
 
         TenSecTimer = false;
@@ -67,6 +67,7 @@ public class TalismanManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        //按T打开符箓
         if (Input.GetKeyDown(KeyCode.T)) {
             OpenTalisman();
         }
@@ -79,10 +80,11 @@ public class TalismanManager : MonoBehaviour {
             TenSecTimer = false;
         }
 
-        // TEST MAKE BUTTON
+        //按G生成技能物品
         if (Input.GetKeyDown(KeyCode.G) && display.activeSelf) {
             if(MakeItem()) dispManager.ToggleIcons(true);
         }
+        //按删除键重置符箓
         else if (Input.GetKeyDown(KeyCode.Backspace) && display.activeSelf) {
             ResetCraft();
             // talis.SetTrigger("newTalis");
@@ -94,12 +96,13 @@ public class TalismanManager : MonoBehaviour {
             // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().DarkBackpack();
             dispManager.brightTalisman = false;
         }
+
         if (!display.activeSelf && !dialogShown && DontDestroyVariables.canOpenTalisman) {
-            if (SceneManager.GetActiveScene().name != "SampleScene")
+            if (SceneManager.GetActiveScene().name != "SampleScene") //8块板子划划划，不知道有没有用
                 // GameObject.Find("playerParticleEffect").GetComponent<castEffect>().castAni();
             if (firstAccess) {
                 firstAccess = false;
-                display.transform.SetSiblingIndex(2);
+                display.transform.SetSiblingIndex(2);//设置图层顺序，以后应该需要改
                 // TipsDialog.PrintDialog("Talisman 2");
             } else {
                 // Close any text box that is open
@@ -232,7 +235,7 @@ public class TalismanManager : MonoBehaviour {
         return false;
     }
 
-    // Add an element to the craft log
+    // Add an element to talisman
     public void AddCraft(TalisDrag.Elements e, Sprite s) {
         // AIDataManager.IncrementElementAccess(e);
         for (int i = 0; i < craft.Length; i++) {
@@ -263,6 +266,7 @@ public class TalismanManager : MonoBehaviour {
                 // Add to backpack if it's not an element
                 if (recipeBook[i].element == TalisDrag.Elements.NONE) {
 
+                    //更新技能至老标志
                     if (backpack.CanAddItem()) {
                         // GetComponent<FlyingSpell>().FlyTowardsIcon(recipeBook[i].glow, false, recipeBook[i].spellName);
                         if (recipeBook[i].curState == Spell.SpellState.KNOWN) {
@@ -300,6 +304,7 @@ public class TalismanManager : MonoBehaviour {
 
     }
 
+    //显示元素名文本框
     public void DispTextBox(bool display, TalisDrag.Elements e, Vector2 position) {
         textbox.SetActive(display);
         eleName.text = e.ToString();

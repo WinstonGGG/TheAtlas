@@ -8,14 +8,14 @@ public class SpelltreeManager : MonoBehaviour {
     private GameObject goManager;
     private GOManagement go;
     
-    private List<Spell> spell = new List<Spell>();
+    private List<Spell> spell = new List<Spell>(); //技能书上的所有激活的元素/技能
     private GameObject display;
 
     public float scaleAmount;
 
     // Textbox display
-    public GameObject textBox;
-    public Text spellName, recipe, desc;
+    public GameObject textBox; //技能书描述框
+    public Text spellName, recipe, desc; //前一行的文本
 
     // Start is called before the first frame update
     void Start() {
@@ -28,6 +28,7 @@ public class SpelltreeManager : MonoBehaviour {
         UpdateSpell();
     }
 
+    //激活技能
     private void UpdateSpell() {
         display.SetActive(true);
         spell = new List<Spell>();
@@ -44,6 +45,7 @@ public class SpelltreeManager : MonoBehaviour {
         
     }
 
+    //？？预测废了
     private void UpdateIcons() {
         for (int i = 0; i < spell.Count; i++) {
             if (spell[i].curState == Spell.SpellState.LOCKED) {
@@ -55,6 +57,7 @@ public class SpelltreeManager : MonoBehaviour {
         }
     }
 
+    //便于屏幕上显示元素名
     private string EleToString(TalisDrag.Elements e) {
         switch (e) {
             case TalisDrag.Elements.EARTH: return "earth";
@@ -70,9 +73,10 @@ public class SpelltreeManager : MonoBehaviour {
         return "";
     }
 
+    // 能否生成技能r
     private bool CanCraft(Spell r) {
         for (int i = 0; i < r.recipe.Length; i++) {
-            bool gotEle = false;
+            bool gotEle = false; //技能配方里的第i个元素是否被解锁
             for (int j = 0; j < spell.Count; j++) {
                 if (spell[j].curState == Spell.SpellState.UNLOCKED) {
                     if (r.recipe[i] == spell[j].element) {
@@ -81,16 +85,17 @@ public class SpelltreeManager : MonoBehaviour {
                     }
                 }
             }
-
+            //只要有一个元素没有解锁，这个技能就不能生成
             if (!gotEle && r.recipe[i] != TalisDrag.Elements.NONE) {
                 return false;
             }
         }
+        // 配方长度不对
         if (r.recipe.Length <= 0) return false;
         return true;
     }
 
-    // Functions to be called by other scripts
+    // Functions to be called by other scripts：更新描述
     public void UpdateTextBox(Spell s) {
         textBox.SetActive(true);
         if (s.curState == Spell.SpellState.LOCKED) {
@@ -132,18 +137,15 @@ public class SpelltreeManager : MonoBehaviour {
                         // UISoundScript.PlayGetElement();
                     }
                 }
-                /// break;
             }
             else if (spell[i].curState == Spell.SpellState.UNLOCKED) {
                 spell[i].SetOld();
             }
         }
-     //   print("spell list: " + spell);
 
         // Make related recipes known if locked
         for (int i = 0; i < spell.Count; i++) {
             if (CanCraft(spell[i]) && spell[i].curState == Spell.SpellState.LOCKED){
-            // if (CanCraft(spell[i]) && spell[i].element == TalisDrag.Elements.NONE) {
                 spell[i].ChangeState(Spell.SpellState.KNOWN);
             }
         }
@@ -153,7 +155,7 @@ public class SpelltreeManager : MonoBehaviour {
     }
 
     
-
+    //获得已激活的元素/技能
     public Spell[] GetSpellBook() {
         UpdateSpell();
         Spell[] theList = new Spell[spell.Count];
@@ -163,6 +165,7 @@ public class SpelltreeManager : MonoBehaviour {
         return theList;
     }
 
+    //使用过的技能在技能书里不再显示newIcon
     public void SetElementToOld(TalisDrag.Elements e) {
         UpdateSpell();
         for (int i = 0; i < spell.Count; i++) {
