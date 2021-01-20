@@ -7,14 +7,14 @@ public class Backpack : MonoBehaviour
 {
     public GOManagement go;
     
-    private GameObject[] imageObjects;
-    private int length;
+    private GameObject[] imageObjects; //放置背包里的物品
+    private int length; //存在的物品数量
     public GameObject backpack;
     public GameObject canvas;
 
-    public GameObject textbox;
-    public Text itemName;
-    public float scaleAmount;
+    public GameObject textbox; //显示物品名称的文本框
+    public Text itemName; //前一行的文本
+    public float scaleAmount; //文本框的大小
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,7 @@ public class Backpack : MonoBehaviour
         // this.AddItem("SpelltreeIcon");
         // this.AddItem("TalismanIcon");
         // this.AddItem("Taoism Wind");
-        this.Show(false);
+        this.Show(false); //游戏开始时不显示背包
     }
     void OnGUI() {
         GUI.depth = 0;
@@ -41,6 +41,7 @@ public class Backpack : MonoBehaviour
         
     }
 
+    //当背包里有18个或以上物品时，不可以再添加新物品
     public bool CanAddItem() {
         if(length >= 18) {
             // TipsDialog.PrintDialog("Backpack Full");
@@ -48,6 +49,7 @@ public class Backpack : MonoBehaviour
         }
         return true;
     }
+
     public void AddItem(string name) {
         
         GameObject imageObj = new GameObject(name); //Create the GameObject
@@ -67,6 +69,7 @@ public class Backpack : MonoBehaviour
         item_transform.SetParent(go.itemHolder.transform); //Assign the newly created Image GameObject as a Child of the Parent Panel, Canvas/Main UI.
         item_transform.SetAsFirstSibling();
 
+        //更改物品的大小以适配背包卷轴背景的宽度
         item_transform.anchoredPosition = new Vector2((length-12f)*80 + 800, 0);
         if (name.CompareTo("Heavenly Water") == 0) {
             item_transform.sizeDelta = new Vector2(60, 35);
@@ -90,6 +93,7 @@ public class Backpack : MonoBehaviour
     public void RemoveItem(GameObject itemObject, int removeIndex) {
         Destroy(itemObject);
         length--;
+        //移除物品后，将后面的物品依次前移
         for (int i = removeIndex; i < length; i++) {
             imageObjects[i] = imageObjects[i+1];
             // print("move obj " + imageObjects[i].name);
@@ -99,11 +103,12 @@ public class Backpack : MonoBehaviour
         textbox.SetActive(false);
     }
 
+    //显示背包，需要显示背包卷轴以及其中的所有物品
     public void Show(bool isShow) {
         backpack.SetActive(isShow);
-        for (int i = 0; i < length; i++) {
-            GameObject currObj = imageObjects[i];
-            currObj.SetActive(isShow);
-        }
+        // for (int i = 0; i < length; i++) {
+        //     GameObject currObj = imageObjects[i];
+        //     currObj.SetActive(isShow);
+        // }
     }
 }
