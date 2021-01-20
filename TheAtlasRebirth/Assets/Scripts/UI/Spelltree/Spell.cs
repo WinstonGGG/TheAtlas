@@ -97,8 +97,12 @@ public class Spell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     //判断显示哪种技能/元素描述（根据是否解锁）
     private void OnEnable() {
-        if (curState == SpellState.LOCKED) newDisp.enabled = false;
-        else { newDisp.enabled = isNew; }
+        // if (curState == SpellState.LOCKED) {
+        //     newDisp.enabled = false;
+        // }
+        // else { 
+        //     newDisp.enabled = isNew; 
+        // }
         
         locked.SetActive(curState == SpellState.LOCKED);
     }
