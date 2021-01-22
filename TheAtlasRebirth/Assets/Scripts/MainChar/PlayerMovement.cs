@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 				}
 			}
 			else {
-
+				GetComponent<Rigidbody>().velocity = new Vector3(dx, dy, dz);
 				isMoving = false;
 			}
 			
