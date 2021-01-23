@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(ClickManagement))]
 public class ClickInScene : MonoBehaviour
 {
     public static GOManagement go;
+    private ClickManagement dispManager;
     
     public bool canAct => !dialogShown && !talismanShown && !shineIcon && !FindObjectOfType<ClickManagement>().lockGame;
     public bool dialogShown = false;
@@ -18,9 +20,12 @@ public class ClickInScene : MonoBehaviour
 
     private int layerMask;
     public bool dialogShow = false;
-    public bool descShow = true;
+    public bool descShow = false;
     public int distanceToClick;
     public float cameraDistance = 0;
+
+    public bool isTalismanPicked, isBrushPicked, isGourdPicked;
+
     private void Start() {
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
 
@@ -28,6 +33,8 @@ public class ClickInScene : MonoBehaviour
         // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
         layerMask = 1 << 8;
         layerMask = ~layerMask;
+
+        dispManager = go.mainUI.GetComponent<ClickManagement>();
 
         // Check to see if current scene is the lobby if so show spell tree description
         // "Scene 0" name might be changed later
@@ -64,7 +71,7 @@ public class ClickInScene : MonoBehaviour
         } 
     }
 
-    // Update is called once per frame
+    // 捡起物品，或者点击物品；在场景里点东西，代码都应放置于此
     public void ClickOnGround(){
         if (descShow){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -83,9 +90,20 @@ public class ClickInScene : MonoBehaviour
                         // GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(clickObject.transform.position);
                         Destroy(clickObject);
                     }
-                } else if (clickObject.name.CompareTo("Flower 1") == 0 || clickObject.name.CompareTo("Flower 2") == 0 || clickObject.name.CompareTo("Flower 3") == 0 || clickObject.name.CompareTo("Flower 4") == 0 || clickObject.name.CompareTo("Flower 5") == 0 || clickObject.name.CompareTo("Flower 6") == 0) {  
-                    // clickObject.GetComponent<flowerInMirror>().ClickMirror();
+                } 
+                else if (clickObject.name.CompareTo("PickableTailsman") == 0) {
+                    isTalismanPicked = true;
+                    ShowTalismanIfAvailable();
+                    Destroy(clickObject);
                 }
+                else if (clickObject.name.CompareTo("PickableBrush") == 0) {
+                    isTalismanPicked = true;
+                    ShowTalismanIfAvailable();
+                    Destroy(clickObject);
+                }
+                // else if (clickObject.name.CompareTo("Flower 1") == 0 || clickObject.name.CompareTo("Flower 2") == 0 || clickObject.name.CompareTo("Flower 3") == 0 || clickObject.name.CompareTo("Flower 4") == 0 || clickObject.name.CompareTo("Flower 5") == 0 || clickObject.name.CompareTo("Flower 6") == 0) {  
+                //     clickObject.GetComponent<flowerInMirror>().ClickMirror();
+                // }
                 // if (clickObject.tag == "Portals") {
                 //     ChangeSprite change = clickObject.GetComponent<ChangeSprite>();
                 //     if (clickObject.name.CompareTo("EarthPortal") == 0) {
@@ -122,5 +140,11 @@ public class ClickInScene : MonoBehaviour
             }
         }
         descShow = false;
+    }
+
+    private void ShowTalismanIfAvailable() {
+        if (isTalismanPicked && isBrushPicked) {
+            dispManager.ShowTalismanIcon();
+        }
     }
 }

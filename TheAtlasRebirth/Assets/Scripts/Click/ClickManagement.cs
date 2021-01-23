@@ -11,21 +11,21 @@ public class ClickManagement : MonoBehaviour
     private GameObject goManager;
     private GOManagement go;
     
-    public bool canAct => !dialogShown && !lockGame;
-    public bool lockGame = false;
-    public bool dialogShown = false;
+    public bool canAct => !dialogShown && !lockGame; // 玩家是否可以操作
+    public bool lockGame = false; //游戏是否锁定状态
+    public bool dialogShown = false; //对话框是否显示
     //     => FindObjectOfType<TipsDialog>() != null;
-    private GameObject spellTreeDisp;
-    private TalismanManager talisDisp;
-    private bool earthUnlocked;
+    private GameObject spellTreeDisp; //技能书
+    private TalismanManager talisDisp; //符箓的component
+    private bool earthUnlocked; 
     public bool clickedObject = false;
     public bool brightBackpack = false;
     public bool brightTalisman = false;
     private bool brightSpell = false;
-    private bool backpackUnlocked, spellTreeUnlocked, talismanUnlocked;
-    public bool seenSpellTree = false;
+    private bool backpackUnlocked, spellTreeUnlocked, talismanUnlocked; //玩家是否能使用背包、符箓、技能书
+    public bool seenSpellTree = false; //看过一次技能书
     private Sprite talismanIcon;
-    private ClickInScene pick;
+    private ClickInScene pick; //拾起物品的component
     GraphicRaycaster raycaster;
     PointerEventData pointerData;
     EventSystem eventSystem;
@@ -34,6 +34,8 @@ public class ClickManagement : MonoBehaviour
     private bool isTalis = false;
 
     private static ClickManagement showInstance;
+    
+    // 此Component将会在每一个Scene出现且永不被删除/切换Scene不会消失，所有variable不会被初始化
     void Awake() {
         DontDestroyOnLoad(this);
 
@@ -60,11 +62,12 @@ public class ClickManagement : MonoBehaviour
         talisDisp = go.talisman.GetComponent<TalismanManager>();
         spellTreeDisp = go.spelltree;
 
-        // go.backpackIcon.GetComponent<Image>().enabled = false;
-        // go.spelltreeIcon.GetComponent<Image>().enabled = false;
+        go.backpackIcon.GetComponent<Image>().enabled = false;
+        go.spelltreeIcon.GetComponent<Image>().enabled = false;
     }
 
     private void Update() {
+        // 符箓或者技能书在屏幕上显示的时候不能捡起物品
         if (talisDisp.display.activeSelf || spellTreeDisp.activeSelf) {
             pick.descShow = false;
         } else {
@@ -99,6 +102,7 @@ public class ClickManagement : MonoBehaviour
                     else 
                         talisDisp.CloseDisplay();
                 }
+                //从背包里拖拽物品出来
                 else if (tag.CompareTo("Item") == 0 && canAct) {
                     pick.descShow = false;
                     if (!ItemDragHandler.holdItem) {
@@ -125,7 +129,6 @@ public class ClickManagement : MonoBehaviour
 
                     // Close other canvas
                     talisDisp.CloseDisplay();
-
                     go.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
                 }
                 else if (name.CompareTo("Next Button") == 0) {
@@ -159,9 +162,13 @@ public class ClickManagement : MonoBehaviour
                 //     InGameMenu.QuitGame();
                 // }
             }
-            if (resultSize == 0)
+            //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
+            if (resultSize == 0) {
                 pick.ClickOnGround();
+                Debug.Log("pick up");
+            }
         }
+        //按右键于背包物品上时，删除此物品
         else if (Input.GetMouseButtonDown(1)) {
             //Set up the new Pointer Event
             pointerData = new PointerEventData(eventSystem);
@@ -187,6 +194,7 @@ public class ClickManagement : MonoBehaviour
                 }
             }
         }
+        //点Q开技能书
         else if (Input.GetKeyDown(KeyCode.Q) && canAct && spellTreeUnlocked) {
             pick.descShow = false;
             // UISoundScript.OpenSpellTree();
@@ -205,16 +213,19 @@ public class ClickManagement : MonoBehaviour
         }
     }
 
+    //如果你打开一个功能（如符箓、技能书等），对应的Icon会消失；关闭此功能，Icon会重新显示；配合ToggleIcons()使用
     public void ToggleTalis(bool isShow) {
         isTalis = isShow;
         go.talismanIcon.GetComponent<Image>().enabled = isShow;
     }
 
+    //关闭所有UI；只在Talisman时候需要（涉及图层问题）
     public void CloseDisplays() {
         go.backpack.GetComponent<Backpack>().Show(false);
         spellTreeDisp.SetActive(false);
     }
 
+    //以下三个方法会同时激活对应的功能/能被玩家使用
     public void ShowBackpackIcon() { 
         GameObject.Find("BackpackIcon").GetComponent<Image>().enabled = true; 
         backpackUnlocked = true;
@@ -247,16 +258,16 @@ public class ClickManagement : MonoBehaviour
         }
     }
 
+    //在你打开一个功能（如符箓、技能书等）时，隐藏图标
     public void ToggleIcons(bool isOn) {
         if (!isOn || backpackUnlocked) go.backpackIcon.GetComponent<Image>().enabled = isOn;
         if (!isOn || spellTreeUnlocked) go.spelltreeIcon.GetComponent<Image>().enabled = isOn;
         if (!isOn || talismanUnlocked) go.talismanIcon.GetComponent<Image>().enabled = isOn;
 
         if (!isOn) CloseDisplays();
-        else if (backpackUnlocked) 
-            go.backpack.GetComponent<Backpack>().Show(true);
     }
 
+    //如果传入true，处于游戏锁死状态，隐藏所有UI图标，关闭符箓界面（UI功能暂时无法使用）
     public void ToggleLock(bool isLock) {
         ToggleIcons(!isLock);
         if(isLock){

@@ -7,18 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler {   
     public GOManagement go;
-    
-    public static bool canPlaceItem = true;
-    public static Vector3 previousPosition = new Vector3(0,0,0);
-    public static GameObject itemOnGround;
-    public static Vector2 originalSize = new Vector2(0f, 0f);
-    public static float x;
-    public static bool holdItem;
 
-    public GameObject textbox;
-    public float itemScale;
-    public Text itemName;
-    public Vector2 itemOriginalScale;
+    public static GameObject itemOnGround; // 从背包里被拖拽出来的物品
+
+    public static bool holdItem; // 玩家当前是否在拖拽背包里的物品
+    public static bool canPlaceItem = true; // 玩家当前知否可以将物品施放
+
+    public static Vector3 previousPosition = new Vector3(0,0,0); // 玩家当前拖拽物品在背包里的原始位置
+    public static float x; // 前一行variable的x坐标
+
+    public static Vector2 originalSize = new Vector2(0f, 0f); // 玩家当前拖拽物品在背包里的原始大小
+    public float itemScale; // 物品被鼠标经过或者拖拽时变大的比例
+
+    public GameObject textbox; // 背包显示物品名的文本框
+    public Text itemName; // 前一行的文本
+
+    public Vector2 itemOriginalScale; // 河图专用原始大小
 
     public bool dialogShown = false;
     // => FindObjectOfType<TipsDialog>() != null;
@@ -38,6 +42,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
     }
 
+    //鼠标移动至背包里物品上方时物品变大
     public void OnPointerEnter(PointerEventData eventData) {
         textbox.SetActive(true);
         itemName.text = gameObject.name.ToString();
@@ -46,11 +51,13 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
         transform.localScale *= itemScale;
     }
 
+    //鼠标移动至背包里物品上方时物品变小
     public void OnPointerExit(PointerEventData eventData) {
         textbox.SetActive(false);
         transform.localScale /= itemScale;
     }
 
+    //拖拽过程中的物品大小变化，以及背包显示物品名的文本框隐藏
     public void OnDrag(PointerEventData eventData){
         if (!dialogShown && itemOnGround != null) {
             itemOnGround.transform.position = Input.mousePosition;
@@ -92,6 +99,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
         // }
     }
 
+    //结束语拖拽时激活施法的相关程序Put()，如果没有释放成功物品回到背包里的原始位置
     public void OnEndDrag(PointerEventData eventData){
         if (!dialogShown && itemOnGround != null) {
             Put();
@@ -106,6 +114,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
         //     GameObject.Find("playerParticleEffect").GetComponent<castEffect>().castAni();
     }
 
+    //施放物品时候可能会发生的效果
     public void Put()
     {
         if (holdItem) {

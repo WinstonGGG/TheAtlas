@@ -1580,6 +1580,9 @@ MonoBehaviour:
   descShow: 1
   distanceToClick: 0
   cameraDistance: 0
+  isTalismanPicked: 0
+  isBrushPicked: 0
+  isGourdPicked: 0
 --- !u!1001 &243681000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3809,9 +3812,10 @@ GameObject:
   m_Component:
   - component: {fileID: 800567779}
   - component: {fileID: 800567778}
+  - component: {fileID: 800567780}
   m_Layer: 0
   m_Name: PickableGourd
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3880,6 +3884,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 90}
+--- !u!65 &800567780
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800567777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 17.904821, y: 21.26, z: 0.2000016}
+  m_Center: {x: -2.8599865, y: 1.751426e-14, z: -0.00000015625544}
 --- !u!1 &803853101 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4991988694886131705, guid: dc05e9a5683ef43b4b1231ff8c3450e6,
@@ -5655,7 +5672,7 @@ GameObject:
   - component: {fileID: 1409913149}
   m_Layer: 0
   m_Name: PickableBrush
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
