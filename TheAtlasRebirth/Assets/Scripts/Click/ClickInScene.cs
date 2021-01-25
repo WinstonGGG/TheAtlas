@@ -12,15 +12,15 @@ public class ClickInScene : MonoBehaviour
     public bool canAct => !dialogShown && !talismanShown && !shineIcon && !FindObjectOfType<ClickManagement>().lockGame;
     public bool dialogShown = false;
         // FindObjectOfType<TipsDialog>() != null;
-    public bool talismanShown =>
-        GameObject.Find("Talisman") != null;
+    public bool talismanShown = false;
+        // GameObject.Find("Talisman") != null;
         
     public bool shineIcon = false;
         // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().shine == true;
 
     private int layerMask;
     public bool dialogShow = false;
-    public bool descShow = false;
+    public bool descShow = true;
     public int distanceToClick;
     public float cameraDistance = 0;
 
@@ -76,9 +76,12 @@ public class ClickInScene : MonoBehaviour
         if (descShow){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
+            Debug.Log("?? ");
             if (Physics.Raycast(ray, out hitInfo, (distanceToClick + cameraDistance), layerMask) && canAct) {
                 GameObject clickObject = hitInfo.collider.gameObject;
+                Debug.Log("Raycast");
                 if (clickObject.tag == "Pickable"){
+                    Debug.Log(clickObject.name);
                     if (clickObject.name.CompareTo("Cold Fire Seed") == 0) {
                         // ItemEffects.s.UnlockElement(TalisDrag.Elements.FIRE);
                         Destroy(clickObject);
@@ -97,6 +100,7 @@ public class ClickInScene : MonoBehaviour
                     Destroy(clickObject);
                 }
                 else if (clickObject.name.CompareTo("PickableBrush") == 0) {
+                    Debug.Log("brush");
                     isTalismanPicked = true;
                     ShowTalismanIfAvailable();
                     Destroy(clickObject);

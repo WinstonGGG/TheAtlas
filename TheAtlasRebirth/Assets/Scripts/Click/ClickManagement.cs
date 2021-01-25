@@ -165,7 +165,6 @@ public class ClickManagement : MonoBehaviour
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
             if (resultSize == 0) {
                 pick.ClickOnGround();
-                Debug.Log("pick up");
             }
         }
         //按右键于背包物品上时，删除此物品

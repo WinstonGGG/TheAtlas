@@ -1575,10 +1575,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogShown: 0
+  talismanShown: 0
   shineIcon: 0
   dialogShow: 0
   descShow: 1
-  distanceToClick: 0
+  distanceToClick: 50
   cameraDistance: 0
   isTalismanPicked: 0
   isBrushPicked: 0
@@ -3617,6 +3618,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695177487}
   m_CullTransparentMesh: 0
+--- !u!1 &730536468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 730536470}
+  - component: {fileID: 730536469}
+  - component: {fileID: 730536471}
+  m_Layer: 0
+  m_Name: RealPick
+  m_TagString: Pickable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &730536469
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730536468}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: ec615332915a9482ea68f40dd5b1a689, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 4.34, y: 3.74}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &730536470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730536468}
+  m_LocalRotation: {x: 0.647689, y: 0.65862876, z: 0.28316545, w: -0.25792342}
+  m_LocalPosition: {x: 90.9, y: 105.5, z: 36.9}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: -45.000004, y: 177.807, z: 89.949005}
+--- !u!65 &730536471
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730536468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.3400016, y: 3.7400012, z: 0.20000155}
+  m_Center: {x: -0.0000014305115, y: 0, z: 0}
 --- !u!1 &754464906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3815,7 +3911,7 @@ GameObject:
   - component: {fileID: 800567780}
   m_Layer: 0
   m_Name: PickableGourd
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5670,6 +5766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1409913150}
   - component: {fileID: 1409913149}
+  - component: {fileID: 1409913151}
   m_Layer: 0
   m_Name: PickableBrush
   m_TagString: Item
@@ -5741,6 +5838,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: -45.000004, y: 104.840004, z: 89.949005}
+--- !u!65 &1409913151
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409913148}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.678754, y: 20.780003, z: 0.20000163}
+  m_Center: {x: -0.24351953, y: 0.000000004107706, z: 0.000003537231}
 --- !u!1 &1438685893 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4991988694886131705, guid: dc05e9a5683ef43b4b1231ff8c3450e6,
@@ -5978,6 +6088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1488765860}
   - component: {fileID: 1488765859}
+  - component: {fileID: 1488765861}
   m_Layer: 0
   m_Name: PickableTailsman
   m_TagString: Untagged
@@ -6049,6 +6160,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: -45.000004, y: 90.00001, z: 89.949005}
+--- !u!65 &1488765861
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488765858}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.3400016, y: 3.7400012, z: 0.20000155}
+  m_Center: {x: -0.0000014305115, y: 0, z: 0}
 --- !u!1 &1494444674
 GameObject:
   m_ObjectHideFlags: 0
