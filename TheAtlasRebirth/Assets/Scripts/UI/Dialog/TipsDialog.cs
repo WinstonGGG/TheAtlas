@@ -35,6 +35,11 @@ public class TipsDialog : MonoBehaviour {
     public static bool introAppear = false;
     private static GameObject goManager;
     private static GOManagement go;
+    //立绘和名字图像
+    public static GameObject ChatNameIcon;
+    public static GameObject ChatIcon;
+    public static bool isTextChanged = false; //打字框是否需要切换
+    //public static Sprite[] IconSprites;//所有头像集合
 
     void Awake() {
         var linetext = textFile.text.Split('\n');
@@ -64,9 +69,23 @@ public class TipsDialog : MonoBehaviour {
         introAppear = false;
         goManager = GameObject.Find("GameObjectManager");
         go = goManager.GetComponent<GOManagement>();
+        ChatIcon = GameObject.Find("ChatIcon");
+        ChatNameIcon = GameObject.Find("ChatNameIcon");
+        ChatIcon.SetActive(false);
+        ChatNameIcon.SetActive(false);
     }
 
     void Update() {
+        //切换打字框
+        if (!isTextChanged) {
+            dialogText = GameObject.Find("Dialog Text").GetComponent<Text>();
+            GameObject.Find("ChatText").GetComponent<Text>().text = "";
+        } 
+        else {
+            dialogText = GameObject.Find("ChatText").GetComponent<Text>();
+            GameObject.Find("Dialog Text").GetComponent<Text>().text = "";
+        }
+        //开始打字
         if (isStartTyping) {
             //Stops the previous sentence
             StopAllCoroutines(); 
@@ -105,7 +124,7 @@ public class TipsDialog : MonoBehaviour {
 	        }
 	    }
     }
-
+    //完成对话后下一步触发内容
     public static void CheckCurrentTipForNextMove() {
         if (currDialogRef.CompareTo("Self Introduction") == 0) {
             //show backpack
@@ -117,7 +136,7 @@ public class TipsDialog : MonoBehaviour {
             GameObject.Find("Fire Boss").GetComponent<SpriteRenderer>().enabled = false;
         } 
     }
-
+    //一段对话中是否有下一页
     public static bool NextPage() {
         // To make sure the conditions for activating multiple choice are met
         if (index < CurrentDialogTextlist.Count - 1 && CurrentDialogTextlist[index].CompareTo("Qiang Yu: And I have some questions for you:=【Click on the choices】") == 0) {
@@ -135,13 +154,11 @@ public class TipsDialog : MonoBehaviour {
             GameObject.Find("NextButton").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Next Button");
             return false;
         }
-        //if对话还有下一页
-        Line = CurrentDialogTextlist[index].Replace("=", "\n"); //获取下一行对话内容
-        isStartTyping = true;
+        LoadTextAndImage(index);
         index ++;
         return true;
     }
-
+    //激活对话框及其内容
     public static void PrintDialog(string objName) {
         if (objName.CompareTo("Self Introduction") == 0 && introAppear) {
             return ;
@@ -164,9 +181,28 @@ public class TipsDialog : MonoBehaviour {
             }
         }
         ToSceneName = objName;
-        Line = CurrentDialogTextlist[1].Replace("=", "\n");
-        isStartTyping = true;
+        LoadTextAndImage(1);
         dialog.SetActive(true); 
+    }
+    //读取此段对话的每行内容 & 查看是否是需要加入立绘&名字
+    public static void LoadTextAndImage(int index) {
+        //if对话还有下一页
+        Line = CurrentDialogTextlist[index].Replace("=", "\n");//获取下一行对话内容
+        if (Line.Contains("%")) { 
+            var IconNameString = Line.Split("%"[0]);//分割出名字
+            string IconName = IconNameString[0];
+            Debug.Log(IconName);
+            Line = Line.Replace("%", "");
+            ChatIcon.SetActive(true);
+            // ChatIcon.GetComponent<Image>().sprite = Resources.Load<Sprite>("img/Main Character");
+            ChatNameIcon.SetActive(true);
+            isTextChanged = true;
+        } else {
+            ChatIcon.SetActive(false);
+            ChatNameIcon.SetActive(false);
+            isTextChanged = false;
+        }
+        isStartTyping = true;
     }
 
     public static void HideTextBox() {
@@ -196,7 +232,7 @@ public class TipsDialog : MonoBehaviour {
     public static void PrintFullDialog() {
         isPrintfull = true;
     }
- 
+    // 激活选项
     public static void PlayOption(string Name) {
     	// store option name
         if (Name.CompareTo("OptionA") == 0) {
@@ -226,7 +262,7 @@ public class TipsDialog : MonoBehaviour {
             PrintOptions();
         }
     }
-
+    // 读取选项内容
     public static void PrintOptions() {
         index++;
         dialogText.text = CurrentDialogTextlist[index];
