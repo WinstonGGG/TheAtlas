@@ -188,16 +188,16 @@ public class TipsDialog : MonoBehaviour {
     public static void LoadTextAndImage(int index) {
         //if对话还有下一页
         Line = CurrentDialogTextlist[index].Replace("=", "\n");//获取下一行对话内容
-        if (Line.Contains("%")) { 
-            var IconNameString = Line.Split("%"[0]);//分割出名字
+        if (Line.Contains("%")) {
+            var IconNameString = Line.Split("%"[0]);
             string IconName = IconNameString[0];
-            Debug.Log(IconName);
-            Line = Line.Replace("%", "");
+            Line = Line.Replace(IconName + "%", ""); //真正一行的对话内容
             ChatIcon.SetActive(true);
-            // ChatIcon.GetComponent<Image>().sprite = Resources.Load<Sprite>("img/Main Character");
+            ChatIcon.GetComponent<Image>().sprite = Resources.Load<Sprite>("img/Main Character");
             ChatNameIcon.SetActive(true);
             isTextChanged = true;
-        } else {
+        } 
+        else {
             ChatIcon.SetActive(false);
             ChatNameIcon.SetActive(false);
             isTextChanged = false;
