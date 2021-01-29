@@ -18,6 +18,9 @@ public class Backpack : MonoBehaviour
 
     public bool backpackOpen = false;
 
+    public Dictionary<string, Texture2D> pathDictionary = new Dictionary<string, Texture2D>();
+    public Texture2D talismanAsset;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,8 @@ public class Backpack : MonoBehaviour
         // this.AddItem("TalismanIcon");
         // this.AddItem("Taoism Wind");
         this.Show(false); //游戏开始时不显示背包
+
+        pathDictionary.Add("RealPick", talismanAsset);
     }
     void OnGUI() {
         GUI.depth = 0;
@@ -64,7 +69,8 @@ public class Backpack : MonoBehaviour
         imageObj.GetComponent<ItemDragHandler>().itemName = itemName;
         imageObj.GetComponent<ItemDragHandler>().itemScale = scaleAmount;
 
-        image.texture = Resources.Load<Texture2D>("Image/BackpackItem/A_" + name); //Set the Sprite of the Image Component on the new GameObject
+        image.texture = pathDictionary[name];
+        // image.texture = Resources.Load<Texture2D>("Image/" + assetPath); //Set the Sprite of the Image Component on the new GameObject
         imageObj.tag = "Item";
 
         RectTransform item_transform = imageObj.GetComponent<RectTransform>();
@@ -72,7 +78,7 @@ public class Backpack : MonoBehaviour
         item_transform.SetAsFirstSibling();
 
         //更改物品的大小以适配背包卷轴背景的宽度
-        item_transform.anchoredPosition = new Vector2((length-12f)*80 + 800, 0);
+        item_transform.anchoredPosition = new Vector2((length-12f)*80 + 650, 0);
         if (name.CompareTo("Heavenly Water") == 0) {
             item_transform.sizeDelta = new Vector2(60, 35);
         } else if (name.CompareTo("Changable Soil") == 0) {
