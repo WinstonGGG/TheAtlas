@@ -43,7 +43,7 @@ public class ClickInScene : MonoBehaviour
             // ItemEffects.getGroundNames();
         }
         else if (SceneManager.GetActiveScene().name == "scene0"){
-            go.mainUI.GetComponent<ClickManagement>().ToggleLock(false);
+            dispManager.ToggleLock(false);
             // GameObject.Find("EarthSoundManager").GetComponents<AudioSource>()[2].volume = 0.3f;
             // ItemEffects.getGroundNames();
             // EarthSoundManager.StopPlaySound();
@@ -63,7 +63,7 @@ public class ClickInScene : MonoBehaviour
             ItemEffects.fireLevel(DontDestroyVariables.fireLevel, GameObject.Find("法阵-scene2").transform.position);
         }
         else if (SceneManager.GetActiveScene().name == "scene3") {
-            go.mainUI.GetComponent<ClickManagement>().ToggleLock(false);
+            dispManager.ToggleLock(false);
             // ItemEffects.getGroundNames();
             DontDestroyVariables.enterWaterRoom = true;
             ItemEffects.flowerpot = GameObject.Find("Flowerpot");
@@ -76,10 +76,8 @@ public class ClickInScene : MonoBehaviour
         if (descShow){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
-            Debug.Log("?? ");
             if (Physics.Raycast(ray, out hitInfo, (distanceToClick + cameraDistance), layerMask) && canAct) {
                 GameObject clickObject = hitInfo.collider.gameObject;
-                Debug.Log("Raycast");
                 if (clickObject.tag == "Pickable"){
                     Debug.Log(clickObject.name);
                     if (clickObject.name.CompareTo("Cold Fire Seed") == 0) {
@@ -89,20 +87,27 @@ public class ClickInScene : MonoBehaviour
                     }
                     else if (go.backpack.GetComponent<Backpack>().CanAddItem()) {
                         Sprite item = clickObject.GetComponent<SpriteRenderer>().sprite;
-                        // GameObject.Find("MainUI").GetComponent<FlyingSpell>().FlyTowardsIcon(item, false, clickObject.name);
+                        go.mainUI.GetComponent<FlyingOnUI>().FlyTowardsIcon(item, false, clickObject.name);
                         // GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(clickObject.transform.position);
                         Destroy(clickObject);
                     }
                 } 
                 else if (clickObject.name.CompareTo("PickableTailsman") == 0) {
+                    Debug.Log("talisman");
                     isTalismanPicked = true;
-                    ShowTalismanIfAvailable();
+                    dispManager.ShowTalismanIcon();
+                    EnableTalismanIfAvailable();
                     Destroy(clickObject);
                 }
                 else if (clickObject.name.CompareTo("PickableBrush") == 0) {
                     Debug.Log("brush");
-                    isTalismanPicked = true;
-                    ShowTalismanIfAvailable();
+                    isBrushPicked = true;
+                    dispManager.ShowTalismanIcon();
+                    EnableTalismanIfAvailable();
+                    Destroy(clickObject);
+                }
+                else if (clickObject.name.CompareTo("PickableGourd") == 0) {
+                    isGourdPicked = true;
                     Destroy(clickObject);
                 }
                 // else if (clickObject.name.CompareTo("Flower 1") == 0 || clickObject.name.CompareTo("Flower 2") == 0 || clickObject.name.CompareTo("Flower 3") == 0 || clickObject.name.CompareTo("Flower 4") == 0 || clickObject.name.CompareTo("Flower 5") == 0 || clickObject.name.CompareTo("Flower 6") == 0) {  
@@ -146,9 +151,9 @@ public class ClickInScene : MonoBehaviour
         descShow = false;
     }
 
-    private void ShowTalismanIfAvailable() {
+    private void EnableTalismanIfAvailable() {
         if (isTalismanPicked && isBrushPicked) {
-            dispManager.ShowTalismanIcon();
+            dispManager.EnableTalisman();
         }
     }
 }

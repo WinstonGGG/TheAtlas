@@ -63,6 +63,7 @@ public class ClickManagement : MonoBehaviour
         spellTreeDisp = go.spelltree;
 
         go.backpackIcon.GetComponent<Image>().enabled = false;
+        go.talismanIcon.GetComponent<Image>().enabled = false;
         go.spelltreeIcon.GetComponent<Image>().enabled = false;
     }
 
@@ -226,20 +227,23 @@ public class ClickManagement : MonoBehaviour
 
     //以下三个方法会同时激活对应的功能/能被玩家使用
     public void ShowBackpackIcon() { 
-        GameObject.Find("BackpackIcon").GetComponent<Image>().enabled = true; 
+        go.backpackIcon.GetComponent<Image>().enabled = true; 
         backpackUnlocked = true;
     }
 
     public void ShowTalismanIcon() { 
-        GameObject.Find("TalismanIcon").GetComponent<Image>().enabled = true; 
+        go.talismanIcon.GetComponent<Image>().enabled = true; 
         // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().ShineTalisman();
-        DontDestroyVariables.canOpenTalisman = true;
         brightTalisman = true;
+    }
+
+    public void EnableTalisman() {
         talismanUnlocked = true;
+        DontDestroyVariables.canOpenTalisman = true;
     }
 
     public void ShowSpelltreeIcon() { 
-        GameObject.Find("SpellTreeIcon").GetComponent<Image>().enabled = true; 
+        go.spelltreeIcon.GetComponent<Image>().enabled = true; 
         // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().ShineSpellIcon();
         brightSpell = true;
         spellTreeUnlocked = true;
