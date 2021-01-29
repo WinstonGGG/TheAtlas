@@ -69,7 +69,7 @@ public class TipsDialog : MonoBehaviour {
         introAppear = false;
         goManager = GameObject.Find("GameObjectManager");
         go = goManager.GetComponent<GOManagement>();
-        ChatIcon = GameObject.Find("ChatIcon");
+        ChatIcon = GameObject.Find("ChatHeadIcon");
         ChatNameIcon = GameObject.Find("ChatNameIcon");
         ChatIcon.SetActive(false);
         ChatNameIcon.SetActive(false);

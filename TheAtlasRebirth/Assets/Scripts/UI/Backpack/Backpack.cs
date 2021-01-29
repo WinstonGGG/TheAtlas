@@ -16,6 +16,8 @@ public class Backpack : MonoBehaviour
     public Text itemName; //前一行的文本
     public float scaleAmount; //文本框的大小
 
+    public bool backpackOpen = false;
+
     // Start is called before the first frame update
     void Start()
     {

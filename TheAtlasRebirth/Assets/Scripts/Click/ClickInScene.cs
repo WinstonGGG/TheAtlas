@@ -108,6 +108,7 @@ public class ClickInScene : MonoBehaviour
                 }
                 else if (clickObject.name.CompareTo("PickableGourd") == 0) {
                     isGourdPicked = true;
+                    dispManager.ShowBackpackIcon();
                     Destroy(clickObject);
                 }
                 // else if (clickObject.name.CompareTo("Flower 1") == 0 || clickObject.name.CompareTo("Flower 2") == 0 || clickObject.name.CompareTo("Flower 3") == 0 || clickObject.name.CompareTo("Flower 4") == 0 || clickObject.name.CompareTo("Flower 5") == 0 || clickObject.name.CompareTo("Flower 6") == 0) {  
