@@ -6,11 +6,12 @@ public class PlayerCamera : MonoBehaviour
 {
     // Start is called before the first frame update
 	private Vector3 dy;
+	bool init = true;  //controls the camera movement in the beginning
 	//private Vector3 dz;
     void Start()
     {
-        dy = new Vector3(0f,-0.4f,0.5f);
-		//dz = (0,0,-0.3f);
+        dy = new Vector3(0f,-1f,0.5f); //camera adjustment value per mouse scroll
+		
     }
 
     // Update is called once per frame
@@ -18,6 +19,19 @@ public class PlayerCamera : MonoBehaviour
     {
 		float cameraY = this.transform.localPosition.y;
 		float cameraZ = this.transform.localPosition.z;
+		
+		// camera initial movement
+		if(init){
+			if(cameraZ>= -40f){     
+				init = false;   // stops the loop when camera is in the correct position.
+			}
+			Vector3 offset = new Vector3(0f,-0.1f,0.05f);
+			this.transform.position += offset;
+			
+		}
+		
+		
+		
         if(Input.GetAxis("Mouse ScrollWheel")>0f &&cameraZ <= -30f ){
 			this.transform.position += dy;
 			// Debug.Log(cameraY);
@@ -28,4 +42,6 @@ public class PlayerCamera : MonoBehaviour
 			// Debug.Log(cameraY);
 		}
     }
+	
+	
 }
