@@ -133,7 +133,7 @@ public class SpelltreeManager : MonoBehaviour {
                 if (spell[i].curState != Spell.SpellState.UNLOCKED) {
                     spell[i].ChangeState(Spell.SpellState.UNLOCKED);
                     if (spell[i].element != TalisDrag.Elements.EARTH) {
-                        // GetComponent<FlyingSpell>().FlyTowardsIcon(spell[i].glow, true, "");
+                        go.mainUI.GetComponent<FlyingOnUI>().FlyTowardsIcon(spell[i].glow, true, "");
                         // UISoundScript.PlayGetElement();
                     }
                 }
