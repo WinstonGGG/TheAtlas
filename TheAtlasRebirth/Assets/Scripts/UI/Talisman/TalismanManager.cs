@@ -40,6 +40,8 @@ public class TalismanManager : MonoBehaviour {
     public float countdownTime = 20.0f;
     public float timeLeft; //这两行是辅助TenSecTimer的工具
     // public GameObject atlas;
+    
+    private int PickButton = 0; // 点button请神or重绘
 
     void Awake() {
         ResetCraft();
@@ -81,13 +83,26 @@ public class TalismanManager : MonoBehaviour {
         }
 
         //按G生成技能物品
-        if (Input.GetKeyDown(KeyCode.G) && display.activeSelf) {
+        if ((Input.GetKeyDown(KeyCode.G) || PickButton == 1) && display.activeSelf) {
             if(MakeItem()) dispManager.ToggleIcons(true);
+            PickButton = 0;
         }
         //按删除键重置符箓
-        else if (Input.GetKeyDown(KeyCode.Backspace) && display.activeSelf) {
+        else if ((Input.GetKeyDown(KeyCode.Backspace) || PickButton == 2) && display.activeSelf) {
             ResetCraft();
             // talis.SetTrigger("newTalis");
+            PickButton = 0;
+        }
+    }
+    // 点击请神/重绘时，生成技能物品/重置符录（update内引用pickbutton）
+    public void ClickTalismanButton(string button) {
+        if (button == "QingShenButton") {
+            Debug.Log("get");
+            PickButton = 1;
+        }
+        else if (button == "ChongHuiButton") {
+            Debug.Log("chonghui");
+            PickButton = 2;
         }
     }
 
