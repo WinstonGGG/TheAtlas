@@ -48,6 +48,8 @@ public class TipsDialog : MonoBehaviour {
             AllDialogTextlist.Add(line);
         }
         dialog = GameObject.Find("DialogBox");
+        ChatNameIcon = GameObject.Find("ChatNameIcon");
+        ChatIcon = GameObject.Find("ChatHeadIcon");
         dialogText = GameObject.Find("DialogText").GetComponent<Text>();
         Option = GameObject.Find("G_Options");
         OptionAText = GameObject.Find("OptionAText").GetComponent<Text>();
@@ -59,6 +61,8 @@ public class TipsDialog : MonoBehaviour {
         dialog.SetActive(false);
         dialog.SetActive(false);
         Option.SetActive(false);
+        ChatNameIcon.SetActive(false);
+        ChatIcon.SetActive(false);
         nextOnClick = false;
         ditto = 0;
         isTyping = false;
@@ -69,10 +73,6 @@ public class TipsDialog : MonoBehaviour {
         introAppear = false;
         goManager = GameObject.Find("GameObjectManager");
         go = goManager.GetComponent<GOManagement>();
-        ChatIcon = GameObject.Find("ChatIcon");
-        ChatNameIcon = GameObject.Find("ChatNameIcon");
-        ChatIcon.SetActive(false);
-        ChatNameIcon.SetActive(false);
     }
 
     void Update() {
