@@ -22,22 +22,22 @@ public class TipsDialog : MonoBehaviour {
     public float textspeed;
     private static string currDialogRef;
     public static GameObject nextButton;
-    public static GameObject Option;
+    public static GameObject option;
     // store option name(instrad of using GetOption)
     public static string GetOption;
     public static List<string> OptionList = new List<string>();
-    public static Text OptionAText;
-    public static Text OptionBText;
-    public static Text OptionCText;
-    public static Text OptionDText;
+    public static Text optionAText;
+    public static Text optionBText;
+    public static Text optionCText;
+    public static Text optionDText;
     public static bool getOption = false; //判断是否选择正确选项 
     public static bool isPickOption = false; //判断是否有选择题出现
     public static bool introAppear = false;
     private static GameObject goManager;
     private static GOManagement go;
     //立绘和名字图像
-    public static GameObject ChatNameIcon;
-    public static GameObject ChatIcon;
+    public static GameObject chatNameIcon;
+    public static GameObject chatIcon;
     public static bool isTextChanged = false; //打字框是否需要切换
     //public static Sprite[] IconSprites;//所有头像集合
 
@@ -48,17 +48,21 @@ public class TipsDialog : MonoBehaviour {
             AllDialogTextlist.Add(line);
         }
         dialog = GameObject.Find("DialogBox");
+        chatNameIcon = GameObject.Find("ChatNameIcon");
+        chatIcon = GameObject.Find("ChatHeadIcon");
         dialogText = GameObject.Find("DialogText").GetComponent<Text>();
-        Option = GameObject.Find("G_Options");
-        OptionAText = GameObject.Find("OptionAText").GetComponent<Text>();
-        OptionBText = GameObject.Find("OptionBText").GetComponent<Text>();
-        OptionCText = GameObject.Find("OptionCText").GetComponent<Text>();
-        OptionDText = GameObject.Find("OptionDText").GetComponent<Text>();
+        option = GameObject.Find("G_Options");
+        optionAText = GameObject.Find("OptionAText").GetComponent<Text>();
+        optionBText = GameObject.Find("OptionBText").GetComponent<Text>();
+        optionCText = GameObject.Find("OptionCText").GetComponent<Text>();
+        optionDText = GameObject.Find("OptionDText").GetComponent<Text>();
         nextButton = GameObject.Find("NextButton");
         nextButton.GetComponent<NextButtonEffect>().effective = false;
         dialog.SetActive(false);
         dialog.SetActive(false);
-        Option.SetActive(false);
+        option.SetActive(false);
+        chatNameIcon.SetActive(false);
+        chatIcon.SetActive(false);
         nextOnClick = false;
         ditto = 0;
         isTyping = false;
@@ -69,10 +73,10 @@ public class TipsDialog : MonoBehaviour {
         introAppear = false;
         goManager = GameObject.Find("GameObjectManager");
         go = goManager.GetComponent<GOManagement>();
-        ChatIcon = GameObject.Find("ChatHeadIcon");
-        ChatNameIcon = GameObject.Find("ChatNameIcon");
-        ChatIcon.SetActive(false);
-        ChatNameIcon.SetActive(false);
+        chatIcon = GameObject.Find("ChatHeadIcon");
+        chatNameIcon = GameObject.Find("ChatNameIcon");
+        chatIcon.SetActive(false);
+        chatNameIcon.SetActive(false);
     }
 
     void Update() {
@@ -141,7 +145,7 @@ public class TipsDialog : MonoBehaviour {
         // To make sure the conditions for activating multiple choice are met
         if (index < CurrentDialogTextlist.Count - 1 && CurrentDialogTextlist[index].CompareTo("Qiang Yu: And I have some questions for you:=【Click on the choices】") == 0) {
             //Active option button
-            Option.SetActive(true);
+            option.SetActive(true);
             nextButton.SetActive(false);
             isPickOption = true;
             PrintOptions();
@@ -189,17 +193,17 @@ public class TipsDialog : MonoBehaviour {
         //if对话还有下一页
         Line = CurrentDialogTextlist[index].Replace("=", "\n");//获取下一行对话内容
         if (Line.Contains("%")) {
-            var IconNameString = Line.Split("%"[0]);
-            string IconName = IconNameString[0];
-            Line = Line.Replace(IconName + "%", ""); //真正一行的对话内容
-            ChatIcon.SetActive(true);
-            ChatIcon.GetComponent<Image>().sprite = Resources.Load<Sprite>("img/Main Character");
-            ChatNameIcon.SetActive(true);
+            var iconNameString = Line.Split("%"[0]);
+            string iconName = iconNameString[0];
+            Line = Line.Replace(iconName + "%", ""); //真正一行的对话内容
+            chatIcon.SetActive(true);
+            chatIcon.GetComponent<Image>().sprite = Resources.Load<Sprite>("img/Main Character");
+            chatNameIcon.SetActive(true);
             isTextChanged = true;
         } 
         else {
-            ChatIcon.SetActive(false);
-            ChatNameIcon.SetActive(false);
+            chatIcon.SetActive(false);
+            chatNameIcon.SetActive(false);
             isTextChanged = false;
         }
         isStartTyping = true;
@@ -250,7 +254,7 @@ public class TipsDialog : MonoBehaviour {
         //reset
         if (index == CurrentDialogTextlist.Count-1 && CurrentDialogTextlist[index].CompareTo("Me") == 0) {
             getOption = false;
-            Option.SetActive(false);
+            option.SetActive(false);
             nextButton.SetActive(true);
             isPickOption = false;
             index = 2;
@@ -266,10 +270,10 @@ public class TipsDialog : MonoBehaviour {
     public static void PrintOptions() {
         index++;
         dialogText.text = CurrentDialogTextlist[index];
-        OptionAText.text = CurrentDialogTextlist[++index];
-        OptionBText.text = CurrentDialogTextlist[++index];
-        OptionCText.text = CurrentDialogTextlist[++index];
-        OptionDText.text = CurrentDialogTextlist[++index];
+        optionAText.text = CurrentDialogTextlist[++index];
+        optionBText.text = CurrentDialogTextlist[++index];
+        optionCText.text = CurrentDialogTextlist[++index];
+        optionDText.text = CurrentDialogTextlist[++index];
     }
     
     //打字效果

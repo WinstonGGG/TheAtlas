@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item
   - Pickable
+  - TalismanButton
   layers:
   - Default
   - TransparentFX

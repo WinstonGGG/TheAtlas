@@ -170,6 +170,9 @@ public class ClickManagement : MonoBehaviour
                 // else if (name.CompareTo("QuitButton") == 0) {
                 //     InGameMenu.QuitGame();
                 // }
+                else if (tag.CompareTo("TalismanButton") == 0) {
+                    talisDisp.ClickTalismanButton(name);
+                }
             }
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
             if (resultSize == 0) {
