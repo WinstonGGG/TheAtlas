@@ -15,8 +15,11 @@ public class ClickManagement : MonoBehaviour
     public bool lockGame = false; //游戏是否锁定状态
     public bool dialogShown = false; //对话框是否显示
     //     => FindObjectOfType<TipsDialog>() != null;
+
     private GameObject spellTreeDisp; //技能书
     private TalismanManager talisDisp; //符箓的component
+    private Backpack backpackDisp;
+
     private bool earthUnlocked; 
     public bool clickedObject = false;
     public bool brightBackpack = false;
@@ -61,8 +64,10 @@ public class ClickManagement : MonoBehaviour
         pick = goManager.GetComponent<ClickInScene>();
         talisDisp = go.talisman.GetComponent<TalismanManager>();
         spellTreeDisp = go.spelltree;
+        backpackDisp = go.backpack.GetComponent<Backpack>();
 
         go.backpackIcon.GetComponent<Image>().enabled = false;
+        go.talismanIcon.GetComponent<Image>().enabled = false;
         go.spelltreeIcon.GetComponent<Image>().enabled = false;
     }
 
@@ -102,6 +107,10 @@ public class ClickManagement : MonoBehaviour
                     else 
                         talisDisp.CloseDisplay();
                 }
+                else if (name.CompareTo("BackpackIcon") == 0 && canAct){
+                    backpackDisp.backpackOpen = !backpackDisp.backpackOpen;
+                    backpackDisp.Show(backpackDisp.backpackOpen);
+                }
                 //从背包里拖拽物品出来
                 else if (tag.CompareTo("Item") == 0 && canAct) {
                     pick.descShow = false;
@@ -129,7 +138,7 @@ public class ClickManagement : MonoBehaviour
 
                     // Close other canvas
                     talisDisp.CloseDisplay();
-                    go.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
+                    backpackDisp.Show(!spellTreeDisp.activeSelf);
                 }
                 else if (name.CompareTo("NextButton") == 0) {
                     pick.descShow = false;
@@ -190,7 +199,7 @@ public class ClickManagement : MonoBehaviour
                     pick.descShow = false;
                     if (!ItemDragHandler.holdItem) {
                         int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
-                        go.backpack.GetComponent<Backpack>().RemoveItem(result.gameObject, position);
+                        backpackDisp.RemoveItem(result.gameObject, position);
                         break;
                     }
                 }
@@ -208,7 +217,7 @@ public class ClickManagement : MonoBehaviour
                 seenSpellTree = true;
             }
             spellTreeDisp.SetActive(!spellTreeDisp.activeSelf);
-            go.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
+            backpackDisp.Show(!spellTreeDisp.activeSelf);
 
             // Close other canvas
             talisDisp.CloseDisplay();
@@ -223,26 +232,29 @@ public class ClickManagement : MonoBehaviour
 
     //关闭所有UI；只在Talisman时候需要（涉及图层问题）
     public void CloseDisplays() {
-        go.backpack.GetComponent<Backpack>().Show(false);
+        backpackDisp.Show(false);
         spellTreeDisp.SetActive(false);
     }
 
     //以下三个方法会同时激活对应的功能/能被玩家使用
     public void ShowBackpackIcon() { 
-        GameObject.Find("BackpackIcon").GetComponent<Image>().enabled = true; 
+        go.backpackIcon.GetComponent<Image>().enabled = true; 
         backpackUnlocked = true;
     }
 
     public void ShowTalismanIcon() { 
-        GameObject.Find("TalismanIcon").GetComponent<Image>().enabled = true; 
+        go.talismanIcon.GetComponent<Image>().enabled = true; 
         // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().ShineTalisman();
-        DontDestroyVariables.canOpenTalisman = true;
         brightTalisman = true;
+    }
+
+    public void EnableTalisman() {
         talismanUnlocked = true;
+        DontDestroyVariables.canOpenTalisman = true;
     }
 
     public void ShowSpelltreeIcon() { 
-        GameObject.Find("SpellTreeIcon").GetComponent<Image>().enabled = true; 
+        go.spelltreeIcon.GetComponent<Image>().enabled = true; 
         // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().ShineSpellIcon();
         brightSpell = true;
         spellTreeUnlocked = true;
