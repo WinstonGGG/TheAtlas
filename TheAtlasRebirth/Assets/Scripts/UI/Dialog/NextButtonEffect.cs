@@ -10,7 +10,7 @@ public class NextButtonEffect : MonoBehaviour, IPointerDownHandler {
     public bool effective = true;
     public void ChangeNextButton() {
         if (!isPaused) {
-            this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Next Button shadow");
+            this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Image/UI/ElementIcons/Dialog/A_NextButtonShadow");
             if (!effective){
                 TipsDialog.nextOnClick = true;
                 // UISoundScript.PlayDialogNext();
@@ -20,7 +20,8 @@ public class NextButtonEffect : MonoBehaviour, IPointerDownHandler {
 
     public void Update() {
         if (effective && Input.GetMouseButtonUp(0)) {
-            this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Next Button");
+            Debug.Log("changebutton");
+            this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Image/UI/ElementIcons/Dialog/A_NextButton");
         }
     }
 
