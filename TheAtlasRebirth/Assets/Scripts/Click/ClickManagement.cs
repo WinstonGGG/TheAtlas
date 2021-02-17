@@ -131,20 +131,20 @@ public class ClickManagement : MonoBehaviour
                     talisDisp.CloseDisplay();
                     go.backpack.GetComponent<Backpack>().Show(!spellTreeDisp.activeSelf);
                 }
-                else if (name.CompareTo("Next Button") == 0) {
+                else if (name.CompareTo("NextButton") == 0) {
                     pick.descShow = false;
-                    // TipsDialog.nextButton.GetComponent<NextButtonEffect>().ChangeNextButton();
-                    // if (TipsDialog.isTyping){ // type full text
-                    //     TipsDialog.PrintFullDialog();
-                    // } else {
-                    //     bool textActive = TipsDialog.NextPage();
-                    //     // print("text act" + textActive);
-                    //     GameObject.Find("Dialog Box").SetActive(textActive);
-                    //     // check for water boss-->credits scene
-                    //     if (!textActive) {
-                    //         TipsDialog.CheckCurrentTipForNextMove();
-                    //     }
-                    // }
+                    TipsDialog.nextButton.GetComponent<NextButtonEffect>().ChangeNextButton();
+                    if (TipsDialog.isTyping){ // type full text
+                        TipsDialog.PrintFullDialog();
+                    } else {
+                        bool textActive = TipsDialog.NextPage();
+                        // print("text act" + textActive);
+                        GameObject.Find("DialogBox").SetActive(textActive);
+                        // check for water boss-->credits scene
+                        if (!textActive) {
+                            TipsDialog.CheckCurrentTipForNextMove();
+                        }
+                    }
                 } 
                 // else if (tag.CompareTo("OptionButton") == 0) {
                 //     TipsDialog.PlayOption(name);
@@ -215,7 +215,7 @@ public class ClickManagement : MonoBehaviour
         }
     }
 
-    //如果你打开一个功能（如符箓、技能书等），对应的Icon会消失；关闭此功能，Icon会重新显示；配合ToggleIcons()使用
+    //如果你打开一个功能（如符箓、技能书等），对应的Icon会消失；关闭此功能，Icon会重新显示；配合talismanmanager的ToggleIcons()使用
     public void ToggleTalis(bool isShow) {
         isTalis = isShow;
         go.talismanIcon.GetComponent<Image>().enabled = isShow;

@@ -34,7 +34,6 @@ public class Spell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         go = goManager.GetComponent<GOManagement>();
 
         spellTreeDisp = go.spelltree.GetComponent<SpelltreeManager>();
-        newDisp = newIcon.GetComponent<Image>();
     }
 
     //鼠标位于技能/元素上时，会出现描述框
@@ -97,12 +96,15 @@ public class Spell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     //判断显示哪种技能/元素描述（根据是否解锁）
     private void OnEnable() {
-        // if (curState == SpellState.LOCKED) {
-        //     newDisp.enabled = false;
-        // }
-        // else { 
-        //     newDisp.enabled = isNew; 
-        // }
+        
+        newDisp = newIcon.GetComponent<Image>();
+        Debug.Log(newDisp);
+        if (curState == SpellState.LOCKED) {
+            newDisp.enabled = false;
+        }
+        else { 
+            newDisp.enabled = isNew; 
+        }
         
         locked.SetActive(curState == SpellState.LOCKED);
     }

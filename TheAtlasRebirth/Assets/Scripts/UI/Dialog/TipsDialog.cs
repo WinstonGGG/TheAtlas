@@ -78,7 +78,7 @@ public class TipsDialog : MonoBehaviour {
     void Update() {
         //切换打字框
         if (!isTextChanged) {
-            dialogText = GameObject.Find("Dialog Text").GetComponent<Text>();
+            dialogText = GameObject.Find("DialogText").GetComponent<Text>();
             GameObject.Find("ChatText").GetComponent<Text>().text = "";
         } 
         else {
@@ -119,19 +119,20 @@ public class TipsDialog : MonoBehaviour {
         // 点击nextbutton时，load图像
         if (!isPickOption) {
 	        if ((Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space)) && nextOnClick && !isPaused) {
-	            GameObject.Find("NextButton").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Next Button");
+	            GameObject.Find("NextButton").GetComponent<Image>().sprite = Resources.Load<Sprite>("Image/UI/ElementIcons/Dialog/A_NextButton");
 	            nextOnClick = false;
 	        }
 	    }
     }
     //完成对话后下一步触发内容
     public static void CheckCurrentTipForNextMove() {
-        if (currDialogRef.CompareTo("Self Introduction") == 0) {
-            //show backpack
-            GameObject.Find("MainUI").GetComponent<ClickManagement>().ShowBackpackIcon();
-            go.backpack.GetComponent<Backpack>().Show(true);
-        } 
-        else if (currDialogRef.CompareTo("Fire Boss") == 0) {
+        // if (currDialogRef.CompareTo("Self Introduction") == 0) {
+        //     //show backpack
+        //     GameObject.Find("MainUI").GetComponent<ClickManagement>().ShowBackpackIcon();
+        //     go.backpack.GetComponent<Backpack>().Show(true);
+        // } 
+        //else 
+        if (currDialogRef.CompareTo("Fire Boss") == 0) {
             GameObject.Find("法阵-scene2").GetComponent<SpriteRenderer>().enabled = true;
             GameObject.Find("Fire Boss").GetComponent<SpriteRenderer>().enabled = false;
         } 
@@ -151,7 +152,7 @@ public class TipsDialog : MonoBehaviour {
         else if (index > CurrentDialogTextlist.Count - 1) {
     		index = 2;
             dialogText.text = "";
-            GameObject.Find("NextButton").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Next Button");
+            GameObject.Find("NextButton").GetComponent<Image>().sprite = Resources.Load<Sprite>("Image/UI/ElementIcons/Dialog/A_NextButton");
             return false;
         }
         LoadTextAndImage(index);
