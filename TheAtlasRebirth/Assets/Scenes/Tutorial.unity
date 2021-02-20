@@ -8525,7 +8525,15 @@ MonoBehaviour:
   itemName: {fileID: 342239243}
   scaleAmount: 2
   backpackOpen: 0
-  talismanAsset: {fileID: 2800000, guid: ec615332915a9482ea68f40dd5b1a689, type: 3}
+  itemNames:
+  - RealPick
+  types: 01000000
+  textures:
+  - {fileID: 2800000, guid: ec615332915a9482ea68f40dd5b1a689, type: 3}
+  itemTypeIconTextures:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2018289543
 MonoBehaviour:
   m_ObjectHideFlags: 0
