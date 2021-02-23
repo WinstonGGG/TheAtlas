@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Backpack : MonoBehaviour
+public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
 {
     public GOManagement go;
     
@@ -16,10 +16,54 @@ public class Backpack : MonoBehaviour
     public Text itemName; //前一行的文本
     public float scaleAmount; //文本框的大小
 
-    public bool backpackOpen = false;
+    public bool backpackOpen = false; //背包是否处于打开状态
 
-    public Dictionary<string, Texture2D> pathDictionary = new Dictionary<string, Texture2D>();
-    public Texture2D talismanAsset;
+    public Dictionary<string, ItemDragHandler.ItemType> typeDictionary; // 储存所有背包物品的类型
+    public Dictionary<string, Texture2D> pathDictionary; //储存所有背包物品的texture
+    public List<string> itemNames = new List<string>(); //物品名
+    public List<ItemDragHandler.ItemType> types = new List<ItemDragHandler.ItemType>(); //对应物品类型
+    public List<Texture2D> textures = new List<Texture2D>(); //对应物品类型
+
+    public List<Sprite> itemTypeIcons = new List<Sprite>(); //装、集、符的asset
+    
+    //以下两个方法均服务于在Inspector中显示Dictionary
+    public void OnBeforeSerialize()
+    {
+        itemNames.Clear();
+        types.Clear();
+        textures.Clear();
+
+        foreach (var kvp in typeDictionary)
+        {
+            itemNames.Add(kvp.Key);
+            types.Add(kvp.Value);
+        }
+
+        foreach (var kvp in pathDictionary)
+        {
+            textures.Add(kvp.Value);
+        }
+    }
+
+    public void OnAfterDeserialize()
+    {
+        typeDictionary = new Dictionary<string, ItemDragHandler.ItemType>();
+        pathDictionary = new Dictionary<string, Texture2D>(); 
+
+        for (int i = 0; i < itemNames.Count; i++){
+            typeDictionary.Add(itemNames[i], types[i]);
+            pathDictionary.Add(itemNames[i], textures[i]);
+        }
+    }
+
+    void OnGUI()
+    {
+        GUI.depth = 0;
+        foreach (var kvp in typeDictionary) 
+            GUILayout.Label("Item Name: " + kvp.Key + "Type: " + kvp.Value);
+        foreach (var kvp in pathDictionary) 
+            GUILayout.Label("Item Name: " + kvp.Key + "Texture: " + kvp.Value);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +79,6 @@ public class Backpack : MonoBehaviour
         // this.AddItem("TalismanIcon");
         // this.AddItem("Taoism Wind");
         this.Show(false); //游戏开始时不显示背包
-
-        pathDictionary.Add("RealPick", talismanAsset);
-    }
-    void OnGUI() {
-        GUI.depth = 0;
     }
 
     // Update is called once per frame
@@ -59,21 +98,35 @@ public class Backpack : MonoBehaviour
 
     public void AddItem(string name) {
         
-        GameObject imageObj = new GameObject(name); //Create the GameObject
-        imageObjects[length] = imageObj;
+        GameObject itemObj = new GameObject(name); //Create the GameObject
+        imageObjects[length] = itemObj;
         length++;
 
-        RawImage image = imageObj.AddComponent<RawImage>(); //Add the Image Component script
-        ItemDragHandler handler = imageObj.AddComponent<ItemDragHandler>(); //Add item-drag component
-        imageObj.GetComponent<ItemDragHandler>().textbox = textbox;
-        imageObj.GetComponent<ItemDragHandler>().itemName = itemName;
-        imageObj.GetComponent<ItemDragHandler>().itemScale = scaleAmount;
+        RawImage image = itemObj.AddComponent<RawImage>(); //Add the Image Component script
+        ItemDragHandler handler = itemObj.AddComponent<ItemDragHandler>(); //Add item-drag component
+        handler.textbox = textbox;
+        handler.itemName = itemName;
+        handler.itemScale = scaleAmount;
+        handler.itemType = typeDictionary[name];
 
-        image.texture = pathDictionary[name];
-        // image.texture = Resources.Load<Texture2D>("Image/" + assetPath); //Set the Sprite of the Image Component on the new GameObject
-        imageObj.tag = "Item";
+        image.texture = pathDictionary[name]; //Set the Sprite of the Image Component on the new GameObject
+        itemObj.tag = "Item";
 
-        RectTransform item_transform = imageObj.GetComponent<RectTransform>();
+        //物品类型角标设置
+        GameObject itemTypeIcon = new GameObject("ItemType");
+        Image itemTypeImg = itemTypeIcon.AddComponent<Image>();
+        if (handler.itemType == ItemDragHandler.ItemType.EQUIPMENT) {
+            itemTypeImg.color = Color.black;
+            // itemTypeImg.sprite = itemTypeIcons[0];
+        } else if (handler.itemType == ItemDragHandler.ItemType.COLLECTION) {
+            itemTypeImg.color = Color.red;
+            // itemTypeImg.sprite = itemTypeIcons[1];
+        } else {
+            itemTypeImg.color = Color.yellow;
+            // itemTypeImg.sprite = itemTypeIcons[2];
+        }
+
+        RectTransform item_transform = itemObj.GetComponent<RectTransform>();
         item_transform.SetParent(go.itemHolder.transform); //Assign the newly created Image GameObject as a Child of the Parent Panel, Canvas/Main UI.
         item_transform.SetAsFirstSibling();
 
@@ -95,7 +148,7 @@ public class Backpack : MonoBehaviour
         }
         
         // UISoundScript.PlayGetItem();
-        imageObj.SetActive(backpack.activeSelf);
+        itemObj.SetActive(backpack.activeSelf);
     }
 
     public void RemoveItem(GameObject itemObject, int removeIndex) {

@@ -27,6 +27,9 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
     public bool dialogShown = false;
     // => FindObjectOfType<TipsDialog>() != null;
 
+    public enum ItemType { EQUIPMENT, COLLECTION, SPELL }; //背包物品的类型：装，集，符
+    public ItemType itemType; //当前物品的类型
+
     void Awake() {
         canPlaceItem = true;
         previousPosition = new Vector3(0,0,0);
