@@ -5,7 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-	public bool canAct = true;  // player movement will be disabled when canAct is false
+	public bool canAct => !cameraInit && !dialogShown && !talismanShown;  // player movement will be disabled when canAct is false
+	public bool cameraInit => 
+		FindObjectOfType<PlayerCamera>().init == true; //初镜头
+	public bool dialogShown =>
+        FindObjectOfType<TipsDialog>() != null;
+	public bool talismanShown =>
+		GameObject.FindGameObjectWithTag("Talisman") != null;
 	public float dx=0,dy=0,dz=0;  // player celocity caused by environment; for example wind. 
 	public int isReverse = 1;    // if player movement is reversed   for water room
 	public bool isMoving;   // check if player is moving ; for animation

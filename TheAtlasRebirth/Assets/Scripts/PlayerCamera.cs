@@ -6,7 +6,8 @@ public class PlayerCamera : MonoBehaviour
 {
     // Start is called before the first frame update
 	private Vector3 dy;
-	bool init = true;  //controls the camera movement in the beginning
+	public bool init = true;  //controls the camera movement in the beginning
+	bool isPrinted = false;
 	//private Vector3 dz;
     void Start()
     {
@@ -28,6 +29,11 @@ public class PlayerCamera : MonoBehaviour
 			Vector3 offset = new Vector3(0f,-0.1f,0.05f);
 			this.transform.position += offset;
 			
+		}
+		else if (!isPrinted){
+			TipsDialog.PrintDialog("Self Introduction");
+			TipsDialog.introAppear = true;
+			isPrinted = true;
 		}
 		
 		

@@ -264,7 +264,7 @@ public class ClickManagement : MonoBehaviour
         if (scene.name == "scene0" && !earthUnlocked
             && go.spelltreeIcon.GetComponent<Image>().enabled) {
             earthUnlocked = true;
-            GetComponent<SpelltreeManager>().UnlockElement(TalisDrag.Elements.EARTH);
+            //GetComponent<SpelltreeManager>().UnlockElement(TalisDrag.Elements.EARTH);
         }
 
         if (SceneManager.GetActiveScene().name == "EarthRoom" && !earthUnlocked) {

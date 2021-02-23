@@ -18,6 +18,7 @@ public class GOManagement : MonoBehaviour
     // public GameObject spellDesc;
 
     public GameObject itemHolder;
+    public GameObject secondLevelScroll;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,6 +35,7 @@ public class GOManagement : MonoBehaviour
         // spellDesc = GameObject.Find("spellDesc");
 
         itemHolder = GameObject.Find("ItemHolder");
+        secondLevelScroll = GameObject.Find("SLevelScroll");
     }
 
     // Update is called once per frame

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalismanTextboxScaler : MonoBehaviour {
+public class TalisTextboxScaler : MonoBehaviour {
 
     public GameObject box;
     public Text texty;

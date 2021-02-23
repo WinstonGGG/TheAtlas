@@ -42,6 +42,7 @@ public class TalismanManager : MonoBehaviour {
     // public GameObject atlas;
     
     private int PickButton = 0; // 点button请神or重绘
+    private GameObject sLevelScroll; //右边符箓卷轴
 
     void Awake() {
         ResetCraft();
@@ -63,7 +64,9 @@ public class TalismanManager : MonoBehaviour {
         backpack = go.backpack.GetComponent<Backpack>();
         textbox = go.talisElementDesc;
         eleName = go.talisElementText.GetComponent<Text>();
+        sLevelScroll = go.secondLevelScroll;
 
+        sLevelScroll.SetActive(false);
         display.SetActive(false);
     }
 
@@ -78,7 +81,7 @@ public class TalismanManager : MonoBehaviour {
         if (TenSecTimer && timeLeft < 0)
         {
             // Create a Talisman Tip and call it here
-            // TipsDialog.PrintDialog("TalismanTip");
+            TipsDialog.PrintDialog("TalismanTip");
             TenSecTimer = false;
         }
 
@@ -158,14 +161,13 @@ public class TalismanManager : MonoBehaviour {
             if (!ele.locked && !ele.known) {
                 elements[i].SetActive(true);
                 if (ele.isLevelTwo()) {
-                    elements[i].GetComponent<RectTransform>().localPosition =
-                        elePos[curPos2];
+                    sLevelScroll.SetActive(true); //第二卷轴开启
+                    elements[i].GetComponent<RectTransform>().localPosition = elePos[curPos2];
                     elements[i].GetComponent<TalisDrag>().UpdateOrigin(elePos[curPos2]);
                     curPos2 += 1;
                 }
                 else {
-                    elements[i].GetComponent<RectTransform>().localPosition =
-                        elePos[curPos];
+                    elements[i].GetComponent<RectTransform>().localPosition = elePos[curPos];
                     elements[i].GetComponent<TalisDrag>().UpdateOrigin(elePos[curPos]);
                     curPos += 1;
                 }
