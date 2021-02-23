@@ -48,8 +48,6 @@ public class TipsDialog : MonoBehaviour {
             AllDialogTextlist.Add(line);
         }
         dialog = GameObject.Find("DialogBox");
-        chatNameIcon = GameObject.Find("ChatNameIcon");
-        chatIcon = GameObject.Find("ChatHeadIcon");
         dialogText = GameObject.Find("DialogText").GetComponent<Text>();
         option = GameObject.Find("G_Options");
         optionAText = GameObject.Find("OptionAText").GetComponent<Text>();
@@ -57,12 +55,14 @@ public class TipsDialog : MonoBehaviour {
         optionCText = GameObject.Find("OptionCText").GetComponent<Text>();
         optionDText = GameObject.Find("OptionDText").GetComponent<Text>();
         nextButton = GameObject.Find("NextButton");
+        chatIcon = GameObject.Find("ChatHeadIcon");
+        chatNameIcon = GameObject.Find("ChatNameIcon");
         nextButton.GetComponent<NextButtonEffect>().effective = false;
         dialog.SetActive(false);
         dialog.SetActive(false);
         option.SetActive(false);
-        chatNameIcon.SetActive(false);
         chatIcon.SetActive(false);
+        chatNameIcon.SetActive(false);
         nextOnClick = false;
         ditto = 0;
         isTyping = false;
@@ -73,10 +73,6 @@ public class TipsDialog : MonoBehaviour {
         introAppear = false;
         goManager = GameObject.Find("GameObjectManager");
         go = goManager.GetComponent<GOManagement>();
-        chatIcon = GameObject.Find("ChatHeadIcon");
-        chatNameIcon = GameObject.Find("ChatNameIcon");
-        chatIcon.SetActive(false);
-        chatNameIcon.SetActive(false);
     }
 
     void Update() {
@@ -87,7 +83,7 @@ public class TipsDialog : MonoBehaviour {
         } 
         else {
             dialogText = GameObject.Find("ChatText").GetComponent<Text>();
-            GameObject.Find("Dialog Text").GetComponent<Text>().text = "";
+            GameObject.Find("DialogText").GetComponent<Text>().text = "";
         }
         //开始打字
         if (isStartTyping) {

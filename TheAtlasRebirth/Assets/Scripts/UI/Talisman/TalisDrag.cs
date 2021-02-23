@@ -56,7 +56,7 @@ public class TalisDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     // Update is called once per frame
     void Update() {
-
+        
     }
 
     //手动强行修改元素原始位置
