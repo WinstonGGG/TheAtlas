@@ -121,10 +121,10 @@ public class TalismanManager : MonoBehaviour {
             if (firstAccess) {
                 firstAccess = false;
                 display.transform.SetSiblingIndex(2);//设置图层顺序，以后应该需要改
-                // TipsDialog.PrintDialog("Talisman 2");
+                TipsDialog.PrintDialog("Talisman 2");
             } else {
                 // Close any text box that is open
-                // TipsDialog.HideTextBox();
+                TipsDialog.HideTextBox();
             }
             recipeBook = spelltreeManager.GetSpellBook();
             display.SetActive(true);

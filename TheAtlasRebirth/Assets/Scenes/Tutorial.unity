@@ -158,7 +158,7 @@ RectTransform:
   - {fileID: 1816514721}
   - {fileID: 193617800}
   m_Father: {fileID: 206308071}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -896,8 +896,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2018289540}
-  - {fileID: 4654871}
   - {fileID: 1181797958}
+  - {fileID: 4654871}
   - {fileID: 280074546}
   - {fileID: 1485198288}
   - {fileID: 1173461930}
@@ -5499,7 +5499,7 @@ RectTransform:
   - {fileID: 493360739}
   - {fileID: 1730728821}
   m_Father: {fileID: 206308071}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8613,10 +8613,7 @@ MonoBehaviour:
   types: 01000000
   textures:
   - {fileID: 2800000, guid: ec615332915a9482ea68f40dd5b1a689, type: 3}
-  itemTypeIconTextures:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  itemTypeIcons: []
 --- !u!114 &2018289543
 MonoBehaviour:
   m_ObjectHideFlags: 0
