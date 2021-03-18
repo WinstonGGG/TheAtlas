@@ -8,6 +8,7 @@ TagManager:
   - Pickable
   - TalismanButton
   - Talisman
+  - BackpackItem
   layers:
   - Default
   - TransparentFX

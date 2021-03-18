@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler {   
+public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler {   
     public GOManagement go;
 
     public static GameObject itemOnGround; // 从背包里被拖拽出来的物品
@@ -27,8 +27,9 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
     public bool dialogShown = false;
     // => FindObjectOfType<TipsDialog>() != null;
 
-    public enum ItemType { EQUIPMENT, COLLECTION, SPELL }; //背包物品的类型：装，集，符
-    public ItemType itemType; //当前物品的类型
+    public bool canSpell; //当前物品是否为技能
+    public bool canEquip; //当前物品是否可以装备
+    public bool canInteract; //当前物品是否可以改变形态
 
     void Awake() {
         canPlaceItem = true;
@@ -50,7 +51,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
         textbox.SetActive(true);
         itemName.text = gameObject.name.ToString();
         // textbox.GetComponent<TextboxScaler>().UpdateBoxSize();
-        textbox.GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition + new Vector2(-80f, -60f);
+        textbox.GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition + new Vector2(-180f, -120f);
         transform.localScale *= itemScale;
     }
 
@@ -70,36 +71,6 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBe
         RectTransform item_transform = itemOnGround.GetComponent<RectTransform>();
         string name = itemOnGround.name;
         BackpackItemSize variables = go.backpack.GetComponent<BackpackItemSize>();
-        // if (name.CompareTo("Earth Key") == 0) {
-        //     item_transform.sizeDelta = variables.earthKey;
-        // } 
-        // else if (name.CompareTo("Changable Soil") == 0) {
-        //     item_transform.sizeDelta = variables.dirt;
-        // }
-        // else if (name.CompareTo("Heavenly Water") == 0) {
-        //     item_transform.sizeDelta = variables.lifeWater;
-        // }
-        // else if (name.CompareTo("Ditto Board") == 0) {
-        //     item_transform.sizeDelta = variables.board;
-        // }
-        // else if (name.CompareTo("Water Seed") == 0) {
-        //     item_transform.sizeDelta = variables.waterSeed;
-        // }
-        // else if (name.CompareTo("Yin-Yang Portal") == 0) {
-        //     item_transform.sizeDelta = variables.earthPortal;
-        // }
-        // else if (name.CompareTo("Prime Sun") == 0) {
-        //     item_transform.sizeDelta = variables.glowingSun;
-        // }
-        // else if (name.CompareTo("Golden Wood") == 0) {
-        //     item_transform.sizeDelta = variables.firewood;
-        // }
-        // else if (name.CompareTo("Taiji Key") == 0) {
-        //     item_transform.sizeDelta = variables.taijiKey;
-        // }
-        // else {
-        //     item_transform.sizeDelta = variables.elseSize;
-        // }
     }
 
     //结束语拖拽时激活施法的相关程序Put()，如果没有释放成功物品回到背包里的原始位置

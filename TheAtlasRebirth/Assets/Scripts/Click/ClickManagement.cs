@@ -112,15 +112,15 @@ public class ClickManagement : MonoBehaviour
                     backpackDisp.Show(backpackDisp.backpackOpen);
                 }
                 //从背包里拖拽物品出来
-                else if (tag.CompareTo("Item") == 0 && canAct) {
+                else if (tag.CompareTo("BackpackItem") == 0 && canAct) {
                     pick.descShow = false;
-                    if (!ItemDragHandler.holdItem) {
-                        ItemDragHandler.itemOnGround = result.gameObject;
-                        ItemDragHandler.previousPosition = result.gameObject.GetComponent<RectTransform>().anchoredPosition;
-                        ItemDragHandler.holdItem = true;
-                        ItemDragHandler.x = ItemDragHandler.previousPosition.x;
-                        RectTransform item_transform = ItemDragHandler.itemOnGround.GetComponent<RectTransform>();
-                        ItemDragHandler.originalSize = item_transform.sizeDelta;
+                    if (!BackpackItem.holdItem) {
+                        BackpackItem.itemOnGround = result.gameObject;
+                        BackpackItem.previousPosition = result.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                        BackpackItem.holdItem = true;
+                        BackpackItem.x = BackpackItem.previousPosition.x;
+                        RectTransform item_transform = BackpackItem.itemOnGround.GetComponent<RectTransform>();
+                        BackpackItem.originalSize = item_transform.sizeDelta;
                     }
                 }
                 else if (name.CompareTo("SpelltreeIcon") == 0 && canAct) {
@@ -197,7 +197,7 @@ public class ClickManagement : MonoBehaviour
 
                 if (tag.CompareTo("Item") == 0 && canAct) {
                     pick.descShow = false;
-                    if (!ItemDragHandler.holdItem) {
+                    if (!BackpackItem.holdItem) {
                         int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
                         backpackDisp.RemoveItem(result.gameObject, position);
                         break;

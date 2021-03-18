@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
+public class Backpack : MonoBehaviour
 {
+    // public class BackpackItemProperty { //当前物品的所有属性
+    //     public Texture2D texture; //当前物品的asset
+    //     public bool canSpell; //当前物品是否为技能
+    //     public bool canEquip; //当前物品是否可以装备
+    //     public bool canInteract; //当前物品是否可以改变形态
+    // }
+
     public GOManagement go;
     
     private GameObject[] imageObjects; //放置背包里的物品
@@ -18,51 +25,42 @@ public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
 
     public bool backpackOpen = false; //背包是否处于打开状态
 
-    public Dictionary<string, ItemDragHandler.ItemType> typeDictionary; // 储存所有背包物品的类型
-    public Dictionary<string, Texture2D> pathDictionary; //储存所有背包物品的texture
-    public List<string> itemNames = new List<string>(); //物品名
-    public List<ItemDragHandler.ItemType> types = new List<ItemDragHandler.ItemType>(); //对应物品类型
-    public List<Texture2D> textures = new List<Texture2D>(); //对应物品类型
-
-    public List<Sprite> itemTypeIcons = new List<Sprite>(); //装、集、符的asset
+    public Dictionary<string, bool> canSpellDictionary; // 储存所有背包物品是否为技能
+    public Dictionary<string, bool> canEquipDictionary; // 储存所有背包物品是否为装备
+    public Dictionary<string, bool> canInteractDictionary; // 储存所有背包物品是否可以交互
+    public Dictionary<string, Texture2D> textureDictionary; // 储存所有背包物品的asset
     
-    //以下两个方法均服务于在Inspector中显示Dictionary
-    public void OnBeforeSerialize()
+    public int numberOfBackpackItems;
+    public List<string> itemNames = new List<string>(); //物品名
+    public List<bool> canSpellList = new List<bool>(); //对应物品是否为技能
+    public List<bool> canEquipList = new List<bool>(); //对应物品是否为装备
+    public List<bool> canInteractList = new List<bool>(); //对应物品是否可以交互
+    public List<Texture2D> textureList = new List<Texture2D>(); //对应物品是否可以交互
+    
+    public List<Sprite> itemCanSpellIcons = new List<Sprite>(); //物品是否为技能属性对应图标： 符、拾
+    
+    //服务于在Inspector中显示Dictionary
+    // public void OnAfterDeserialize()
+    public void DictionarySetup()
     {
-        itemNames.Clear();
-        types.Clear();
-        textures.Clear();
+        canSpellDictionary = new Dictionary<string, bool>();
+        canEquipDictionary = new Dictionary<string, bool>();
+        canInteractDictionary = new Dictionary<string, bool>();
+        textureDictionary = new Dictionary<string, Texture2D>();
 
-        foreach (var kvp in typeDictionary)
-        {
-            itemNames.Add(kvp.Key);
-            types.Add(kvp.Value);
+        for (int i = 0; i < numberOfBackpackItems; i++){
+            canSpellDictionary.Add(itemNames[i], canSpellList[i]);
+        }
+        for (int i = 0; i < numberOfBackpackItems; i++){
+            canInteractDictionary.Add(itemNames[i], canInteractList[i]);
+        }
+        for (int i = 0; i < numberOfBackpackItems; i++){
+            canEquipDictionary.Add(itemNames[i], canEquipList[i]);
+        }
+        for (int i = 0; i < numberOfBackpackItems; i++){
+            textureDictionary.Add(itemNames[i], textureList[i]);
         }
 
-        foreach (var kvp in pathDictionary)
-        {
-            textures.Add(kvp.Value);
-        }
-    }
-
-    public void OnAfterDeserialize()
-    {
-        typeDictionary = new Dictionary<string, ItemDragHandler.ItemType>();
-        pathDictionary = new Dictionary<string, Texture2D>(); 
-
-        for (int i = 0; i < itemNames.Count; i++){
-            typeDictionary.Add(itemNames[i], types[i]);
-            pathDictionary.Add(itemNames[i], textures[i]);
-        }
-    }
-
-    void OnGUI()
-    {
-        GUI.depth = 0;
-        foreach (var kvp in typeDictionary) 
-            GUILayout.Label("Item Name: " + kvp.Key + "Type: " + kvp.Value);
-        foreach (var kvp in pathDictionary) 
-            GUILayout.Label("Item Name: " + kvp.Key + "Texture: " + kvp.Value);
     }
 
     // Start is called before the first frame update
@@ -74,6 +72,8 @@ public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
         canvas = go.mainUI;
         imageObjects = new GameObject[18];
         length = 0;
+
+        DictionarySetup();
         // this.AddItem("TheAtlas");
         // this.AddItem("SpelltreeIcon");
         // this.AddItem("TalismanIcon");
@@ -103,35 +103,30 @@ public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
         length++;
 
         RawImage image = itemObj.AddComponent<RawImage>(); //Add the Image Component script
-        ItemDragHandler handler = itemObj.AddComponent<ItemDragHandler>(); //Add item-drag component
+        BackpackItem handler = itemObj.AddComponent<BackpackItem>(); //Add item-drag component
         handler.textbox = textbox;
         handler.itemName = itemName;
         handler.itemScale = scaleAmount;
-        handler.itemType = typeDictionary[name];
+        handler.canSpell = canSpellDictionary[name];
+        handler.canEquip = canEquipDictionary[name];
+        handler.canInteract = canInteractDictionary[name];
 
-        image.texture = pathDictionary[name]; //Set the Sprite of the Image Component on the new GameObject
-        itemObj.tag = "Item";
+        image.texture = textureDictionary[name]; //Set the Sprite of the Image Component on the new GameObject
+        itemObj.tag = "BackpackItem";
 
         //物品类型角标设置
-        GameObject itemTypeIcon = new GameObject("ItemType");
-        Image itemTypeImg = itemTypeIcon.AddComponent<Image>();
-        if (handler.itemType == ItemDragHandler.ItemType.EQUIPMENT) {
-            itemTypeImg.color = Color.black;
-            // itemTypeImg.sprite = itemTypeIcons[0];
-        } else if (handler.itemType == ItemDragHandler.ItemType.COLLECTION) {
-            itemTypeImg.color = Color.red;
-            // itemTypeImg.sprite = itemTypeIcons[1];
-        } else {
-            itemTypeImg.color = Color.yellow;
-            // itemTypeImg.sprite = itemTypeIcons[2];
-        }
+        GameObject itemCanSpellIcon = new GameObject("ItemCanSpell");
+        Image itemCanSpellImg = itemCanSpellIcon.AddComponent<Image>();
+        // -----------------More code needed------------------------
 
         RectTransform item_transform = itemObj.GetComponent<RectTransform>();
         item_transform.SetParent(go.itemHolder.transform); //Assign the newly created Image GameObject as a Child of the Parent Panel, Canvas/Main UI.
         item_transform.SetAsFirstSibling();
 
         //更改物品的大小以适配背包卷轴背景的宽度
-        item_transform.anchoredPosition = new Vector2((length-12f)*80 + 650, 0);
+        GameObject locationObj = go.itemPositionHolder.transform.GetChild(length).gameObject;
+        item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+
         if (name.CompareTo("Heavenly Water") == 0) {
             item_transform.sizeDelta = new Vector2(60, 35);
         } else if (name.CompareTo("Changable Soil") == 0) {
@@ -148,7 +143,7 @@ public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
         }
         
         // UISoundScript.PlayGetItem();
-        itemObj.SetActive(backpack.activeSelf);
+        itemObj.SetActive(this.gameObject.activeSelf);
     }
 
     public void RemoveItem(GameObject itemObject, int removeIndex) {
@@ -167,9 +162,9 @@ public class Backpack : MonoBehaviour, ISerializationCallbackReceiver
     //显示背包，需要显示背包卷轴以及其中的所有物品
     public void Show(bool isShow) {
         backpack.SetActive(isShow);
-        // for (int i = 0; i < length; i++) {
-        //     GameObject currObj = imageObjects[i];
-        //     currObj.SetActive(isShow);
-        // }
+        for (int i = 0; i < length; i++) {
+            GameObject currObj = imageObjects[i];
+            currObj.SetActive(isShow);
+        }
     }
 }

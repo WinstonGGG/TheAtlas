@@ -18,6 +18,7 @@ public class GOManagement : MonoBehaviour
     // public GameObject spellDesc;
 
     public GameObject itemHolder;
+    public GameObject itemPositionHolder;
     public GameObject secondLevelScroll;
     // Start is called before the first frame update
     void Awake()
@@ -25,16 +26,23 @@ public class GOManagement : MonoBehaviour
         backpackIcon = GameObject.Find("BackpackIcon");
         spelltreeIcon = GameObject.Find("SpelltreeIcon");
         talismanIcon = GameObject.Find("TalismanIcon");
+
         backpack = GameObject.Find("Backpack");
+        itemHolder = GameObject.Find("ItemHolder");
+        itemPositionHolder = GameObject.Find("ItemPositionHolder");
+
         mainUI = GameObject.Find("MainUI");
+
         talisman = GameObject.Find("Talisman");
+
         spelltree = GameObject.Find("Spelltree");
+
         talisElementDesc = GameObject.Find("TElementDesc");
         talisElementText = GameObject.Find("W_TElementDesc");
         talisman1 = GameObject.Find("B_Talisman1");
         // spellDesc = GameObject.Find("spellDesc");
 
-        itemHolder = GameObject.Find("ItemHolder");
+        
         secondLevelScroll = GameObject.Find("SLevelScroll");
     }
 

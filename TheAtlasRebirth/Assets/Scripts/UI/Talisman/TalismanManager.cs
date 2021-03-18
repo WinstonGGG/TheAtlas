@@ -249,7 +249,7 @@ public class TalismanManager : MonoBehaviour {
             timeLeft = countdownTime;
             return true;
         }
-        return false;
+        // return false;
     }
 
     // Add an element to talisman
