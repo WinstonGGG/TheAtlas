@@ -20,6 +20,8 @@ public class GOManagement : MonoBehaviour
     public GameObject itemHolder;
     public GameObject itemPositionHolder;
     public GameObject secondLevelScroll;
+    
+    public GameObject ob;
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,6 +46,8 @@ public class GOManagement : MonoBehaviour
 
         
         secondLevelScroll = GameObject.Find("SLevelScroll");
+
+        ob = GameObject.Find("OB");
     }
 
     // Update is called once per frame

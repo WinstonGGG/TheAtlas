@@ -19,6 +19,7 @@ public class ClickManagement : MonoBehaviour
     private GameObject spellTreeDisp; //技能书
     private TalismanManager talisDisp; //符箓的component
     private Backpack backpackDisp;
+    private ObManagement ob;
 
     private bool earthUnlocked; 
     public bool clickedObject = false;
@@ -65,6 +66,7 @@ public class ClickManagement : MonoBehaviour
         talisDisp = go.talisman.GetComponent<TalismanManager>();
         spellTreeDisp = go.spelltree;
         backpackDisp = go.backpack.GetComponent<Backpack>();
+        ob = go.ob.GetComponent<ObManagement>();
 
         go.backpackIcon.GetComponent<Image>().enabled = false;
         go.talismanIcon.GetComponent<Image>().enabled = false;
@@ -173,6 +175,9 @@ public class ClickManagement : MonoBehaviour
                 else if (tag.CompareTo("TalismanButton") == 0) {
                     talisDisp.ClickTalismanButton(name);
                 }
+                else if (name.CompareTo("OBQuitButton") == 0) {
+                    ob.CloseOb();
+                }
             }
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
             if (resultSize == 0) {
@@ -195,14 +200,22 @@ public class ClickManagement : MonoBehaviour
                 string name = result.gameObject.name;
                 string tag = result.gameObject.tag;
 
-                if (tag.CompareTo("Item") == 0 && canAct) {
-                    pick.descShow = false;
-                    if (!BackpackItem.holdItem) {
-                        int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
-                        backpackDisp.RemoveItem(result.gameObject, position);
-                        break;
-                    }
+                // if (tag.CompareTo("Item") == 0 && canAct) {
+                //     pick.descShow = false;
+                //     if (!BackpackItem.holdItem) {
+                //         int position = ((int)result.gameObject.GetComponent<RectTransform>().anchoredPosition.x + 680) / 80;
+                //         backpackDisp.RemoveItem(result.gameObject, position);
+                //         break;
+                //     }
+                // }
+                //按右键于背包物品上时,打开物品
+                if (result.gameObject.GetComponent<ObItem>() != null) {
+                    ob.OpenOb();
                 }
+            }
+            //如果没有物品在UI layer且在当前鼠标下，玩家试图观察物品(ob)
+            if (resultSize == 0) {
+                pick.ObOnGround();
             }
         }
         //点Q开技能书
