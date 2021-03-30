@@ -8,15 +8,16 @@ public class ClickInScene : MonoBehaviour
 {
     public static GOManagement go;
     private ClickManagement dispManager;
+    private ObManagement ob;
     
-    public bool canAct => !dialogShown && !talismanShown && !shineIcon && !FindObjectOfType<ClickManagement>().lockGame;
-    public bool dialogShown = false;
-        // FindObjectOfType<TipsDialog>() != null;
+    public bool canAct => !obShown && !dialogShown && !talismanShown && !shineIcon && !FindObjectOfType<ClickManagement>().lockGame;
+    public bool dialogShown => FindObjectOfType<TipsDialog>() != null;
     public bool talismanShown = false;
         // GameObject.Find("Talisman") != null;
         
     public bool shineIcon = false;
         // GameObject.Find("DarkBackground").GetComponent<LeaveIconBright>().shine == true;
+    public bool obShown => GameObject.Find("OB") != null;
 
     private int layerMask;
     public bool dialogShow = false;
@@ -35,6 +36,7 @@ public class ClickInScene : MonoBehaviour
         layerMask = ~layerMask;
 
         dispManager = go.mainUI.GetComponent<ClickManagement>();
+        ob = go.ob.GetComponent<ObManagement>();
 
         // Check to see if current scene is the lobby if so show spell tree description
         // "Scene 0" name might be changed later
@@ -147,6 +149,20 @@ public class ClickInScene : MonoBehaviour
                 //     dialogShow = true;
                 // }
                 // UISoundScript.PlayPick();
+            }
+        }
+        descShow = false;
+    }
+
+    public void ObOnGround() {
+        if (descShow){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo, (distanceToClick + cameraDistance), layerMask) && canAct) {
+                GameObject clickObject = hitInfo.collider.gameObject;
+                if (clickObject.GetComponent<ObItem>() != null) {
+                    ob.GetItemType(clickObject);
+                }
             }
         }
         descShow = false;
