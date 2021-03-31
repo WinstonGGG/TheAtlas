@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4052,7 +4052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a393ef876264e1e891225e84f17b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 1
   itemStateTotalNum:
   - State: 0
     image: {fileID: 0}
@@ -9442,15 +9441,18 @@ MonoBehaviour:
   scaleAmount: 2
   backpackOpen: 0
   numberOfBackpackItems: 1
-  itemNames:
-  - RealPick
-  canSpellList: 00
-  canEquipList: 00
-  canInteractList: 00
-  textureList:
-  - {fileID: 2800000, guid: 65c8bb234dc914b7eb76cdb6886b8a86, type: 3}
-  itemCanSpellIcons:
-  - {fileID: 0}
+  backpackItemInfos:
+  - itemName: RealPick
+    canSpell: 0
+    canEquip: 0
+    canInteract: 0
+    texture: {fileID: 0}
+  - itemName: 
+    canSpell: 0
+    canEquip: 0
+    canInteract: 0
+    texture: {fileID: 0}
+  itemCanSpellIcons: []
 --- !u!114 &2018289543
 MonoBehaviour:
   m_ObjectHideFlags: 0
