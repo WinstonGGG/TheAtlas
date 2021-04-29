@@ -11,18 +11,25 @@ public class Backpack : MonoBehaviour
     //     public bool canEquip; //当前物品是否可以装备
     //     public bool canInteract; //当前物品是否可以改变形态
     // }
-
+    [HideInInspector]
     public GOManagement go;
-    
+    [HideInInspector]
     private GameObject[] imageObjects; //放置背包里的物品
+    [HideInInspector]
     private int length; //存在的物品数量
+    [HideInInspector]
     public GameObject backpack;
+    [HideInInspector]
     public GameObject canvas;
 
+    [HideInInspector]
     public GameObject textbox; //显示物品名称的文本框
+    [HideInInspector]
     public Text itemName; //前一行的文本
+    [HideInInspector]
     public float scaleAmount; //文本框的大小
 
+    [HideInInspector]
     public bool backpackOpen = false; //背包是否处于打开状态
 
     public Dictionary<string, bool> canSpellDictionary; // 储存所有背包物品是否为技能
@@ -31,11 +38,16 @@ public class Backpack : MonoBehaviour
     public Dictionary<string, Texture2D> textureDictionary; // 储存所有背包物品的asset
     
     public int numberOfBackpackItems;
-    public List<string> itemNames = new List<string>(); //物品名
-    public List<bool> canSpellList = new List<bool>(); //对应物品是否为技能
-    public List<bool> canEquipList = new List<bool>(); //对应物品是否为装备
-    public List<bool> canInteractList = new List<bool>(); //对应物品是否可以交互
-    public List<Texture2D> textureList = new List<Texture2D>(); //对应物品是否可以交互
+    [System.Serializable]
+    public struct ItemInfo
+    {
+    	public string itemName;
+    	public bool canSpell;
+    	public bool canEquip;
+    	public bool canInteract;
+        public Texture2D texture;
+    }
+    public ItemInfo[] backpackItemInfos;
     
     public List<Sprite> itemCanSpellIcons = new List<Sprite>(); //物品是否为技能属性对应图标： 符、拾
     
@@ -49,16 +61,16 @@ public class Backpack : MonoBehaviour
         textureDictionary = new Dictionary<string, Texture2D>();
 
         for (int i = 0; i < numberOfBackpackItems; i++){
-            canSpellDictionary.Add(itemNames[i], canSpellList[i]);
+            canSpellDictionary.Add(backpackItemInfos[i].itemName, backpackItemInfos[i].canSpell);
         }
         for (int i = 0; i < numberOfBackpackItems; i++){
-            canInteractDictionary.Add(itemNames[i], canInteractList[i]);
+            canInteractDictionary.Add(backpackItemInfos[i].itemName, backpackItemInfos[i].canInteract);
         }
         for (int i = 0; i < numberOfBackpackItems; i++){
-            canEquipDictionary.Add(itemNames[i], canEquipList[i]);
+            canEquipDictionary.Add(backpackItemInfos[i].itemName, backpackItemInfos[i].canEquip);
         }
         for (int i = 0; i < numberOfBackpackItems; i++){
-            textureDictionary.Add(itemNames[i], textureList[i]);
+            textureDictionary.Add(backpackItemInfos[i].itemName, backpackItemInfos[i].texture);
         }
 
     }
@@ -97,7 +109,6 @@ public class Backpack : MonoBehaviour
     }
 
     public void AddItem(string name) {
-        
         GameObject itemObj = new GameObject(name); //Create the GameObject
         imageObjects[length] = itemObj;
         length++;
@@ -107,11 +118,14 @@ public class Backpack : MonoBehaviour
         handler.textbox = textbox;
         handler.itemName = itemName;
         handler.itemScale = scaleAmount;
+            
+        Debug.Log(name);
+        Debug.Log(canSpellDictionary);
         handler.canSpell = canSpellDictionary[name];
         handler.canEquip = canEquipDictionary[name];
         handler.canInteract = canInteractDictionary[name];
-
         image.texture = textureDictionary[name]; //Set the Sprite of the Image Component on the new GameObject
+
         itemObj.tag = "BackpackItem";
 
         //物品类型角标设置
