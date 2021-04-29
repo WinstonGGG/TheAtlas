@@ -156,6 +156,9 @@ public class Backpack : MonoBehaviour
             item_transform.sizeDelta = new Vector2(60f, 60f);
         }
         
+        ObItem item_ob = itemObj.AddComponent<ObItem>();
+        item_ob.itemStateTotalNum = GameObject.Find(name).GetComponent<ObItem>().itemStateTotalNum;
+        InSceneItem item_type = itemObj.AddComponent<InSceneItem>();
         // UISoundScript.PlayGetItem();
         itemObj.SetActive(this.gameObject.activeSelf);
     }
