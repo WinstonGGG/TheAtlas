@@ -21,6 +21,7 @@ public class Backpack : MonoBehaviour
     public GameObject backpack;
     [HideInInspector]
     public GameObject canvas;
+    private ObManagement ob;
 
     [HideInInspector]
     public GameObject textbox; //显示物品名称的文本框
@@ -79,7 +80,8 @@ public class Backpack : MonoBehaviour
     void Start()
     {
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
-        
+        ob = go.ob.GetComponent<ObManagement>();
+
         backpack = go.backpack;
         canvas = go.mainUI;
         imageObjects = new GameObject[18];
@@ -157,7 +159,7 @@ public class Backpack : MonoBehaviour
         }
         
         ObItem item_ob = itemObj.AddComponent<ObItem>();
-        item_ob.itemStateTotalNum = GameObject.Find(name).GetComponent<ObItem>().itemStateTotalNum;
+        item_ob.itemStateTotalNum = ob.StateTotalNum;
         InSceneItem item_type = itemObj.AddComponent<InSceneItem>();
         // UISoundScript.PlayGetItem();
         itemObj.SetActive(this.gameObject.activeSelf);

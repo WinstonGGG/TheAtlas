@@ -9,6 +9,8 @@ public class ObManagement : MonoBehaviour
     private GOManagement go;
 
 	public GameObject display; 
+    //clickobj的itemStateTotalNum
+    public ObItem.ItemState[] StateTotalNum;
 
 	// 当前点击物品的type
     //[SerializeField]
@@ -42,6 +44,12 @@ public class ObManagement : MonoBehaviour
         }
         else {
         	display.SetActive(true);
+        }
+    }
+
+    public void GetObItemData(GameObject clickObject) {
+        if (clickObject.GetComponent<ObItem>() != null) {
+            StateTotalNum =  clickObject.GetComponent<ObItem>().itemStateTotalNum;
         }
     }
 }
