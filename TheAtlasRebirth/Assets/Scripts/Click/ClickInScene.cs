@@ -90,6 +90,7 @@ public class ClickInScene : MonoBehaviour
                     else if (go.backpack.GetComponent<Backpack>().CanAddItem()) {
                         Sprite item = clickObject.GetComponent<SpriteRenderer>().sprite;
                         go.mainUI.GetComponent<FlyingOnUI>().FlyTowardsIcon(item, false, clickObject.name);
+                        ob.GetObItemData(clickObject);
                         // GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(clickObject.transform.position);
                         Destroy(clickObject);
                     }
