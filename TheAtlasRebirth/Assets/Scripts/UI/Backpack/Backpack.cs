@@ -51,6 +51,10 @@ public class Backpack : MonoBehaviour
     public ItemInfo[] backpackItemInfos;
     
     public List<Sprite> itemCanSpellIcons = new List<Sprite>(); //物品是否为技能属性对应图标： 符、拾
+
+    public Sprite equipmentIcon;
+    public Sprite spellIcon;
+    public Sprite collectIcon;
     
     //服务于在Inspector中显示Dictionary
     // public void OnAfterDeserialize()
@@ -121,19 +125,13 @@ public class Backpack : MonoBehaviour
         handler.itemName = itemName;
         handler.itemScale = scaleAmount;
             
-        Debug.Log(name);
-        Debug.Log(canSpellDictionary);
+        //物品判定
         handler.canSpell = canSpellDictionary[name];
         handler.canEquip = canEquipDictionary[name];
         handler.canInteract = canInteractDictionary[name];
         image.texture = textureDictionary[name]; //Set the Sprite of the Image Component on the new GameObject
 
         itemObj.tag = "BackpackItem";
-
-        //物品类型角标设置
-        GameObject itemCanSpellIcon = new GameObject("ItemCanSpell");
-        Image itemCanSpellImg = itemCanSpellIcon.AddComponent<Image>();
-        // -----------------More code needed------------------------
 
         RectTransform item_transform = itemObj.GetComponent<RectTransform>();
         item_transform.SetParent(go.itemHolder.transform); //Assign the newly created Image GameObject as a Child of the Parent Panel, Canvas/Main UI.
@@ -142,6 +140,20 @@ public class Backpack : MonoBehaviour
         //更改物品的大小以适配背包卷轴背景的宽度
         GameObject locationObj = go.itemPositionHolder.transform.GetChild(length).gameObject;
         item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+
+        //物品类型角标设置
+        GameObject itemIcon = new GameObject("ItemCanSpell");
+        Image itemIconImg = itemIcon.AddComponent<Image>();
+        if (handler.canSpell) {
+            itemIconImg.sprite = spellIcon;
+        } else {
+            itemIconImg.sprite = collectIcon;
+        }
+
+        RectTransform itemIconTransform = itemIcon.GetComponent<RectTransform>();
+        itemIconTransform.SetParent(itemObj.transform);
+        itemIconTransform.sizeDelta = new Vector2(20, 20);
+        itemIconTransform.anchoredPosition = new Vector2(20, -20);
 
         if (name.CompareTo("Heavenly Water") == 0) {
             item_transform.sizeDelta = new Vector2(60, 35);
@@ -158,9 +170,11 @@ public class Backpack : MonoBehaviour
             item_transform.sizeDelta = new Vector2(60f, 60f);
         }
         
+        //继承Ob相关属性
         ObItem item_ob = itemObj.AddComponent<ObItem>();
         item_ob.itemStateTotalNum = ob.StateTotalNum;
         InSceneItem item_type = itemObj.AddComponent<InSceneItem>();
+        //ItemTypes {CollNIn, CollNUnin, UncollNIn, UncollNUnin }
         // UISoundScript.PlayGetItem();
         itemObj.SetActive(this.gameObject.activeSelf);
     }

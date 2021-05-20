@@ -114,42 +114,6 @@ public class ClickInScene : MonoBehaviour
                     dispManager.ShowBackpackIcon();
                     Destroy(clickObject);
                 }
-                // else if (clickObject.name.CompareTo("Flower 1") == 0 || clickObject.name.CompareTo("Flower 2") == 0 || clickObject.name.CompareTo("Flower 3") == 0 || clickObject.name.CompareTo("Flower 4") == 0 || clickObject.name.CompareTo("Flower 5") == 0 || clickObject.name.CompareTo("Flower 6") == 0) {  
-                //     clickObject.GetComponent<flowerInMirror>().ClickMirror();
-                // }
-                // if (clickObject.tag == "Portals") {
-                //     ChangeSprite change = clickObject.GetComponent<ChangeSprite>();
-                //     if (clickObject.name.CompareTo("EarthPortal") == 0) {
-                //         if (change.Trigger) {
-                //             if (clickObject.GetComponent<sceneTransition>().enterable)
-                //                 TipsDialog.PrintDialog(clickObject.name + " Open");
-                //             else
-                //                 TipsDialog.PrintDialog(clickObject.name + " Wait Key");
-                //         }
-                //     } else {
-                //         if (change.Trigger) {
-                //             TipsDialog.PrintDialog(clickObject.name + " Open");
-                //         }
-                //     }
-                //     if (!change.Trigger) {
-                //         change.OpenScroll();
-                //         TipsDialog.PrintDialog(clickObject.name);
-                //     } 
-                // } 
-                // else if (clickObject.name.CompareTo("Flowerpot") == 0) {
-                //     if (DontDestroyVariables.growState < 3) {
-                //         TipsDialog.PrintDialog("Flowerpot");
-                //     } else if (DontDestroyVariables.growState < 4) {
-                //         TipsDialog.PrintDialog("Flower Need Sun");
-                //     } else {
-                //         TipsDialog.PrintDialog("Water Seed Grow Order 3.1");
-                //     }
-                // }
-                // else if (TipsDialog.dialogList.Contains(clickObject.name)){
-                //     TipsDialog.PrintDialog(clickObject.name);
-                //     dialogShow = true;
-                // }
-                // UISoundScript.PlayPick();
             }
         }
         descShow = false;

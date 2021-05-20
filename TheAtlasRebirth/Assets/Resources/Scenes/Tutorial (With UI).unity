@@ -6232,6 +6232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 1270149430}
+  StateTotalNum: []
 --- !u!1 &1270863772
 GameObject:
   m_ObjectHideFlags: 0
@@ -9453,6 +9454,9 @@ MonoBehaviour:
     canInteract: 0
     texture: {fileID: 0}
   itemCanSpellIcons: []
+  equipmentIcon: {fileID: 21300000, guid: 8f5421da5cb764235b5c51e877fe5a63, type: 3}
+  spellIcon: {fileID: 21300000, guid: 533f8a13f649a4237b468232512d88c3, type: 3}
+  collectIcon: {fileID: 21300000, guid: af7154d19849f40baa915f45ad593aae, type: 3}
 --- !u!114 &2018289543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10066,6 +10070,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675933736782863515, guid: 97084b1855e3649be9ba854704615e21,
+        type: 3}
+      propertyPath: speed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97084b1855e3649be9ba854704615e21, type: 3}
