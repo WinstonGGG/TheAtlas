@@ -30,9 +30,9 @@ public class ClickManagement : MonoBehaviour
     public bool seenSpellTree = false; //看过一次技能书
     private Sprite talismanIcon;
     private ClickInScene pick; //拾起物品的component
-    GraphicRaycaster raycaster;
+    public GraphicRaycaster raycaster;
     PointerEventData pointerData;
-    EventSystem eventSystem;
+    public EventSystem eventSystem;
 
     // private LeaveIconBright light;
     private bool isTalis = false;

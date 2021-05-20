@@ -25,6 +25,7 @@ public class ItemEffects : MonoBehaviour
         
         // s = GameObject.Find("MainUI").GetComponent<SpellTreeManager>();
         itemOnPuzzle = new Hashtable();
+        itemOnPuzzle.Add("RealPick", "Test");
         itemOnPuzzle.Add("Earth Key", "EarthPortal");
         itemOnPuzzle.Add("Changable Soil", "River,Flowerpot,Flowerpot cld,FutureRock,EarthPortal");
         itemOnPuzzle.Add("Water Seed", "Flowerpot,Flowerpot cld");
@@ -120,188 +121,89 @@ public class ItemEffects : MonoBehaviour
     }
 
     public static void puzzleEffect(string item, string position, Vector3 hitPoint) {
-        if (item.CompareTo("Changable Soil") == 0 && position.CompareTo("FutureRock") == 0){
-            GameObject futureRock = GameObject.Find("FutureRock");
-            Destroy(futureRock);
+        if (item.CompareTo("RealPick") == 0 && position.CompareTo("Test") == 0){
+            Debug.Log("realpick to test");
+        }
+        // if (item.CompareTo("Changable Soil") == 0 && position.CompareTo("FutureRock") == 0){
+        //     GameObject futureRock = GameObject.Find("FutureRock");
+        //     Destroy(futureRock);
 
-            GameObject.Find("Rock10").transform.position = GameObject.Find("Rock Base (1)").transform.position + new Vector3(4.0f, 0.34f, 0f);
-            GameObject.Find("Earth Key").transform.position = new Vector3(-1.34f, -1.765f, 3.5f);
+        //     GameObject.Find("Rock10").transform.position = GameObject.Find("Rock Base (1)").transform.position + new Vector3(4.0f, 0.34f, 0f);
+        //     GameObject.Find("Earth Key").transform.position = new Vector3(-1.34f, -1.765f, 3.5f);
             
-            // AIDataManager.UpdateStandardSpellCount("Changable Soil", 1);
-            // AIDataManager.UpdateStandardSpellCount("earth", 3);
-        } 
-        else if (item.CompareTo("Changable Soil") == 0 && position.CompareTo("River") == 0){
-            GameObject river = GameObject.Find("River");
-            river.GetComponent<BoxCollider>().enabled = false;
-            river.GetComponent<SpriteRenderer>().enabled = false;
-            GameObject.Find("River Sound 1").GetComponent<AudioSource>().enabled = false;
-            GameObject.Find("River Sound 2").GetComponent<AudioSource>().enabled = false;
-            GameObject.Find("River Sound 3").GetComponent<AudioSource>().enabled = false;
-            GameObject.Find("River Collider").GetComponent<BoxCollider>().enabled = true;
-            // s.UnlockElement(TalisDrag.Elements.WATER);
+        //     // AIDataManager.UpdateStandardSpellCount("Changable Soil", 1);
+        //     // AIDataManager.UpdateStandardSpellCount("earth", 3);
+        // } 
+        // else if (item.CompareTo("Changable Soil") == 0 && position.CompareTo("River") == 0){
+        //     GameObject river = GameObject.Find("River");
+        //     river.GetComponent<BoxCollider>().enabled = false;
+        //     river.GetComponent<SpriteRenderer>().enabled = false;
+        //     GameObject.Find("River Sound 1").GetComponent<AudioSource>().enabled = false;
+        //     GameObject.Find("River Sound 2").GetComponent<AudioSource>().enabled = false;
+        //     GameObject.Find("River Sound 3").GetComponent<AudioSource>().enabled = false;
+        //     GameObject.Find("River Collider").GetComponent<BoxCollider>().enabled = true;
+        //     // s.UnlockElement(TalisDrag.Elements.WATER);
             
-            // AIDataManager.UpdateStandardSpellCount("Changable Soil", 1);
-            // AIDataManager.UpdateStandardSpellCount("earth", 3);
+        //     // AIDataManager.UpdateStandardSpellCount("Changable Soil", 1);
+        //     // AIDataManager.UpdateStandardSpellCount("earth", 3);
 
-            // SpellEffectSounds.PlayDirt();
-        } 
-        else if (item.CompareTo("Heavenly Water") == 0 && position.CompareTo("River Collider") == 0){
-            GameObject river = GameObject.Find("River");
-            river.GetComponent<BoxCollider>().enabled = true;
-            river.GetComponent<SpriteRenderer>().enabled = true;
-            GameObject.Find("River Sound 1").GetComponent<AudioSource>().enabled = true;
-            GameObject.Find("River Sound 2").GetComponent<AudioSource>().enabled = true;
-            GameObject.Find("River Sound 3").GetComponent<AudioSource>().enabled = true;
-            GameObject.Find("River Collider").GetComponent<BoxCollider>().enabled = false;
-
-            GameObject player = GameObject.Find("Main Character");
-            if (player.transform.position.z < -5.5) {
-                player.transform.position = new Vector3(player.transform.position.x, 1.442091f, -5.5f);
-            }
-            // AIDataManager.wrongItemPlacementCount++;
-        }
-        else if ((item.CompareTo("Heavenly Water") == 0 || item.CompareTo("Taoism Wind") == 0) && position.CompareTo("法阵-scene2") == 0){
-            fireLevel(2, hitPoint);
-        }
-        else if (item.CompareTo("Heavenly Water") == 0 && position.CompareTo("Fire Seed") == 0){
-            fireLevel(1, hitPoint);
-        }
-        else if (item.CompareTo("Tao-Book") == 0){
-            go.mainUI.GetComponent<ClickManagement>().ShowSpelltreeIcon();
-            // TipsDialog.PrintDialog("Spelltree 1");
-            GameObject.Find("Dialog Box").transform.SetSiblingIndex(6);
-        } 
-        else if (item.CompareTo("Talisman") == 0){
-            go.mainUI.GetComponent<ClickManagement>().ShowTalismanIcon();
-            // TipsDialog.PrintDialog("Talisman 1");
-        } 
-        else if (item.CompareTo("The Atlas") == 0){
-            // talisDisp.atlas.SetActive(true);
-            dispManager.ToggleIcons(false);
-        }
-        // else if ((item.CompareTo("Earth Key") == 0 || item.CompareTo("Changable Soil") == 0) && position.CompareTo("EarthPortal") == 0){
-        //     GameObject earthPortal = GameObject.Find("EarthPortal");
-        //     earthPortal.GetComponent<sceneTransition>().enterable = true;
-        //     earthPortal.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Earth Portal");
-        //     // if (item.CompareTo("Changable Soil") == 0) {
-        //     //     AIDataManager.wrongItemPlacementCount++;
-        //     // }
+        //     // SpellEffectSounds.PlayDirt();
         // } 
-        else if (item.CompareTo("Changable Soil") == 0 && (position.CompareTo("Flowerpot") == 0 || position.CompareTo("Flowerpot cld") == 0)){
-            flowerpot.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Flowerpot/Flowerpot with dirt");
+        // else if (item.CompareTo("Heavenly Water") == 0 && position.CompareTo("River Collider") == 0){
+        //     GameObject river = GameObject.Find("River");
+        //     river.GetComponent<BoxCollider>().enabled = true;
+        //     river.GetComponent<SpriteRenderer>().enabled = true;
+        //     GameObject.Find("River Sound 1").GetComponent<AudioSource>().enabled = true;
+        //     GameObject.Find("River Sound 2").GetComponent<AudioSource>().enabled = true;
+        //     GameObject.Find("River Sound 3").GetComponent<AudioSource>().enabled = true;
+        //     GameObject.Find("River Collider").GetComponent<BoxCollider>().enabled = false;
 
-            // AIDataManager.UpdateStandardSpellCount("Changable Soil", 1);
-            // AIDataManager.UpdateStandardSpellCount("earth", 3);
-
-            DontDestroyVariables.growState = 1;
-        } 
-        else if (item.CompareTo("Ditto Board") == 0 && position.CompareTo("Background") == 0){
-            // GameObject.Find("Background").GetComponent<TileMovement>().CheckDone();
-
-            // AIDataManager.UpdateStandardSpellCount("Ditto Board", 1);
-            // AIDataManager.UpdateStandardSpellCount("earth", 2);
-            // AIDataManager.UpdateStandardSpellCount("water", 1);
-        } 
-        // else if (item.CompareTo("Ditto Board") == 0 && (position.CompareTo("Flower 1") == 0 || position.CompareTo("Flower 2") == 0 || position.CompareTo("Flower 3") == 0 || position.CompareTo("Flower 4") == 0 || position.CompareTo("Flower 5") == 0 || position.CompareTo("Flower 6") == 0)) {
-        //     if (DontDestroyVariables.growState == 4) {
-        //         GameObject[] mirrorArray = GameObject.Find("mirrors").GetComponent<mirrors>().mirrorArray;
-
-        //         int rightIndex = 0;
-        //         foreach (GameObject mirror in mirrorArray) {
-        //             rightIndex++;
-        //             if (mirror.GetComponent<flowerInMirror>().isRight) {
-        //                 mirror.GetComponent<flowerInMirror>().ClickedCorrectMirror();
-        //                 break;
-        //             }
-        //         }
-        //         // TipsDialog.ditto = rightIndex;
-        //         // TipsDialog.PrintDialog("Ditto Mirror");
-        //     } else {
-        //         // TipsDialog.PrintDialog("Ditto No Mirror");
+        //     GameObject player = GameObject.Find("Main Character");
+        //     if (player.transform.position.z < -5.5) {
+        //         player.transform.position = new Vector3(player.transform.position.x, 1.442091f, -5.5f);
         //     }
-
+        //     // AIDataManager.wrongItemPlacementCount++;
         // }
-        else if (item.CompareTo("Water Seed") == 0 && (position.CompareTo("Flowerpot") == 0 || position.CompareTo("Flowerpot cld") == 0)){
-            DontDestroyVariables.growState = 2;
-            flowerpot.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Flowerpot/Flowerpot with seed");
-        } 
-        else if (item.CompareTo("Heavenly Water") == 0 && (position.CompareTo("Flowerpot") == 0 || position.CompareTo("Flowerpot cld") == 0)){
-            DontDestroyVariables.growState = 3;
-            flowerpot.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Flowerpot/Flowerpot with bud");
-
-            // s.UnlockElement(TalisDrag.Elements.WOOD);
-
-            // AIDataManager.UpdateStandardSpellCount("Heavenly Water", 1);
-            // AIDataManager.UpdateStandardSpellCount("water", 3);
-        }
-        // else if (item.CompareTo("Golden Wood") == 0 && position.CompareTo("法阵-scene2") == 0){
-        //     sceneTransition sceneTrans = GameObject.Find("法阵-scene2").GetComponent<sceneTransition>();
-        //     GameObject.Find("法阵-scene2").GetComponent<SpriteRenderer>().enabled = false;
-        //     GameObject.Find("Fire Boss").GetComponent<SpriteRenderer>().enabled = true;
-
-        //     s.UnlockElement(TalisDrag.Elements.FIRE);
-
-        //     // AIDataManager.UpdateStandardSpellCount("Golden Wood", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("wood", 3);
-        //     // AIDataManager.UpdateStandardSpellCount("earth", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("wind", 2);
-        //     // AIDataManager.UpdateStandardSpellCount("Yin-Yang Portal", 1);
-
-        //     SpellEffectSounds.PlayFire();
-
-        //     // TipsDialog.PrintDialog("Fire Boss");
+        // else if ((item.CompareTo("Heavenly Water") == 0 || item.CompareTo("Taoism Wind") == 0) && position.CompareTo("法阵-scene2") == 0){
+        //     fireLevel(2, hitPoint);
+        // }
+        // else if (item.CompareTo("Heavenly Water") == 0 && position.CompareTo("Fire Seed") == 0){
+        //     fireLevel(1, hitPoint);
+        // }
+        // else if (item.CompareTo("Tao-Book") == 0){
+        //     go.mainUI.GetComponent<ClickManagement>().ShowSpelltreeIcon();
+        //     // TipsDialog.PrintDialog("Spelltree 1");
+        //     GameObject.Find("Dialog Box").transform.SetSiblingIndex(6);
         // } 
-        else if (item.CompareTo("Golden Wood") == 0 && position.CompareTo("Fire Seed") == 0){
-            fireLevel(3, hitPoint);
-        }
-        // else if (item.CompareTo("Prime Sun") == 0 && (position.CompareTo("Flowerpot") == 0 || position.CompareTo("Flowerpot cld") == 0)){
-        //     DontDestroyVariables.growState = 4;
-        //     flowerpot.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Flowerpot/Flowerpot with Flower and Sun");
-            
-        //     GameObject[] mirrorArray = GameObject.Find("mirrors").GetComponent<mirrors>().mirrorArray;
-        //     foreach (GameObject mirror in mirrorArray) {
-        //         mirror.GetComponent<flowerInMirror>().clickable = true;
-        //     }
-
-        //     GameObject.Find("cameraControl").GetComponent<cameraControl>().active = true;
-        //     // TipsDialog.PrintDialog("Zoom In Active");
-
-        //     // AIDataManager.UpdateStandardSpellCount("Prime Sun", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("sun", 2);
-        //     // AIDataManager.UpdateStandardSpellCount("earth", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("fire", 2);
+        // else if (item.CompareTo("Talisman") == 0){
+        //     go.mainUI.GetComponent<ClickManagement>().ShowTalismanIcon();
+        //     // TipsDialog.PrintDialog("Talisman 1");
         // } 
-        // else if (item.CompareTo("Taiji Key") == 0 && position.CompareTo("Water Boss Door") == 0){
-        //     deleteSpellObject("Water Boss Door");
-        //     GameObject.Find("doorLeft").GetComponent<doorController>().openDoor();
-        //     GameObject.Find("doorRight").GetComponent<doorController>().openDoor();
-
-        //     // AIDataManager.gentlypassthedoor = true; 
+        // else if (item.CompareTo("The Atlas") == 0){
+        //     // talisDisp.atlas.SetActive(true);
+        //     dispManager.ToggleIcons(false);
         // }
-        // else if (item.CompareTo("Golden Wood") == 0 && (position.CompareTo("rockInWaterRoom") == 0 || position.CompareTo("Left Reefs") == 0 || position.CompareTo("Right Reefs") == 0)){
-        //     Destroy(GameObject.Find(position));
-        //     if (position.CompareTo("rockInWaterRoom") != 0) {
-        //         Destroy(GameObject.Find("wall " + position));
-        //     }
-        //     // TipsDialog.PrintDialog("Stick Destroy Rock");
-        //     // AIDataManager.gentlypassthedoor = false; 
-        // }
-        // else if (item.CompareTo("Taoism Wind") == 0 && position.CompareTo("Wind Collider") == 0){
-        //     GameObject wind = GameObject.Find("WindGroup");
-        //     wind.GetComponent<wind>().windFadeOut();
+        // else if (item.CompareTo("Water Seed") == 0 && (position.CompareTo("Flowerpot") == 0 || position.CompareTo("Flowerpot cld") == 0)){
+        //     DontDestroyVariables.growState = 2;
+        //     flowerpot.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Flowerpot/Flowerpot with seed");
+        // } 
+        // else if (item.CompareTo("Heavenly Water") == 0 && (position.CompareTo("Flowerpot") == 0 || position.CompareTo("Flowerpot cld") == 0)){
+        //     DontDestroyVariables.growState = 3;
+        //     flowerpot.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("ChangeAsset/Flowerpot/Flowerpot with bud");
 
-        //     DontDestroyVariables.windExist = false;
+        //     // s.UnlockElement(TalisDrag.Elements.WOOD);
 
-        //     // AIDataManager.UpdateStandardSpellCount("fire", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("wood", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("wind", 1);
-        //     // AIDataManager.UpdateStandardSpellCount("Taoism Wind", 1);
+        //     // AIDataManager.UpdateStandardSpellCount("Heavenly Water", 1);
+        //     // AIDataManager.UpdateStandardSpellCount("water", 3);
         // }
-        else if (item.CompareTo("Yin-Yang Portal") == 0 && position.CompareTo("atlasmap2") == 0){
-            GameObject portal = GameObject.Find("WaterToEarthPortal");
-            portal.GetComponent<SpriteRenderer>().enabled = true;
-            portal.transform.position = hitPoint + new Vector3(0.0f, 0.6f, 0);
-        } 
+        // else if (item.CompareTo("Golden Wood") == 0 && position.CompareTo("Fire Seed") == 0){
+        //     fireLevel(3, hitPoint);
+        // }
+        // else if (item.CompareTo("Yin-Yang Portal") == 0 && position.CompareTo("atlasmap2") == 0){
+        //     GameObject portal = GameObject.Find("WaterToEarthPortal");
+        //     portal.GetComponent<SpriteRenderer>().enabled = true;
+        //     portal.transform.position = hitPoint + new Vector3(0.0f, 0.6f, 0);
+        // } 
     }
 
     public static void fireLevel(int level, Vector3 hitPoint) {

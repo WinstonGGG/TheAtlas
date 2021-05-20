@@ -31,6 +31,9 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     public bool canEquip; //当前物品是否可以装备
     public bool canInteract; //当前物品是否可以改变形态
 
+    private GraphicRaycaster raycaster;
+    private PointerEventData pointerData;
+
     void Awake() {
         canPlaceItem = true;
         previousPosition = new Vector3(0,0,0);
@@ -44,6 +47,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         holdItem = false;
         itemOriginalScale = transform.localScale;
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
+        raycaster = go.clickManagement.raycaster;
     }
 
     //鼠标移动至背包里物品上方时物品变大
@@ -91,35 +95,48 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     //施放物品时候可能会发生的效果
     public void Put()
     {
-        if (holdItem) {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // Debug.Log("put");
+        if (holdItem && raycaster != null && !dialogShown) {
+            bool placed = false;
+            //Set up the new Pointer Event
+            pointerData = new PointerEventData(go.clickManagement.eventSystem);
+            pointerData.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            
+            //Raycast using the Graphics Raycaster and mouse click position
+            raycaster.Raycast(pointerData, results);
 
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity) && !dialogShown) {
-                GameObject dragOnObject = hitInfo.collider.gameObject;
+            int resultSize = 0;
+
+            //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+            foreach (RaycastResult result in results) {
+                resultSize += 1;
+                GameObject dragOnObject = result.gameObject;
                 int position = ((int)x + 680) / 80;
 
                 canPlaceItem = ItemEffects.canPlace(itemOnGround.name, dragOnObject.name);
                 print(itemOnGround.name + ", on to: " + dragOnObject.name);
-                if (canPlaceItem) {
+                if (canPlaceItem) { 
                     if (itemOnGround.name.CompareTo("The Atlas") == 0)
                         transform.localScale = itemOriginalScale / itemScale;
                     else 
-                        GameObject.Find("Backpack_Roll").GetComponent<Backpack>().RemoveItem(itemOnGround, position);
+                        go.backpack.GetComponent<Backpack>().RemoveItem(itemOnGround, position);
                     
-                    ItemEffects.puzzleEffect(itemOnGround.name, dragOnObject.name, hitInfo.point);
+                    ItemEffects.puzzleEffect(itemOnGround.name, dragOnObject.name, pointerData.position);
                     // if (itemOnGround.name.CompareTo("Tao-Book") != 0 && itemOnGround.name.CompareTo("Talisman") != 0 && itemOnGround.name.CompareTo("The Atlas") != 0 && SceneManager.GetActiveScene().name != "SampleScene")
-                    //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(hitInfo.point);
-                } else {
-                    // UISoundScript.PlayWrongSpell();
-                    // AIDataManager.wrongItemPlacementCount += 1;
-                    itemOnGround.GetComponent<RectTransform>().sizeDelta = originalSize;
+                    //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(pointerData.position);
+
+                    placed = true;
+                    break;
                 }
                 // if (SceneManager.GetActiveScene().name != "SampleScene")
                 //     GameObject.Find("playerParticleEffect").GetComponent<castEffect>().stopCasting();
             }
-            else {
-                print("physics error");
+
+            if (!placed) {
+                // UISoundScript.PlayWrongSpell();
+                // AIDataManager.wrongItemPlacementCount += 1;
+                itemOnGround.GetComponent<RectTransform>().sizeDelta = originalSize;
             }
         }
     }

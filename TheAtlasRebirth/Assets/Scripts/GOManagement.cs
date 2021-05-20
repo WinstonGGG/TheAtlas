@@ -22,6 +22,8 @@ public class GOManagement : MonoBehaviour
     public GameObject secondLevelScroll;
     
     public GameObject ob;
+
+    public ClickManagement clickManagement;
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,6 +50,7 @@ public class GOManagement : MonoBehaviour
         secondLevelScroll = GameObject.Find("SLevelScroll");
 
         ob = GameObject.Find("OB");
+        clickManagement = mainUI.GetComponent<ClickManagement>();
     }
 
     // Update is called once per frame

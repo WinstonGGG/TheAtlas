@@ -92,10 +92,7 @@ public class Backpack : MonoBehaviour
         length = 0;
 
         DictionarySetup();
-        // this.AddItem("TheAtlas");
-        // this.AddItem("SpelltreeIcon");
-        // this.AddItem("TalismanIcon");
-        // this.AddItem("Taoism Wind");
+        this.AddItem("Test");
         this.Show(false); //游戏开始时不显示背包
     }
 
