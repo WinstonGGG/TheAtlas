@@ -20,6 +20,7 @@ public class ClickManagement : MonoBehaviour
     private TalismanManager talisDisp; //符箓的component
     private Backpack backpackDisp;
     private ObManagement ob;
+    private GameObject characterDisp;
 
     private bool earthUnlocked; 
     public bool clickedObject = false;
@@ -71,6 +72,7 @@ public class ClickManagement : MonoBehaviour
         spellTreeDisp = go.spelltree;
         backpackDisp = go.backpack.GetComponent<Backpack>();
         ob = go.ob.GetComponent<ObManagement>();
+        characterDisp = go.characterState;
 
         go.backpackIcon.GetComponent<Image>().enabled = false;
         go.talismanIcon.GetComponent<Image>().enabled = false;
@@ -165,7 +167,11 @@ public class ClickManagement : MonoBehaviour
                             TipsDialog.CheckCurrentTipForNextMove();
                         }
                     }
-                } 
+                }
+                else if (name.CompareTo("CharacterStateIcon") == 0  && canAct) {
+                    pick.descShow = false;
+                    characterDisp.SetActive(!characterDisp.activeSelf);
+                }
                 // else if (tag.CompareTo("OptionButton") == 0) {
                 //     TipsDialog.PlayOption(name);
                 // }

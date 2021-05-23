@@ -22,6 +22,7 @@ public class GOManagement : MonoBehaviour
     public GameObject secondLevelScroll;
     
     public GameObject ob;
+    public GameObject characterState;
 
     public ClickManagement clickManagement;
     // Start is called before the first frame update
@@ -50,6 +51,7 @@ public class GOManagement : MonoBehaviour
         secondLevelScroll = GameObject.Find("SLevelScroll");
 
         ob = GameObject.Find("OB");
+        characterState = GameObject.Find("CharacterState");
         clickManagement = mainUI.GetComponent<ClickManagement>();
     }
 
