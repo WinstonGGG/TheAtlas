@@ -38,6 +38,10 @@ public class ClickManagement : MonoBehaviour
     private bool isTalis = false;
 
     private static ClickManagement showInstance;
+    //判断双击单击
+    private float firstClickTime, timeBetweenClicks;
+    private int clickCounter; 
+    private string clickName = "";   
     
     // 此Component将会在每一个Scene出现且永不被删除/切换Scene不会消失，所有variable不会被初始化
     void Awake() {
@@ -71,6 +75,10 @@ public class ClickManagement : MonoBehaviour
         go.backpackIcon.GetComponent<Image>().enabled = false;
         go.talismanIcon.GetComponent<Image>().enabled = false;
         go.spelltreeIcon.GetComponent<Image>().enabled = false;
+        //判断双击单击
+        firstClickTime = 0f;
+        timeBetweenClicks = 0.3f;
+        clickCounter = 0;
     }
 
     private void Update() {
@@ -86,6 +94,7 @@ public class ClickManagement : MonoBehaviour
 
         }
         else if (Input.GetMouseButtonDown(0)) {
+            clickCounter += 1; // first click
             //Set up the new Pointer Event
             pointerData = new PointerEventData(eventSystem);
             pointerData.position = Input.mousePosition;
@@ -178,6 +187,12 @@ public class ClickManagement : MonoBehaviour
                 else if (name.CompareTo("OBQuitButton") == 0) {
                     ob.CloseOb();
                 }
+                else if (name.CompareTo("EquipmentState") == 0) {
+                    if(clickCounter == 1) {
+                        firstClickTime = Time.time;
+                        clickName = "EquipmentState";
+                    }
+                }
             }
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
             if (resultSize == 0) {
@@ -235,7 +250,30 @@ public class ClickManagement : MonoBehaviour
             // Close other canvas
             talisDisp.CloseDisplay();
         }
-    }
+
+        if (clickCounter > 0) {
+            if (Time.time - firstClickTime < timeBetweenClicks) {
+                if (clickCounter >= 2) {
+                    Debug.Log("DoubleClick");
+                    if (clickName == "EquipmentState") {
+                        Debug.Log("卸下装备");
+                    }
+                    clickCounter = 0;
+                    firstClickTime = Time.time;
+                    clickName = "";
+                }
+            }
+            else {
+                Debug.Log("SingleClick");
+                if (clickName == "EquipmentState") {
+                    Debug.Log("打开背包，定位装备");
+                }
+                clickCounter = 0;
+                firstClickTime = Time.time;
+                clickName = "";
+            }
+        }
+    } 
 
     //如果你打开一个功能（如符箓、技能书等），对应的Icon会消失；关闭此功能，Icon会重新显示；配合talismanmanager的ToggleIcons()使用
     public void ToggleTalis(bool isShow) {
