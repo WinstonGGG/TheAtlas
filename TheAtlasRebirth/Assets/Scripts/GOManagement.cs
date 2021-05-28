@@ -23,6 +23,7 @@ public class GOManagement : MonoBehaviour
     
     public GameObject ob;
     public GameObject characterState;
+    public GameObject equipmentState;
 
     public ClickManagement clickManagement;
     // Start is called before the first frame update
@@ -46,12 +47,11 @@ public class GOManagement : MonoBehaviour
         talisElementText = GameObject.Find("W_TElementDesc");
         talisman1 = GameObject.Find("B_Talisman1");
         // spellDesc = GameObject.Find("spellDesc");
-
-        
         secondLevelScroll = GameObject.Find("SLevelScroll");
 
         ob = GameObject.Find("OB");
         characterState = GameObject.Find("CharacterState");
+        equipmentState = GameObject.Find("EquipmentState");
         clickManagement = mainUI.GetComponent<ClickManagement>();
     }
 

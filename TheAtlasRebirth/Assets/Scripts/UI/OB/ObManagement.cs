@@ -10,11 +10,15 @@ public class ObManagement : MonoBehaviour
 
 	public GameObject display; 
     //clickobj的itemStateTotalNum
-    public ObItem.ItemState[] StateTotalNum;
+    public ObItem.ItemState[] stateTotalNum;
+    public int currentState = 1;
 
 	// 当前点击物品的type
     //[SerializeField]
-	private InSceneItem.ItemTypes itemtype; 
+	private InSceneItem.ItemTypes itemtype;
+
+    [HideInInspector]
+    public ObItem transferToBackpackItem;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +53,12 @@ public class ObManagement : MonoBehaviour
 
     public void GetObItemData(GameObject clickObject) {
         if (clickObject.GetComponent<ObItem>() != null) {
-            StateTotalNum =  clickObject.GetComponent<ObItem>().itemStateTotalNum;
+            stateTotalNum = clickObject.GetComponent<ObItem>().itemStateTotalNum;
+            currentState = clickObject.GetComponent<ObItem>().CurrentState;
         }
+    }
+
+    public void TransferToBackpack(GameObject clickObject) {
+        transferToBackpackItem = clickObject.GetComponent<ObItem>();
     }
 }

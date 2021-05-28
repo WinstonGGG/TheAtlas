@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1721,6 +1721,7 @@ MonoBehaviour:
   secondLevelScroll: {fileID: 0}
   ob: {fileID: 0}
   characterState: {fileID: 0}
+  equipmentState: {fileID: 0}
   clickManagement: {fileID: 0}
 --- !u!114 &234304971
 MonoBehaviour:
@@ -6334,7 +6335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 424, y: 0}
   m_SizeDelta: {x: 700, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1249110791
@@ -6476,7 +6477,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 1270149430}
-  StateTotalNum: []
+  stateTotalNum: []
+  currentState: 1
+  transferToBackpackItem: {fileID: 0}
 --- !u!1 &1270863772
 GameObject:
   m_ObjectHideFlags: 0
@@ -9456,6 +9459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1975163523}
   - component: {fileID: 1975163525}
+  - component: {fileID: 1975163526}
   - component: {fileID: 1975163524}
   m_Layer: 5
   m_Name: EquipmentState
@@ -9492,7 +9496,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1975163522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -9502,16 +9506,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &1975163525
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9520,6 +9521,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975163522}
   m_CullTransparentMesh: 0
+--- !u!114 &1975163526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975163522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e90cc4126af04ccc901a521f770c4a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEquiped: 0
+  currentEquipmentName: 
 --- !u!1001 &1996009125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9768,7 +9783,7 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 65c8bb234dc914b7eb76cdb6886b8a86, type: 3}
   - itemName: Test
     canSpell: 0
-    canEquip: 0
+    canEquip: 1
     canInteract: 0
     texture: {fileID: 2800000, guid: e10c5e2f255b64144a6def6d1261527a, type: 3}
   itemCanSpellIcons: []

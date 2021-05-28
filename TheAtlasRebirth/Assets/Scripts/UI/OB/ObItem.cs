@@ -17,7 +17,7 @@ public class ObItem : MonoBehaviour
     	public AnimationClip animate;
     }
     [SerializeField]
-	private int CurrentState = 1;
+	public int CurrentState = 1;
 
     // Start is called before the first frame update
     void Start()

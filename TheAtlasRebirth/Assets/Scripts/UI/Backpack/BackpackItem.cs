@@ -30,9 +30,12 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     public bool canSpell; //当前物品是否为技能
     public bool canEquip; //当前物品是否可以装备
     public bool canInteract; //当前物品是否可以改变形态
+    public bool isEquiped = false;
 
     private GraphicRaycaster raycaster;
     private PointerEventData pointerData;
+    private EquipmentState equipmentState;
+    private ObManagement ob;
 
     void Awake() {
         canPlaceItem = true;
@@ -48,6 +51,8 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         itemOriginalScale = transform.localScale;
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
         raycaster = go.clickManagement.raycaster;
+        equipmentState = go.equipmentState.GetComponent<EquipmentState>();
+        ob = go.ob.GetComponent<ObManagement>();
     }
 
     //鼠标移动至背包里物品上方时物品变大
@@ -116,6 +121,10 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
 
                 canPlaceItem = ItemEffects.canPlace(itemOnGround.name, dragOnObject.name);
                 print(itemOnGround.name + ", on to: " + dragOnObject.name);
+
+                ob.GetObItemData(dragOnObject);
+                ob.OpenOb();
+
                 if (canPlaceItem) { 
                     if (itemOnGround.name.CompareTo("The Atlas") == 0)
                         transform.localScale = itemOriginalScale / itemScale;
@@ -127,6 +136,11 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
                     //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(pointerData.position);
 
                     placed = true;
+                    break;
+                } else if (canEquip && dragOnObject.name.CompareTo("EquipmentState") == 0) {
+                    isEquiped = true;
+                    placed = true;
+                    equipmentState.equip(itemOnGround);
                     break;
                 }
                 // if (SceneManager.GetActiveScene().name != "SampleScene")

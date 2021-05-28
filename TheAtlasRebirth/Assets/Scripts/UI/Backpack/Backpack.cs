@@ -168,11 +168,8 @@ public class Backpack : MonoBehaviour
         }
         
         //继承Ob相关属性
-        ObItem item_ob = itemObj.AddComponent<ObItem>();
-        item_ob.itemStateTotalNum = ob.StateTotalNum;
-        InSceneItem item_type = itemObj.AddComponent<InSceneItem>();
-        //ItemTypes {CollNIn, CollNUnin, UncollNIn, UncollNUnin }
-        // UISoundScript.PlayGetItem();
+        ObItem item_ob = ob.transferToBackpackItem;
+        
         itemObj.SetActive(this.gameObject.activeSelf);
     }
 
