@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MemoryThin : MonoBehaviour
 {
-    [HideInInspector]
     private int length; //存在的记忆数量
 
+    [System.Serializable]
     public struct ItemInfo
     {
         public enum MemorySort { image, text, imageText };
