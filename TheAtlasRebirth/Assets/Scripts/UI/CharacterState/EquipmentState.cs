@@ -10,6 +10,8 @@ public class EquipmentState : MonoBehaviour
     [HideInInspector]
     public string currentEquipmentName;
     private RawImage currentImage;
+    [HideInInspector]
+    public ObItem equipedItemOb;
 
     void Start() {
         currentImage = GetComponent<RawImage>();
@@ -19,5 +21,7 @@ public class EquipmentState : MonoBehaviour
         currentImage.texture = equipmentItem.GetComponent<RawImage>().texture;
         currentEquipmentName = equipmentItem.name;
         isEquiped = true;
+        equipedItemOb = equipmentItem.GetComponent<ObItem>();
+        print("just equip " + equipedItemOb);
     }
 }

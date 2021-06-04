@@ -169,7 +169,9 @@ public class Backpack : MonoBehaviour
         
         //继承Ob相关属性
         ObItem item_ob = ob.transferToBackpackItem;
-        
+        ObItem backpack_item_ob = itemObj.AddComponent<ObItem>();
+        if (item_ob != null)
+            item_ob.duplicateCurrent(backpack_item_ob);
         itemObj.SetActive(this.gameObject.activeSelf);
     }
 

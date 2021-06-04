@@ -231,7 +231,7 @@ public class ClickManagement : MonoBehaviour
                 // }
                 //按右键于背包物品上时,打开物品
                 if (result.gameObject.GetComponent<ObItem>() != null) {
-                    ob.GetObItemData(result.gameObject);
+                    ob.GetObItemData(result.gameObject.GetComponent<ObItem>());
                     ob.OpenOb();
                 }
             }
