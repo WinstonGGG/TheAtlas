@@ -30,7 +30,6 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     public bool canSpell; //当前物品是否为技能
     public bool canEquip; //当前物品是否可以装备
     public bool canInteract; //当前物品是否可以改变形态
-    public bool isEquiped = false;
 
     private GraphicRaycaster raycaster;
     private PointerEventData pointerData;
@@ -119,30 +118,45 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
                 GameObject dragOnObject = result.gameObject;
                 int position = ((int)x + 680) / 80;
 
-                canPlaceItem = ItemEffects.canPlace(itemOnGround.name, dragOnObject.name);
-                print(itemOnGround.name + ", on to: " + dragOnObject.name);
-
-                ob.GetObItemData(dragOnObject);
-                ob.OpenOb();
-
-                if (canPlaceItem) { 
-                    if (itemOnGround.name.CompareTo("The Atlas") == 0)
-                        transform.localScale = itemOriginalScale / itemScale;
-                    else 
-                        go.backpack.GetComponent<Backpack>().RemoveItem(itemOnGround, position);
-                    
-                    ItemEffects.puzzleEffect(itemOnGround.name, dragOnObject.name, pointerData.position);
-                    // if (itemOnGround.name.CompareTo("Tao-Book") != 0 && itemOnGround.name.CompareTo("Talisman") != 0 && itemOnGround.name.CompareTo("The Atlas") != 0 && SceneManager.GetActiveScene().name != "SampleScene")
-                    //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(pointerData.position);
-
-                    placed = true;
-                    break;
-                } else if (canEquip && dragOnObject.name.CompareTo("EquipmentState") == 0) {
-                    isEquiped = true;
+                if (canEquip && dragOnObject.name.CompareTo("EquipmentState") == 0 && equipmentState.isEquiped == false) { //装备新物品于装备栏
                     placed = true;
                     equipmentState.equip(itemOnGround);
+                    print("make sure it exist" + itemOnGround.GetComponent<ObItem>());
                     break;
-                }
+                } else {
+                    ObItem targetOb;
+                    string targetName;
+                    if (dragOnObject.name.CompareTo("EquipmentState") == 0 && equipmentState.isEquiped == true) { //与装备栏里的物品交互
+                        placed = true;
+                        targetOb = equipmentState.equipedItemOb;
+                        targetName = equipmentState.currentEquipmentName;
+                        print(itemOnGround.name + ", on to equipment: " + equipmentState.currentEquipmentName);
+
+                    } else { //directly interact with another object either on UI or on the ground, UI first
+                        targetOb = dragOnObject.GetComponent<ObItem>();
+                        targetName = dragOnObject.name;
+                        print(itemOnGround.name + ", on to: " + dragOnObject.name);
+                    }
+                    
+                    canPlaceItem = ItemEffects.canPlace(itemOnGround.name, targetName);
+                    if (canPlaceItem) {
+                        print(targetOb);
+                        ob.GetObItemData(targetOb);
+                        ob.OpenOb();
+
+                        if (itemOnGround.name.CompareTo("The Atlas") == 0)
+                            transform.localScale = itemOriginalScale / itemScale;
+                        else 
+                            go.backpack.GetComponent<Backpack>().RemoveItem(itemOnGround, position);
+                        
+                        ItemEffects.puzzleEffect(itemOnGround.name, targetName, pointerData.position);
+                        // if (itemOnGround.name.CompareTo("Tao-Book") != 0 && itemOnGround.name.CompareTo("Talisman") != 0 && itemOnGround.name.CompareTo("The Atlas") != 0 && SceneManager.GetActiveScene().name != "SampleScene")
+                        //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(pointerData.position);
+
+                        placed = true;
+                        break;
+                    }
+                } 
                 // if (SceneManager.GetActiveScene().name != "SampleScene")
                 //     GameObject.Find("playerParticleEffect").GetComponent<castEffect>().stopCasting();
             }

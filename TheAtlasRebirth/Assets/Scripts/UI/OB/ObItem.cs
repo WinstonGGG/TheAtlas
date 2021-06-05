@@ -30,4 +30,8 @@ public class ObItem : MonoBehaviour
     {
         
     }
+    public void duplicateCurrent(ObItem original) {
+        original.itemStateTotalNum = itemStateTotalNum;
+        original.CurrentState = CurrentState;
+    }
 }
