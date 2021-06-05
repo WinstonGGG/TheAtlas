@@ -18,7 +18,7 @@ public class CharacterState : MonoBehaviour
         go = goManager.GetComponent<GOManagement>();
 
         charStateDisplay = go.characterState;
-
+        go.equipmentState.GetComponent<EquipmentState>().currentImage = go.equipmentState.GetComponent<RawImage>();
         charStateDisplay.SetActive(false);
     }
 

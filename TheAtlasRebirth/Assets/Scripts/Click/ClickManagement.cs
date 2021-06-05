@@ -31,6 +31,8 @@ public class ClickManagement : MonoBehaviour
     public bool seenSpellTree = false; //看过一次技能书
     private Sprite talismanIcon;
     private ClickInScene pick; //拾起物品的component
+    private EquipmentState equipmentState; //角色状态--装备状态component
+    public GameObject equipment;
     public GraphicRaycaster raycaster;
     PointerEventData pointerData;
     public EventSystem eventSystem;
@@ -71,6 +73,7 @@ public class ClickManagement : MonoBehaviour
         talisDisp = go.talisman.GetComponent<TalismanManager>();
         spellTreeDisp = go.spelltree;
         backpackDisp = go.backpack.GetComponent<Backpack>();
+        equipmentState = go.equipmentState.GetComponent<EquipmentState>();
         ob = go.ob.GetComponent<ObManagement>();
         characterDisp = go.characterState;
 
@@ -95,7 +98,7 @@ public class ClickManagement : MonoBehaviour
         if (raycaster == null) {
 
         }
-        else if (Input.GetMouseButtonDown(0)) {
+        else if (Input.GetMouseButtonDown(0)) { //按鼠标左键
             clickCounter += 1; // first click
             //Set up the new Pointer Event
             pointerData = new PointerEventData(eventSystem);
@@ -168,9 +171,14 @@ public class ClickManagement : MonoBehaviour
                         }
                     }
                 }
-                else if (name.CompareTo("CharacterStateIcon") == 0  && canAct) {
+                else if (name.CompareTo("CharacterStateIcon") == 0 && canAct) {
                     pick.descShow = false;
                     characterDisp.SetActive(!characterDisp.activeSelf);
+                    if (characterDisp.activeSelf)
+                        equipmentState.putEquipmentTexture();
+                }
+                else if (name.CompareTo("EquipButton") == 0 && canAct) {
+                    equipmentState.equip(equipment);
                 }
                 // else if (tag.CompareTo("OptionButton") == 0) {
                 //     TipsDialog.PlayOption(name);
@@ -206,7 +214,7 @@ public class ClickManagement : MonoBehaviour
             }
         }
         //按右键于背包物品上时，删除此物品
-        else if (Input.GetMouseButtonDown(1)) {
+        else if (Input.GetMouseButtonDown(1)) { //按鼠标右键
             //Set up the new Pointer Event
             pointerData = new PointerEventData(eventSystem);
             pointerData.position = Input.mousePosition;

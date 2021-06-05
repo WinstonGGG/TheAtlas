@@ -26,8 +26,6 @@ public class Backpack : MonoBehaviour
     [HideInInspector]
     public GameObject textbox; //显示物品名称的文本框
     [HideInInspector]
-    public Text itemName; //前一行的文本
-    [HideInInspector]
     public float scaleAmount; //文本框的大小
 
     [HideInInspector]
@@ -88,6 +86,7 @@ public class Backpack : MonoBehaviour
 
         backpack = go.backpack;
         canvas = go.mainUI;
+        textbox = go.textbox;
         imageObjects = new GameObject[18];
         length = 0;
 
@@ -118,8 +117,6 @@ public class Backpack : MonoBehaviour
 
         RawImage image = itemObj.AddComponent<RawImage>(); //Add the Image Component script
         BackpackItem handler = itemObj.AddComponent<BackpackItem>(); //Add item-drag component
-        handler.textbox = textbox;
-        handler.itemName = itemName;
         handler.itemScale = scaleAmount;
             
         //物品判定

@@ -25,6 +25,10 @@ public class GOManagement : MonoBehaviour
     public GameObject characterState;
     public GameObject equipmentState;
 
+    public GameObject textbox; //显示物品名称的文本框
+    public GameObject equipButton; //显示物品名称的文本框
+    public Text itemName; //前一行的文本
+
     public ClickManagement clickManagement;
     // Start is called before the first frame update
     void Awake()
@@ -51,7 +55,6 @@ public class GOManagement : MonoBehaviour
 
         ob = GameObject.Find("OB");
         characterState = GameObject.Find("CharacterState");
-        equipmentState = GameObject.Find("EquipmentState");
         clickManagement = mainUI.GetComponent<ClickManagement>();
     }
 

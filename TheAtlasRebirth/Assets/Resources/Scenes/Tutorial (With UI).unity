@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1085,6 +1085,7 @@ MonoBehaviour:
   brightBackpack: 0
   brightTalisman: 0
   seenSpellTree: 0
+  equipment: {fileID: 0}
   raycaster: {fileID: 0}
   eventSystem: {fileID: 0}
 --- !u!114 &206308073
@@ -1722,7 +1723,10 @@ MonoBehaviour:
   secondLevelScroll: {fileID: 0}
   ob: {fileID: 0}
   characterState: {fileID: 0}
-  equipmentState: {fileID: 0}
+  equipmentState: {fileID: 1975163522}
+  textbox: {fileID: 659043741}
+  equipButton: {fileID: 1455860642}
+  itemName: {fileID: 342239243}
   clickManagement: {fileID: 0}
 --- !u!114 &234304971
 MonoBehaviour:
@@ -3916,7 +3920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &659043742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3931,7 +3935,7 @@ RectTransform:
   - {fileID: 873823871}
   - {fileID: 342239242}
   m_Father: {fileID: 2018289540}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4129,7 +4133,7 @@ RectTransform:
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 2018289540}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7022,6 +7026,84 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1447129289}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1455860642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1455860643}
+  - component: {fileID: 1455860645}
+  - component: {fileID: 1455860644}
+  m_Layer: 5
+  m_Name: EquipButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1455860643
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455860642}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2018289540}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -102.05, y: 283.05}
+  m_SizeDelta: {x: 151.9054, y: 79.90758}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1455860644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455860642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u88C5\u5907"
+--- !u!222 &1455860645
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455860642}
+  m_CullTransparentMesh: 0
 --- !u!1 &1485198287
 GameObject:
   m_ObjectHideFlags: 0
@@ -7781,7 +7863,7 @@ RectTransform:
   - {fileID: 1608299906}
   - {fileID: 753622283}
   m_Father: {fileID: 2018289540}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9580,6 +9662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEquiped: 0
   currentEquipmentName: 
+  equipedItemOb: {fileID: 0}
 --- !u!1001 &1996009125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9767,6 +9850,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1270863773}
+  - {fileID: 1455860643}
   - {fileID: 659043742}
   - {fileID: 1620161723}
   - {fileID: 721244283}
@@ -9816,7 +9900,6 @@ MonoBehaviour:
   backpack: {fileID: 0}
   canvas: {fileID: 0}
   textbox: {fileID: 659043741}
-  itemName: {fileID: 342239243}
   scaleAmount: 2
   backpackOpen: 0
   numberOfBackpackItems: 2

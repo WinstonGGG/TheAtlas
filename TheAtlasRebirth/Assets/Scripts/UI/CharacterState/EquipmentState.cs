@@ -9,19 +9,28 @@ public class EquipmentState : MonoBehaviour
     public bool isEquiped = false;
     [HideInInspector]
     public string currentEquipmentName;
-    private RawImage currentImage;
+    public RawImage currentImage;
+    public Texture savedEquipmentTexture;
     [HideInInspector]
     public ObItem equipedItemOb;
 
     void Start() {
-        currentImage = GetComponent<RawImage>();
+        
     }
 
     public void equip(GameObject equipmentItem) {
-        currentImage.texture = equipmentItem.GetComponent<RawImage>().texture;
+        print(currentImage);
+        savedEquipmentTexture = equipmentItem.GetComponent<RawImage>().texture;
+        if (currentImage != null) {
+            putEquipmentTexture();
+        }
         currentEquipmentName = equipmentItem.name;
         isEquiped = true;
         equipedItemOb = equipmentItem.GetComponent<ObItem>();
         print("just equip " + equipedItemOb);
+    }
+
+    public void putEquipmentTexture() {
+        currentImage.texture = savedEquipmentTexture;
     }
 }

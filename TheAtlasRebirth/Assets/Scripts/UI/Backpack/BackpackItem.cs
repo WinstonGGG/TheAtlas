@@ -19,8 +19,11 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     public static Vector2 originalSize = new Vector2(0f, 0f); // 玩家当前拖拽物品在背包里的原始大小
     public float itemScale; // 物品被鼠标经过或者拖拽时变大的比例
 
-    public GameObject textbox; // 背包显示物品名的文本框
-    public Text itemName; // 前一行的文本
+    public static GameObject textbox; // 背包显示物品名的文本框，在Backpack.cs里初始化
+    public static Text itemName; // 前一行的文本
+
+    public static GameObject equipButton; // 背包物品装备按钮，在Backpack.cs里初始化
+    public static GameObject equipment; // 前一行的文本
 
     public Vector2 itemOriginalScale; // 河图专用原始大小
 
@@ -52,6 +55,9 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         raycaster = go.clickManagement.raycaster;
         equipmentState = go.equipmentState.GetComponent<EquipmentState>();
         ob = go.ob.GetComponent<ObManagement>();
+        textbox = go.textbox;
+        equipButton = go.equipButton;
+        itemName = go.itemName;
     }
 
     //鼠标移动至背包里物品上方时物品变大
@@ -60,12 +66,18 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         itemName.text = gameObject.name.ToString();
         // textbox.GetComponent<TextboxScaler>().UpdateBoxSize();
         textbox.GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition + new Vector2(-180f, -120f);
+        
+        equipButton.SetActive(true);
+        go.clickManagement.equipment = gameObject;
+        equipButton.GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition + new Vector2(-120f, 40f);
+        
         transform.localScale *= itemScale;
     }
 
     //鼠标移动至背包里物品上方时物品变小
     public void OnPointerExit(PointerEventData eventData) {
         textbox.SetActive(false);
+        equipButton.SetActive(false);
         transform.localScale /= itemScale;
     }
 
@@ -74,6 +86,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         if (!dialogShown && draggedItem != null) {
             draggedItem.transform.position = Input.mousePosition;
             textbox.SetActive(false);
+            equipButton.SetActive(false);
         }
         if(!draggedItem) return;
         RectTransform item_transform = draggedItem.GetComponent<RectTransform>();
