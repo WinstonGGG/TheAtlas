@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler {   
     public GOManagement go;
 
-    public static GameObject itemOnGround; // 从背包里被拖拽出来的物品
+    public static GameObject draggedItem; // 从背包里被拖拽出来的物品
 
     public static bool holdItem; // 玩家当前是否在拖拽背包里的物品
     public static bool canPlaceItem = true; // 玩家当前知否可以将物品施放
@@ -45,7 +45,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
      // Start is called before the first frame update
     void Start()
     {
-        itemOnGround = null;
+        draggedItem = null;
         holdItem = false;
         itemOriginalScale = transform.localScale;
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
@@ -71,21 +71,21 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
 
     //拖拽过程中的物品大小变化，以及背包显示物品名的文本框隐藏
     public void OnDrag(PointerEventData eventData){
-        if (!dialogShown && itemOnGround != null) {
-            itemOnGround.transform.position = Input.mousePosition;
+        if (!dialogShown && draggedItem != null) {
+            draggedItem.transform.position = Input.mousePosition;
             textbox.SetActive(false);
         }
-        if(!itemOnGround) return;
-        RectTransform item_transform = itemOnGround.GetComponent<RectTransform>();
-        string name = itemOnGround.name;
+        if(!draggedItem) return;
+        RectTransform item_transform = draggedItem.GetComponent<RectTransform>();
+        string name = draggedItem.name;
         BackpackItemSize variables = go.backpack.GetComponent<BackpackItemSize>();
     }
 
     //结束语拖拽时激活施法的相关程序Put()，如果没有释放成功物品回到背包里的原始位置
     public void OnEndDrag(PointerEventData eventData){
-        if (!dialogShown && itemOnGround != null) {
+        if (!dialogShown && draggedItem != null) {
             Put();
-            itemOnGround.GetComponent<RectTransform>().anchoredPosition = previousPosition;
+            draggedItem.GetComponent<RectTransform>().anchoredPosition = previousPosition;
             holdItem = false;
         }
     }
@@ -120,40 +120,44 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
 
                 if (canEquip && dragOnObject.name.CompareTo("EquipmentState") == 0 && equipmentState.isEquiped == false) { //装备新物品于装备栏
                     placed = true;
-                    equipmentState.equip(itemOnGround);
-                    print("make sure it exist" + itemOnGround.GetComponent<ObItem>());
+                    equipmentState.equip(draggedItem);
+                    print("make sure it exist" + draggedItem.GetComponent<ObItem>());
                     break;
                 } else {
                     ObItem targetOb;
                     string targetName;
+                    InSceneItem inSceneProperty = null;
                     if (dragOnObject.name.CompareTo("EquipmentState") == 0 && equipmentState.isEquiped == true) { //与装备栏里的物品交互
-                        placed = true;
                         targetOb = equipmentState.equipedItemOb;
                         targetName = equipmentState.currentEquipmentName;
-                        print(itemOnGround.name + ", on to equipment: " + equipmentState.currentEquipmentName);
+                        print(draggedItem.name + ", on to equipment: " + equipmentState.currentEquipmentName);
 
                     } else { //directly interact with another object either on UI or on the ground, UI first
+                        inSceneProperty = dragOnObject.GetComponent<InSceneItem>();
                         targetOb = dragOnObject.GetComponent<ObItem>();
                         targetName = dragOnObject.name;
-                        print(itemOnGround.name + ", on to: " + dragOnObject.name);
+                        print(draggedItem.name + ", on to: " + dragOnObject.name);
                     }
                     
-                    canPlaceItem = ItemEffects.canPlace(itemOnGround.name, targetName);
+                    canPlaceItem = ItemEffects.canPlace(draggedItem.name, targetName);
                     if (canPlaceItem) {
                         print(targetOb);
                         ob.GetObItemData(targetOb);
                         ob.OpenOb();
 
-                        if (itemOnGround.name.CompareTo("The Atlas") == 0)
+                        if (draggedItem.name.CompareTo("The Atlas") == 0)
                             transform.localScale = itemOriginalScale / itemScale;
                         else 
-                            go.backpack.GetComponent<Backpack>().RemoveItem(itemOnGround, position);
+                            go.backpack.GetComponent<Backpack>().RemoveItem(draggedItem, position);
                         
-                        ItemEffects.puzzleEffect(itemOnGround.name, targetName, pointerData.position);
-                        // if (itemOnGround.name.CompareTo("Tao-Book") != 0 && itemOnGround.name.CompareTo("Talisman") != 0 && itemOnGround.name.CompareTo("The Atlas") != 0 && SceneManager.GetActiveScene().name != "SampleScene")
-                        //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(pointerData.position);
-
-                        placed = true;
+                        if (inSceneProperty == null) {
+                            ItemEffects.puzzleEffect(draggedItem.name, targetName, pointerData.position);
+                            // if (draggedItem.name.CompareTo("Tao-Book") != 0 && draggedItem.name.CompareTo("Talisman") != 0 && draggedItem.name.CompareTo("The Atlas") != 0 && SceneManager.GetActiveScene().name != "SampleScene")
+                            //     GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(pointerData.position);
+                            placed = true;
+                        } else {
+                            placed = false;
+                        }
                         break;
                     }
                 } 
@@ -164,7 +168,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
             if (!placed) {
                 // UISoundScript.PlayWrongSpell();
                 // AIDataManager.wrongItemPlacementCount += 1;
-                itemOnGround.GetComponent<RectTransform>().sizeDelta = originalSize;
+                draggedItem.GetComponent<RectTransform>().sizeDelta = originalSize;
             }
         }
     }

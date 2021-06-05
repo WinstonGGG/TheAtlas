@@ -128,11 +128,11 @@ public class ClickManagement : MonoBehaviour
                 else if (tag.CompareTo("BackpackItem") == 0 && canAct) {
                     pick.descShow = false;
                     if (!BackpackItem.holdItem) {
-                        BackpackItem.itemOnGround = result.gameObject;
+                        BackpackItem.draggedItem = result.gameObject;
                         BackpackItem.previousPosition = result.gameObject.GetComponent<RectTransform>().anchoredPosition;
                         BackpackItem.holdItem = true;
                         BackpackItem.x = BackpackItem.previousPosition.x;
-                        RectTransform item_transform = BackpackItem.itemOnGround.GetComponent<RectTransform>();
+                        RectTransform item_transform = BackpackItem.draggedItem.GetComponent<RectTransform>();
                         BackpackItem.originalSize = item_transform.sizeDelta;
                     }
                 }
