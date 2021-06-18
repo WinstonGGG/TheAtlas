@@ -14,7 +14,9 @@ public class Backpack : MonoBehaviour
     [HideInInspector]
     public GOManagement go;
     [HideInInspector]
-    private GameObject[] imageObjects; //放置背包里的物品
+    private ArrayList imageObjects; //放置背包里的物品
+    [HideInInspector]
+    private int currPageNumber; // 当前背包页数
     [HideInInspector]
     private int length; //存在的物品数量
     [HideInInspector]
@@ -53,7 +55,8 @@ public class Backpack : MonoBehaviour
     public Sprite equipmentIcon;
     public Sprite spellIcon;
     public Sprite collectIcon;
-    
+    [HideInInspector]
+    private Vector3 targetAngles; // 背包旋转参数
     //服务于在Inspector中显示Dictionary
     // public void OnAfterDeserialize()
     public void DictionarySetup()
@@ -87,10 +90,21 @@ public class Backpack : MonoBehaviour
         backpack = go.backpack;
         canvas = go.mainUI;
         textbox = go.textbox;
-        imageObjects = new GameObject[18];
+        imageObjects = new ArrayList();
         length = 0;
+        currPageNumber = 0;
 
         DictionarySetup();
+        this.AddItem("Test");
+        this.AddItem("Test");
+        this.AddItem("Test");
+        this.AddItem("Test");
+        this.AddItem("Test");
+        this.AddItem("RealPick");
+        this.AddItem("Test");
+        this.AddItem("Test");
+        this.AddItem("Test");
+        this.AddItem("Test");
         this.AddItem("Test");
         this.Show(false); //游戏开始时不显示背包
     }
@@ -103,16 +117,15 @@ public class Backpack : MonoBehaviour
 
     //当背包里有18个或以上物品时，不可以再添加新物品
     public bool CanAddItem() {
-        if(length >= 18) {
-            // TipsDialog.PrintDialog("Backpack Full");
-            return false;
-        }
+        // if(length >= 18) {
+        //     return false;
+        // }
         return true;
     }
 
     public void AddItem(string name) {
         GameObject itemObj = new GameObject(name); //Create the GameObject
-        imageObjects[length] = itemObj;
+        imageObjects.Add(itemObj);
         length++;
 
         RawImage image = itemObj.AddComponent<RawImage>(); //Add the Image Component script
@@ -131,9 +144,14 @@ public class Backpack : MonoBehaviour
         item_transform.SetParent(go.itemHolder.transform); //Assign the newly created Image GameObject as a Child of the Parent Panel, Canvas/Main UI.
         item_transform.SetAsFirstSibling();
 
-        //更改物品的大小以适配背包卷轴背景的宽度
-        GameObject locationObj = go.itemPositionHolder.transform.GetChild(length).gameObject;
-        item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+        //更改物品的位置于背包UI内
+        if (length <= 10) {
+            GameObject locationObj = go.itemPositionHolder.transform.GetChild(length-1).gameObject;
+            item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+        } else {
+            GameObject locationObj = go.extraItemHolder;
+            item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+        }
 
         //物品类型角标设置
         GameObject itemIcon = new GameObject("ItemCanSpell");
@@ -175,22 +193,46 @@ public class Backpack : MonoBehaviour
     public void RemoveItem(GameObject itemObject, int removeIndex) {
         Destroy(itemObject);
         length--;
+        imageObjects.RemoveAt(removeIndex);
         //移除物品后，将后面的物品依次前移
-        for (int i = removeIndex; i < length; i++) {
-            imageObjects[i] = imageObjects[i+1];
-            // print("move obj " + imageObjects[i].name);
-            RectTransform item_tranform = imageObjects[i].GetComponent<RectTransform>();
-            item_tranform.anchoredPosition = item_tranform.anchoredPosition + new Vector2(-80, 0);
-        }
+        // for (int i = removeIndex; i < length; i++) {
+        //     imageObjects[i] = imageObjects[i+1];
+        //     // print("move obj " + imageObjects[i].name);
+        //     RectTransform item_tranform = imageObjects[i].GetComponent<RectTransform>();
+        //     item_tranform.anchoredPosition = item_tranform.anchoredPosition + new Vector2(-80, 0);
+        // }
         textbox.SetActive(false);
     }
 
     //显示背包，需要显示背包卷轴以及其中的所有物品
     public void Show(bool isShow) {
         backpack.SetActive(isShow);
-        for (int i = 0; i < length; i++) {
-            GameObject currObj = imageObjects[i];
-            currObj.SetActive(isShow);
+        Debug.Log("page number" + currPageNumber);
+        IEnumerator e = imageObjects.GetEnumerator((currPageNumber*5), 10);
+        while (e.MoveNext()) {
+            GameObject currObj = (GameObject) e.Current;
+            if (currObj != null) {
+                currObj.SetActive(isShow);
+            } else {
+                break;
+            }
+        }
+    }
+    // 转页，isNextPage==true则翻至下一页，否则翻至上一页
+    public void TurnPage(bool isNextPage) {
+        if (isNextPage) { //翻至下一页
+            // targetAngles = go.itemHolder.transform.eulerAngles + 180f * Vector3.up; 
+            // go.itemHolder.transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, targetAngles, 1f * Time.deltaTime); 
+            go.itemHolder.transform.localRotation *= Quaternion.Euler(0, 0, 180);
+            currPageNumber++;
+            Debug.Log("obj length: " + imageObjects.ToArray().Length + ", to count: " + (currPageNumber*5 + 5));
+            IEnumerator e = imageObjects.GetEnumerator((currPageNumber*5), 5);
+            while (e.MoveNext()) {
+                GameObject currObj = (GameObject) e.Current;
+                currObj.transform.localRotation *= Quaternion.Euler(0, 0, 180);
+            }
+        } else { //翻至上一页
+
         }
     }
 }

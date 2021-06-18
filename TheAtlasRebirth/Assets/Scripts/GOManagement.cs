@@ -19,6 +19,7 @@ public class GOManagement : MonoBehaviour
 
     public GameObject itemHolder;
     public GameObject itemPositionHolder;
+    public GameObject extraItemHolder;
     public GameObject secondLevelScroll;
     
     public GameObject ob;
@@ -30,6 +31,7 @@ public class GOManagement : MonoBehaviour
     public Text itemName; //前一行的文本
 
     public ClickManagement clickManagement;
+    public GameObject characterCamera; //在主角身上的camera
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,6 +42,7 @@ public class GOManagement : MonoBehaviour
         backpack = GameObject.Find("Backpack");
         itemHolder = GameObject.Find("ItemHolder");
         itemPositionHolder = GameObject.Find("ItemPositionHolder");
+        extraItemHolder = GameObject.Find("ExtraItemHolder");
 
         mainUI = GameObject.Find("MainUI");
 
@@ -56,6 +59,8 @@ public class GOManagement : MonoBehaviour
         ob = GameObject.Find("OB");
         characterState = GameObject.Find("CharacterState");
         clickManagement = mainUI.GetComponent<ClickManagement>();
+
+        characterCamera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame

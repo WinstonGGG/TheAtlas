@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     // Start is called before the first frame update
-	private Vector3 dy;
+	public Vector3 dy;
 	public bool init = true;  //controls the camera movement in the beginning
 	bool isPrinted = false;
 	//private Vector3 dz;
@@ -34,18 +34,6 @@ public class PlayerCamera : MonoBehaviour
 			TipsDialog.PrintDialog("Self Introduction");
 			TipsDialog.introAppear = true;
 			isPrinted = true;
-		}
-		
-		
-		
-        if(Input.GetAxis("Mouse ScrollWheel")>0f &&cameraZ <= -30f ){
-			this.transform.position += dy;
-			// Debug.Log(cameraY);
-		}
-		
-		if(Input.GetAxis("Mouse ScrollWheel")<0f && cameraZ >= -55f ){
-			this.transform.position -= dy;
-			// Debug.Log(cameraY);
 		}
     }
 	

@@ -45,6 +45,9 @@ public class ClickManagement : MonoBehaviour
     private float firstClickTime, timeBetweenClicks;
     private int clickCounter; 
     private string clickName = "";   
+    private bool canScrollCounter = false;
+    public float backpackScrollCooler = 1f;
+    private float scrollCoolTimer = 0f;
     
     // 此Component将会在每一个Scene出现且永不被删除/切换Scene不会消失，所有variable不会被初始化
     void Awake() {
@@ -92,6 +95,13 @@ public class ClickManagement : MonoBehaviour
             pick.descShow = false;
         } else {
             pick.descShow = true;
+        }
+        if (canScrollCounter) {
+            scrollCoolTimer += Time.deltaTime;
+        }
+        if (scrollCoolTimer >= backpackScrollCooler) {
+            scrollCoolTimer = 0f;
+            canScrollCounter = false;
         }
 
         //Check if the left Mouse button is clicked
@@ -286,6 +296,25 @@ public class ClickManagement : MonoBehaviour
                 clickCounter = 0;
                 firstClickTime = Time.time;
                 clickName = "";
+            }
+        }
+
+        // Mouse Scroll Management
+        if (!backpackDisp.backpackOpen) {
+            float cameraY = go.characterCamera.transform.localPosition.y;
+		    float cameraZ = go.characterCamera.transform.localPosition.z;
+
+            if(Input.GetAxis("Mouse ScrollWheel")>0f &&cameraZ <= -30f) {
+                go.characterCamera.transform.position += go.characterCamera.GetComponent<PlayerCamera>().dy;
+            }
+            if(Input.GetAxis("Mouse ScrollWheel")<0f && cameraZ >= -55f) {
+                go.characterCamera.transform.position -= go.characterCamera.GetComponent<PlayerCamera>().dy;
+            }
+        } else {
+            if(Input.GetAxis("Mouse ScrollWheel")<0f && !canScrollCounter) {
+                canScrollCounter = true;
+                Debug.Log("turn backpack page");
+                backpackDisp.TurnPage(true);
             }
         }
     } 
