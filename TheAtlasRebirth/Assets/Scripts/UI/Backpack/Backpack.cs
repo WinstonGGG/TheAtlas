@@ -183,10 +183,11 @@ public class Backpack : MonoBehaviour
         }
         
         //继承Ob相关属性
-        ObItem item_ob = ob.transferToBackpackItem;
+        // ObItem item_ob = ob.transferToBackpackItem;
         ObItem backpack_item_ob = itemObj.AddComponent<ObItem>();
-        if (item_ob != null)
-            item_ob.duplicateCurrent(backpack_item_ob);
+        // if (item_ob != null)
+        //     item_ob.duplicateCurrent(backpack_item_ob);
+        ob.SetBackpack_itemOb(itemObj);
         itemObj.SetActive(this.gameObject.activeSelf);
     }
 
@@ -223,7 +224,8 @@ public class Backpack : MonoBehaviour
         if (isNextPage) { //翻至下一页
             // targetAngles = go.itemHolder.transform.eulerAngles + 180f * Vector3.up; 
             // go.itemHolder.transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, targetAngles, 1f * Time.deltaTime); 
-            go.itemHolder.transform.localRotation *= Quaternion.Euler(0, 0, 180);
+            //go.itemHolder.transform.localRotation *= Quaternion.Euler(0, 0, 180);
+			LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 180), 0.5f);
             currPageNumber++;
             Debug.Log("obj length: " + imageObjects.ToArray().Length + ", to count: " + (currPageNumber*5 + 5));
             IEnumerator e = imageObjects.GetEnumerator((currPageNumber*5), 5);
