@@ -55,6 +55,15 @@ public class ObManagement : MonoBehaviour
         stateTotalNum = clickObjectOb.itemStateTotalNum;
         currentState = clickObjectOb.CurrentState;
     }
+    public void GetObItemDataToBackpack(GameObject clickObjectOb) {
+        stateTotalNum = clickObjectOb.GetComponent<ObItem>().itemStateTotalNum;
+        currentState = clickObjectOb.GetComponent<ObItem>().CurrentState;
+    }
+
+    public void SetBackpack_itemOb(GameObject clickObjectOb) {
+        clickObjectOb.GetComponent<ObItem>().itemStateTotalNum = stateTotalNum;
+        clickObjectOb.GetComponent<ObItem>().CurrentState = currentState;
+    }
 
     public void TransferToBackpack(GameObject clickObject) {
         transferToBackpackItem = clickObject.GetComponent<ObItem>();

@@ -13,7 +13,7 @@ public class ObItem : MonoBehaviour
     {
     	public enum StateType {image, animate};
     	public StateType State;
-    	public Image image;
+    	public Texture texture;
     	public AnimationClip animate;
     }
     [SerializeField]
