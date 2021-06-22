@@ -313,8 +313,11 @@ public class ClickManagement : MonoBehaviour
         } else {
             if(Input.GetAxis("Mouse ScrollWheel")<0f && !canScrollCounter) {
                 canScrollCounter = true;
-                Debug.Log("turn backpack page");
                 backpackDisp.TurnPage(true);
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel")>0f && !canScrollCounter) {
+                canScrollCounter = true;
+                backpackDisp.TurnPage(false);
             }
         }
     } 

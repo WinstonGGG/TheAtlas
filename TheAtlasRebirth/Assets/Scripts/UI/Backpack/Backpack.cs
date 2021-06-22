@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Backpack : MonoBehaviour
 {
@@ -106,6 +107,9 @@ public class Backpack : MonoBehaviour
         this.AddItem("Test");
         this.AddItem("Test");
         this.AddItem("Test");
+        this.AddItem("RealPick");
+        this.AddItem("Test");
+        this.AddItem("Test");
         this.Show(false); //游戏开始时不显示背包
     }
 
@@ -145,7 +149,7 @@ public class Backpack : MonoBehaviour
         item_transform.SetAsFirstSibling();
 
         //更改物品的位置于背包UI内
-        if (length <= 10) {
+        if (length <= (currPageNumber+1)*5 && length > currPageNumber*5) {
             GameObject locationObj = go.itemPositionHolder.transform.GetChild(length-1).gameObject;
             item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
         } else {
@@ -209,32 +213,147 @@ public class Backpack : MonoBehaviour
     public void Show(bool isShow) {
         backpack.SetActive(isShow);
         Debug.Log("page number" + currPageNumber);
-        IEnumerator e = imageObjects.GetEnumerator((currPageNumber*5), 10);
+        IEnumerator e = GetBackpackEnumerator(currPageNumber*5, 10);
+        
         while (e.MoveNext()) {
             GameObject currObj = (GameObject) e.Current;
             if (currObj != null) {
                 currObj.SetActive(isShow);
-            } else {
+            } 
+            else {
                 break;
             }
         }
     }
     // 转页，isNextPage==true则翻至下一页，否则翻至上一页
     public void TurnPage(bool isNextPage) {
+        int length = imageObjects.ToArray().Length;
+        int total_page_num = (int) Math.Ceiling(length / 5.0);
+        IEnumerator e;
+        // Vector3 currentRatation = go.itemHolder.transform.localRotation.eulerAngles;
         if (isNextPage) { //翻至下一页
-            // targetAngles = go.itemHolder.transform.eulerAngles + 180f * Vector3.up; 
-            // go.itemHolder.transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, targetAngles, 1f * Time.deltaTime); 
-            //go.itemHolder.transform.localRotation *= Quaternion.Euler(0, 0, 180);
-			LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 180), 0.5f);
-            currPageNumber++;
-            Debug.Log("obj length: " + imageObjects.ToArray().Length + ", to count: " + (currPageNumber*5 + 5));
-            IEnumerator e = imageObjects.GetEnumerator((currPageNumber*5), 5);
-            while (e.MoveNext()) {
-                GameObject currObj = (GameObject) e.Current;
-                currObj.transform.localRotation *= Quaternion.Euler(0, 0, 180);
-            }
-        } else { //翻至上一页
+            if (currPageNumber+1 < total_page_num) {
+                currPageNumber++;
+                // preload Backpack Items
+                Debug.Log("preload nextpage, to pageNum: " + (currPageNumber));
+                e = GetBackpackEnumerator(currPageNumber*5, 5);
+                int i;
+                if (currPageNumber % 2 == 1) {
+                    i = 5;
+                } else {
+                    i = 0;
+                }
+                while (e.MoveNext()) {
+                    GameObject currObj = (GameObject) e.Current;
+                    if (currObj != null) {
+                        RectTransform item_transform = currObj.GetComponent<RectTransform>();
+                        GameObject locationObj = go.itemPositionHolder.transform.GetChild(i).gameObject;
+                        item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+                        i++;
+                    } 
+                    else {
+                        break;
+                    }
+                }
+                // rotate individual Backpack Items to be shown to correct angle
+                e = GetBackpackEnumerator(currPageNumber*5, 5);
+                while (e.MoveNext()) {
+                    GameObject currObj = (GameObject) e.Current;
+                    if (currObj != null) {
+                        currObj.transform.localRotation *= Quaternion.Euler(0, 0, 180);
+                    } 
+                    else {
+                        break;
+                    }
+                }
+                Debug.Log("obj length: " + length + ", to count: " + currPageNumber*5);
 
+                if (currPageNumber % 2 == 1) {
+                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, -180), 0.5f);
+                }
+                else {
+                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 0), 0.5f);
+                }
+
+                // Hide Backpack Items in the previous page
+                if (currPageNumber > 0) {
+                    e = GetBackpackEnumerator((currPageNumber-1)*5, 5);
+                    while (e.MoveNext()) {
+                        GameObject currObj = (GameObject) e.Current;
+                        if (currObj != null) {
+                            Debug.Log(currObj.name);
+                            RectTransform item_transform = currObj.GetComponent<RectTransform>();
+                            GameObject locationObj = go.extraItemHolder;
+                            item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+                        } 
+                        else {
+                            break;
+                        }
+                    }
+                }
+            }
+        } 
+        else { //翻至上一页
+            if (currPageNumber > 0) {
+                currPageNumber--;
+                // preload Backpack Items
+                Debug.Log("preload nextpage, to Page: " + (currPageNumber));
+                e = imageObjects.GetEnumerator(currPageNumber*5, 5);
+                int i;
+                if (currPageNumber % 2 == 1) {
+                    i = 5;
+                } else {
+                    i = 0;
+                }
+                while (e.MoveNext()) {
+                    GameObject currObj = (GameObject) e.Current;
+                    if (currObj != null) {
+                        RectTransform item_transform = currObj.GetComponent<RectTransform>();
+                        GameObject locationObj = go.itemPositionHolder.transform.GetChild(i).gameObject;
+                        item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+                        i++;
+                    } 
+                    else {
+                        break;
+                    }
+                }
+
+                if (currPageNumber % 2 == 1) {
+                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 180), 0.5f);
+                }
+                else {
+                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 360), 0.5f);
+                }
+                Debug.Log("obj length: " + length + ", to count: " + (currPageNumber*5 - 5));
+
+                // Hide Backpack Items in the next page
+                if (currPageNumber+1 < total_page_num) {
+                    e = GetBackpackEnumerator(currPageNumber*5 + 5, 5);
+                    while (e.MoveNext()) {
+                        GameObject currObj = (GameObject) e.Current;
+                        if (currObj != null) {
+                            RectTransform item_transform = currObj.GetComponent<RectTransform>();
+                            GameObject locationObj = go.extraItemHolder;
+                            item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
+                        } 
+                        else {
+                            break;
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    private IEnumerator GetBackpackEnumerator(int start, int length) {
+        IEnumerator e;
+        try {
+            e = imageObjects.GetEnumerator(start, length);
+        }
+        catch (ArgumentException ex) {
+            Debug.Log("start: " + start + ", length: " + (imageObjects.ToArray().Length - start));
+            e = imageObjects.GetEnumerator(start, imageObjects.ToArray().Length - start);
+        }
+        return e;
     }
 }
