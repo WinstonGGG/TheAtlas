@@ -90,6 +90,11 @@ public class ClickManagement : MonoBehaviour
     }
 
     private void Update() {
+        //临时转场景至井
+        if (Input.GetKeyDown(KeyCode.J)) {
+            SceneManager.LoadScene("WaterLevelWell", LoadSceneMode.Single);
+        }
+
         // 符箓或者技能书在屏幕上显示的时候不能捡起物品
         if (talisDisp.display.activeSelf || spellTreeDisp.activeSelf) {
             pick.descShow = false;

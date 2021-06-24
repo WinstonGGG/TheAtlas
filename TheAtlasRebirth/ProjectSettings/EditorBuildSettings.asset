@@ -11,4 +11,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/Tutorial (With UI).unity
     guid: 70715f26613e744e59cb5d05e351ba64
+  - enabled: 1
+    path: Assets/Resources/Scenes/WaterLevelCave.unity
+    guid: b8dc731c778bd484097144b3157e4712
+  - enabled: 1
+    path: Assets/Resources/Scenes/WaterLevelGround.unity
+    guid: 6f52787d6c2481344a91c80c2eea2c6e
+  - enabled: 1
+    path: Assets/Resources/Scenes/WaterLevelRoom.unity
+    guid: b29fffeb4a46ad945a846f762782529a
+  - enabled: 1
+    path: Assets/Resources/Scenes/WaterLevelTunnel.unity
+    guid: 225a05fcf63277a46b0dcf6b830cedca
+  - enabled: 1
+    path: Assets/Resources/Scenes/WaterLevelWell.unity
+    guid: cd586702633269a46a826800695b2809
   m_configObjects: {}
