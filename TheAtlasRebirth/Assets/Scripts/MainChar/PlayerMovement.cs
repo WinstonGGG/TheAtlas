@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-	public bool canAct => !cameraInit && !dialogShown && !talismanShown;  // player movement will be disabled when canAct is false
-	public bool cameraInit => 
-		FindObjectOfType<PlayerCamera>().init == true; //初镜头
+	// public bool canAct => !cameraInit && !dialogShown && !talismanShown;  // player movement will be disabled when canAct is false
+	public bool canAct => !dialogShown && !talismanShown; 
+	// public bool cameraInit => 
+	// 	FindObjectOfType<PlayerCamera>().init == true; //初镜头
 	public bool dialogShown =>
         FindObjectOfType<TipsDialog>() != null;
 	public bool talismanShown =>
