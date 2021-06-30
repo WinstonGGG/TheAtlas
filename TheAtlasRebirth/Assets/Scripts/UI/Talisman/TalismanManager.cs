@@ -68,6 +68,7 @@ public class TalismanManager : MonoBehaviour {
 
         sLevelScroll.SetActive(false);
         display.SetActive(false);
+        textbox.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,6 +88,7 @@ public class TalismanManager : MonoBehaviour {
 
         //按G生成技能物品
         if ((Input.GetKeyDown(KeyCode.G) || PickButton == 1) && display.activeSelf) {
+            Debug.Log("get");
             if(MakeItem()) dispManager.ToggleIcons(true);
             PickButton = 0;
         }
@@ -100,7 +102,6 @@ public class TalismanManager : MonoBehaviour {
     // 点击请神/重绘时，生成技能物品/重置符录（update内引用pickbutton）
     public void ClickTalismanButton(string button) {
         if (button == "QingShenButton") {
-            Debug.Log("get");
             PickButton = 1;
         }
         else if (button == "ChongHuiButton") {
@@ -120,7 +121,7 @@ public class TalismanManager : MonoBehaviour {
                 // GameObject.Find("playerParticleEffect").GetComponent<castEffect>().castAni();
             if (firstAccess) {
                 firstAccess = false;
-                display.transform.SetSiblingIndex(2);//设置图层顺序，以后应该需要改
+                display.transform.SetSiblingIndex(1);//设置图层顺序，以后应该需要改
                 TipsDialog.PrintDialog("Talisman 2");
             } else {
                 // Close any text box that is open
@@ -326,7 +327,7 @@ public class TalismanManager : MonoBehaviour {
         textbox.SetActive(display);
         eleName.text = e.ToString();
         textbox.GetComponent<TalisTextboxScaler>().UpdateBoxSize();
-        textbox.transform.position = position;
+        textbox.transform.position = position + new Vector2(50, -50);
     }
 
 }
