@@ -4277,8 +4277,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   box: {fileID: 695177487}
   texty: {fileID: 913914364}
-  baseLength: 0
-  scaleLength: 0
+  baseLength: 0.25
+  scaleLength: 0.25
 --- !u!1 &659043741
 GameObject:
   m_ObjectHideFlags: 0
