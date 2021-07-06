@@ -59,13 +59,14 @@ public class ClickManagement : MonoBehaviour
         else {
             Destroy(gameObject);
         }
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
         // Destroy(GameObject.Find("Theme Song"));
         // light = FindObjectOfType<LeaveIconBright>();
     }
 
     private void Start() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
         raycaster = GetComponent<GraphicRaycaster>();
         eventSystem = GetComponent<EventSystem>();
 
@@ -222,13 +223,17 @@ public class ClickManagement : MonoBehaviour
                         clickName = "EquipmentState";
                     }
                 }
+                // 各种OB逻辑从此开始：
+                else if (tag.CompareTo("WellMatrixStar") == 0) {
+                    result.gameObject.GetComponent<WellMatrixStar>().Activate();
+                }
             }
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
             if (resultSize == 0) {
                 pick.ClickOnGround();
             }
         }
-        //按右键于背包物品上时，删除此物品
+        //按右键于背包物品上时，删除此物品；Call右键进入Ob界面的方法
         else if (Input.GetMouseButtonDown(1)) { //按鼠标右键
             //Set up the new Pointer Event
             pointerData = new PointerEventData(eventSystem);
@@ -254,12 +259,14 @@ public class ClickManagement : MonoBehaviour
                 // }
                 //按右键于背包物品上时,打开物品
                 if (result.gameObject.GetComponent<ObItem>() != null) {
-                    ob.GetObItemData(result.gameObject.GetComponent<ObItem>());
+                    // ob.GetObItemData(result.gameObject.GetComponent<ObItem>());
                     ob.OpenOb();
                 }
             }
+            print("right click");
             //如果没有物品在UI layer且在当前鼠标下，玩家试图观察物品(ob)
             if (resultSize == 0) {
+                print("ob");
                 pick.ObOnGround();
             }
         }
@@ -364,15 +371,7 @@ public class ClickManagement : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.name == "scene0" && !earthUnlocked
-            && go.spelltreeIcon.GetComponent<Image>().enabled) {
-            earthUnlocked = true;
-            //GetComponent<SpelltreeManager>().UnlockElement(TalisDrag.Elements.EARTH);
-        }
-
-        if (SceneManager.GetActiveScene().name == "EarthRoom" && !earthUnlocked) {
-            earthUnlocked = true;
-        }
+        pick = goManager.GetComponent<ClickInScene>();
     }
 
     //在你打开一个功能（如符箓、技能书等）时，隐藏图标

@@ -9,6 +9,7 @@ TagManager:
   - TalismanButton
   - Talisman
   - BackpackItem
+  - WellMatrixStar
   layers:
   - Default
   - TransparentFX

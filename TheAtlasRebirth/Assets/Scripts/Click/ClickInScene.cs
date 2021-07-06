@@ -90,8 +90,8 @@ public class ClickInScene : MonoBehaviour
                     else if (go.backpack.GetComponent<Backpack>().CanAddItem()) {
                         Sprite item = clickObject.GetComponent<SpriteRenderer>().sprite;
                         go.mainUI.GetComponent<FlyingOnUI>().FlyTowardsIcon(item, false, clickObject.name);
-                        ob.GetObItemDataToBackpack(clickObject);
-                        //ob.TransferToBackpack(clickObject);
+                        // ob.GetObItemData(clickObject.GetComponent<ObItem>());
+                        ob.TransferToBackpack(clickObject);
                         // GameObject.Find("pickupEffect").GetComponent<pickupEffect>().castAni(clickObject.transform.position);
                         Destroy(clickObject);
                     }
@@ -126,6 +126,7 @@ public class ClickInScene : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, (distanceToClick + cameraDistance), layerMask) && canAct) {
                 GameObject clickObject = hitInfo.collider.gameObject;
+                print("right click on: " + clickObject.name);
                 if (clickObject.GetComponent<ObItem>() != null) {
                     ob.GetItemType(clickObject);
                 }

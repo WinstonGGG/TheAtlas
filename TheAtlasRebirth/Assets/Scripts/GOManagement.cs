@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GOManagement : MonoBehaviour
 {
@@ -32,9 +33,20 @@ public class GOManagement : MonoBehaviour
 
     public ClickManagement clickManagement;
     public GameObject characterCamera; //在主角身上的camera
-    // Start is called before the first frame update
+    
+    private static GOManagement showInstance;
     void Awake()
     {
+        DontDestroyOnLoad(this);
+        if (showInstance == null) {
+            showInstance = this;
+        }
+        else {
+            Destroy(gameObject);
+        }
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+
         backpackIcon = GameObject.Find("BackpackIcon");
         spelltreeIcon = GameObject.Find("SpelltreeIcon");
         talismanIcon = GameObject.Find("TalismanIcon");
@@ -67,5 +79,10 @@ public class GOManagement : MonoBehaviour
     void Update()
     {
         
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        print("GO update");
+        ob = GameObject.Find("OB");
+        characterCamera = GameObject.Find("Main Camera");
     }
 }

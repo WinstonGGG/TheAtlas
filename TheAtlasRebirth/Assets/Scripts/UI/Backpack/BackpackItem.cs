@@ -60,7 +60,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         itemName = go.itemName;
     }
 
-    //鼠标移动至背包里物品上方时物品变大
+    //鼠标移动至背包里物品上方时物品变大，显示浮框
     public void OnPointerEnter(PointerEventData eventData) {
         textbox.SetActive(true);
         itemName.text = gameObject.name.ToString();
