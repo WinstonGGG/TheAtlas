@@ -20,7 +20,6 @@ public class NextButtonEffect : MonoBehaviour, IPointerDownHandler {
 
     public void Update() {
         if (effective && Input.GetMouseButtonUp(0)) {
-            Debug.Log("changebutton");
             this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Image/UI/ElementIcons/Dialog/A_NextButton");
         }
     }

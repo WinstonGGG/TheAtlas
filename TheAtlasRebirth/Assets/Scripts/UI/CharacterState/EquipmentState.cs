@@ -19,7 +19,6 @@ public class EquipmentState : MonoBehaviour
     }
 
     public void equip(GameObject equipmentItem) {
-        print(currentImage);
         savedEquipmentTexture = equipmentItem.GetComponent<RawImage>().texture;
         if (currentImage != null) {
             putEquipmentTexture();

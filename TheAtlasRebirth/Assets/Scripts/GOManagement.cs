@@ -81,8 +81,11 @@ public class GOManagement : MonoBehaviour
         
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        print("GO update");
+        if (scene.name.CompareTo("Tutorial (With UI)") != 0)
+            Destroy(ob);
         ob = GameObject.Find("OB");
+        ob.transform.SetParent(mainUI.transform);
+
         characterCamera = GameObject.Find("Main Camera");
     }
 }

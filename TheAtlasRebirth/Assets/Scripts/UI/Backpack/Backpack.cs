@@ -210,7 +210,6 @@ public class Backpack : MonoBehaviour
     //显示背包，需要显示背包卷轴以及其中的所有物品
     public void Show(bool isShow) {
         backpack.SetActive(isShow);
-        Debug.Log("page number" + currPageNumber);
         IEnumerator e = GetBackpackEnumerator(currPageNumber*5, 10);
         
         while (e.MoveNext()) {
@@ -233,7 +232,6 @@ public class Backpack : MonoBehaviour
             if (currPageNumber+1 < total_page_num) {
                 currPageNumber++;
                 // preload Backpack Items
-                Debug.Log("preload nextpage, to pageNum: " + (currPageNumber));
                 e = GetBackpackEnumerator(currPageNumber*5, 5);
                 int i;
                 if (currPageNumber % 2 == 1) {
@@ -264,7 +262,6 @@ public class Backpack : MonoBehaviour
                         break;
                     }
                 }
-                Debug.Log("obj length: " + length + ", to count: " + currPageNumber*5);
 
                 if (currPageNumber % 2 == 1) {
                     LeanTween.rotate(go.itemHolder, new Vector3(0, 0, -180), 0.5f);
@@ -279,7 +276,6 @@ public class Backpack : MonoBehaviour
                     while (e.MoveNext()) {
                         GameObject currObj = (GameObject) e.Current;
                         if (currObj != null) {
-                            Debug.Log(currObj.name);
                             RectTransform item_transform = currObj.GetComponent<RectTransform>();
                             GameObject locationObj = go.extraItemHolder;
                             item_transform.anchoredPosition = locationObj.GetComponent<RectTransform>().anchoredPosition;
@@ -295,7 +291,6 @@ public class Backpack : MonoBehaviour
             if (currPageNumber > 0) {
                 currPageNumber--;
                 // preload Backpack Items
-                Debug.Log("preload nextpage, to Page: " + (currPageNumber));
                 e = imageObjects.GetEnumerator(currPageNumber*5, 5);
                 int i;
                 if (currPageNumber % 2 == 1) {
@@ -322,7 +317,6 @@ public class Backpack : MonoBehaviour
                 else {
                     LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 360), 0.5f);
                 }
-                Debug.Log("obj length: " + length + ", to count: " + (currPageNumber*5 - 5));
 
                 // Hide Backpack Items in the next page
                 if (currPageNumber+1 < total_page_num) {
@@ -349,7 +343,6 @@ public class Backpack : MonoBehaviour
             e = imageObjects.GetEnumerator(start, length);
         }
         catch (ArgumentException ex) {
-            Debug.Log("start: " + start + ", length: " + (imageObjects.ToArray().Length - start));
             e = imageObjects.GetEnumerator(start, imageObjects.ToArray().Length - start);
         }
         return e;

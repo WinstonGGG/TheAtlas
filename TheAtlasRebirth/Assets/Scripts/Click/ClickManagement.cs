@@ -66,7 +66,7 @@ public class ClickManagement : MonoBehaviour
 
     private void Start() {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+
         raycaster = GetComponent<GraphicRaycaster>();
         eventSystem = GetComponent<EventSystem>();
 
@@ -131,6 +131,8 @@ public class ClickManagement : MonoBehaviour
                 resultSize += 1;
                 string name = result.gameObject.name;
                 string tag = result.gameObject.tag;
+
+                print("click: " + name);
                 
                 if (name.CompareTo("TalismanIcon") == 0 && canAct) {
                     pick.descShow = false;
@@ -179,7 +181,6 @@ public class ClickManagement : MonoBehaviour
                         TipsDialog.PrintFullDialog();
                     } else {
                         bool textActive = TipsDialog.NextPage();
-                        // print("text act" + textActive);
                         GameObject.Find("DialogBox").SetActive(textActive);
                         // check for water boss-->credits scene
                         if (!textActive) {
@@ -225,6 +226,7 @@ public class ClickManagement : MonoBehaviour
                 }
                 // 各种OB逻辑从此开始：
                 else if (tag.CompareTo("WellMatrixStar") == 0) {
+                    print("click on star");
                     result.gameObject.GetComponent<WellMatrixStar>().Activate();
                 }
             }
@@ -263,10 +265,8 @@ public class ClickManagement : MonoBehaviour
                     ob.OpenOb();
                 }
             }
-            print("right click");
             //如果没有物品在UI layer且在当前鼠标下，玩家试图观察物品(ob)
             if (resultSize == 0) {
-                print("ob");
                 pick.ObOnGround();
             }
         }

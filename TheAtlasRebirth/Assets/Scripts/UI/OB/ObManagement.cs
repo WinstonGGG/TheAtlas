@@ -19,9 +19,9 @@ public class ObManagement : MonoBehaviour
     [HideInInspector]
     public GameObject transferToBackpackItemOB;
 
-    public GraphicRaycaster raycaster;
-    PointerEventData pointerData;
-    public EventSystem eventSystem;
+    // public GraphicRaycaster raycaster;
+    // PointerEventData pointerData;
+    // public EventSystem eventSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -30,39 +30,39 @@ public class ObManagement : MonoBehaviour
         go.ob.SetActive(false);
         transferToBackpackItemOB = GameObject.Find("TestOB");
 
-        raycaster = GetComponent<GraphicRaycaster>();
-        eventSystem = GetComponent<EventSystem>();
+        // raycaster = GetComponent<GraphicRaycaster>();
+        // eventSystem = GetComponent<EventSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Check if the left Mouse button is clicked
-        if (raycaster == null) {
+        // //Check if the left Mouse button is clicked
+        // if (raycaster == null) {
 
-        }
-        else if (Input.GetMouseButtonDown(0)) { //按鼠标左键
-            //Set up the new Pointer Event
-            pointerData = new PointerEventData(eventSystem);
-            pointerData.position = Input.mousePosition;
-            List<RaycastResult> results = new List<RaycastResult>();
+        // }
+        // else if (Input.GetMouseButtonDown(0)) { //按鼠标左键
+        //     //Set up the new Pointer Event
+        //     pointerData = new PointerEventData(eventSystem);
+        //     pointerData.position = Input.mousePosition;
+        //     List<RaycastResult> results = new List<RaycastResult>();
             
-            //Raycast using the Graphics Raycaster and mouse click position
-            raycaster.Raycast(pointerData, results);
+        //     //Raycast using the Graphics Raycaster and mouse click position
+        //     raycaster.Raycast(pointerData, results);
 
-            int resultSize = 0;
+        //     int resultSize = 0;
 
-            //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-            foreach (RaycastResult result in results) {
-                resultSize += 1;
-                string name = result.gameObject.name;
-                string tag = result.gameObject.tag;
+        //     //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+        //     foreach (RaycastResult result in results) {
+        //         resultSize += 1;
+        //         string name = result.gameObject.name;
+        //         string tag = result.gameObject.tag;
                 
-                if (tag.CompareTo("WellMatrixStar") == 0) {
-                    result.gameObject.GetComponent<WellMatrixStar>().Activate();
-                }
-            }
-        }
+        //         if (tag.CompareTo("WellMatrixStar") == 0) {
+        //             result.gameObject.GetComponent<WellMatrixStar>().Activate();
+        //         }
+        //     }
+        // }
     }
 
     public void OpenOb() {
@@ -78,7 +78,6 @@ public class ObManagement : MonoBehaviour
     //点击物品时判断是否可以打开此物品的OB，如果可以则打开
     public void GetItemType(GameObject clickObject) {
     	itemtype = clickObject.GetComponent<InSceneItem>().itemType;
-        Debug.Log(itemtype);
         if (itemtype == InSceneItem.ItemTypes.UncollNUnin) {
 	        Debug.Log("不可互动不可收集");
         }

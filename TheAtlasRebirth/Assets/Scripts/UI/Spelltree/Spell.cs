@@ -98,7 +98,6 @@ public class Spell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     private void OnEnable() {
         
         newDisp = newIcon.GetComponent<Image>();
-        Debug.Log(newDisp);
         if (curState == SpellState.LOCKED) {
             newDisp.enabled = false;
         }

@@ -81,7 +81,6 @@ public class ClickInScene : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfo, (distanceToClick + cameraDistance), layerMask) && canAct) {
                 GameObject clickObject = hitInfo.collider.gameObject;
                 if (clickObject.tag == "Pickable"){
-                    Debug.Log(clickObject.name);
                     if (clickObject.name.CompareTo("Cold Fire Seed") == 0) {
                         // ItemEffects.s.UnlockElement(TalisDrag.Elements.FIRE);
                         Destroy(clickObject);
@@ -97,14 +96,12 @@ public class ClickInScene : MonoBehaviour
                     }
                 } 
                 else if (clickObject.name.CompareTo("PickableTailsman") == 0) {
-                    Debug.Log("talisman");
                     isTalismanPicked = true;
                     dispManager.ShowTalismanIcon();
                     EnableTalismanIfAvailable();
                     Destroy(clickObject);
                 }
                 else if (clickObject.name.CompareTo("PickableBrush") == 0) {
-                    Debug.Log("brush");
                     isBrushPicked = true;
                     dispManager.ShowTalismanIcon();
                     EnableTalismanIfAvailable();

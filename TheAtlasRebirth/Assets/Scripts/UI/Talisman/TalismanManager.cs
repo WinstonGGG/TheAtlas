@@ -88,7 +88,6 @@ public class TalismanManager : MonoBehaviour {
 
         //按G生成技能物品
         if ((Input.GetKeyDown(KeyCode.G) || PickButton == 1) && display.activeSelf) {
-            Debug.Log("get");
             if(MakeItem()) dispManager.ToggleIcons(true);
             PickButton = 0;
         }
