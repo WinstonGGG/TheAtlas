@@ -10,12 +10,13 @@ public class ObManagement : MonoBehaviour
     private GOManagement go;
 
     public GameObject correspondingOB; //当前物品的Ob的reference
+    // public GameObject correspondingObject; //当前物品的reference
 
     [SerializeField]
 	private InSceneItem.ItemTypes itemtype; // 当前点击物品的type
 
     [HideInInspector]
-    public GameObject transferToBackpackItemOB;
+    public GameObject transferToBackpackItemOB; //将背包物品捡起时过渡ObItem信息的媒介
     void Start()
     {
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
@@ -46,6 +47,7 @@ public class ObManagement : MonoBehaviour
         }
         else {
             GetObItemData(clickObject.GetComponent<ObItem>());
+            // correspondingObject = clickObject;
         	OpenOb();
         }
     }
@@ -55,7 +57,12 @@ public class ObManagement : MonoBehaviour
         correspondingOB = clickObjectOb.correspondingOB;
     }
 
+    //将背包物品捡起时过渡ObItem信息的媒介
     public void TransferToBackpack(GameObject clickObject) {
         transferToBackpackItemOB = clickObject.GetComponent<ObItem>().correspondingOB;
+    }
+    //更新Ob State
+    public void UpdateState(int state) {
+        correspondingOB.GetComponent<ObDisplay>().currentState = state;
     }
 }

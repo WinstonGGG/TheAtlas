@@ -45,7 +45,9 @@ public class WellMatrixStar : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 correctAnswer = correctAnswer && !wrongStars[i].GetComponent<WellMatrixStar>().shine;
             }
             if (correctAnswer) {
-                transform.parent.gameObject.GetComponent<WellMatrixAllStars>().fall.transform.localScale *= 2;
+                WellMatrixAllStars allStarsInfo = transform.parent.gameObject.GetComponent<WellMatrixAllStars>();
+                allStarsInfo.fall.transform.localScale *= 2;
+                allStarsInfo.ob.UpdateState(2);
             }
         }
         
