@@ -188,7 +188,8 @@ public class TipsDialog : MonoBehaviour {
     //读取此段对话的每行内容 & 查看是否是需要加入立绘&名字
     public static void LoadTextAndImage(int index) {
         //if对话还有下一页
-        Line = CurrentDialogTextlist[index].Replace("=", "\n");//获取下一行对话内容
+        //Line = CurrentDialogTextlist[index].Replace("=", "\n");//获取下一行对话内容
+        Line = "";
         if (Line.Contains("%")) {
             var iconNameString = Line.Split("%"[0]);
             string iconName = iconNameString[0];

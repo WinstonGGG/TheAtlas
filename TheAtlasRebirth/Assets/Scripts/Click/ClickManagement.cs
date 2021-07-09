@@ -95,6 +95,10 @@ public class ClickManagement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J)) {
             SceneManager.LoadScene("WaterLevelWell", LoadSceneMode.Single);
         }
+        //jump to WaterLevelGround
+        if(Input.GetKeyDown(KeyCode.M)){
+            SceneManager.LoadScene("WaterLevelGround", LoadSceneMode.Single);
+        }
 
         // 符箓或者技能书在屏幕上显示的时候不能捡起物品
         if (talisDisp.display.activeSelf || spellTreeDisp.activeSelf) {
