@@ -6,15 +6,12 @@ public class ObDisplay : MonoBehaviour
 {
     public int stateTotalNum;
     public int currentState = 1;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // public void ActivateOB() {
+    //     this.gameObject.SetActive(true);
+    //     for (int i = 1; i < stateTotalNum+1; i++) {
+    //         if (i != currentState) {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //         }
+    //     }
+    // }
 }

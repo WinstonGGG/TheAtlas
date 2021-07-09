@@ -10,6 +10,13 @@ public class WellMatrixStar : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject hoveringFeedback;
     // 当前星辰是否被点亮
     private bool shine = false;
+    private GameObject[] correctStars;
+    private GameObject[] wrongStars;
+
+    void Start() {
+        correctStars = transform.parent.gameObject.GetComponent<WellMatrixAllStars>().correctStars;
+        wrongStars = transform.parent.gameObject.GetComponent<WellMatrixAllStars>().wrongStars;
+    }
     
     public void OnPointerEnter(PointerEventData eventData) {
         print("Enter star");
@@ -23,9 +30,26 @@ public class WellMatrixStar : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             hoveringFeedback.SetActive(false);
     }
 
-    public void Activate() {
-        print("Shine star");
-        shine = true;
-        hoveringFeedback.SetActive(true);
+    public void Click() {
+        if (shine) {
+            shine = false;
+            hoveringFeedback.SetActive(false);
+        } else {
+            shine = true;
+            hoveringFeedback.SetActive(true);
+            bool correctAnswer = true;
+            for (int i = 0; i < correctStars.Length; i++) {
+                correctAnswer = correctAnswer && correctStars[i].GetComponent<WellMatrixStar>().shine;
+            }
+            for (int i = 0; i < wrongStars.Length; i++) {
+                correctAnswer = correctAnswer && !wrongStars[i].GetComponent<WellMatrixStar>().shine;
+            }
+            if (correctAnswer) {
+                WellMatrixAllStars allStarsInfo = transform.parent.gameObject.GetComponent<WellMatrixAllStars>();
+                allStarsInfo.fall.transform.localScale *= 2;
+                allStarsInfo.ob.UpdateState(2);
+            }
+        }
+        
     }
 }

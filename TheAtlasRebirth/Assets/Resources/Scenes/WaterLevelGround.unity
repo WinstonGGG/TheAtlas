@@ -406,6 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 189639075}
   - component: {fileID: 189639076}
+  - component: {fileID: 189639077}
   m_Layer: 0
   m_Name: DoorLockPuzzle
   m_TagString: Untagged
@@ -443,6 +444,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTotalNum: 2
   currentState: 1
+--- !u!114 &189639077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189639074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37508dc4899dc6243abad4a1801fc205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childHead: {fileID: 990937485}
 --- !u!1 &245144675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,7 +1664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094cabd30b71e3246a3bc7b4d4c2443a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildHead: {fileID: 990937485}
 --- !u!1 &1215323906
 GameObject:
   m_ObjectHideFlags: 0
