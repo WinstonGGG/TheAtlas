@@ -343,13 +343,13 @@ public class TalismanManager : MonoBehaviour {
             eleName.text = "雷";
         }  
         else if (e.ToString() == "SUN") {
-            eleName.text = "日";
+            eleName.text = "阳";
         }
         else if (e.ToString() == "WIND") {
             eleName.text = "风";
         } 
         else if (e.ToString() == "MOON") {
-            eleName.text = "月";
+            eleName.text = "阴s";
         }
         // eleName.text = e.ToString();
         textbox.GetComponent<TalisTextboxScaler>().UpdateBoxSize();
