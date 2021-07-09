@@ -8,61 +8,24 @@ public class ObManagement : MonoBehaviour
 {
 	private GameObject goManager;
     private GOManagement go;
-    public GameObject correspondingOB;
-    //clickobj的itemStateTotalNum
-    // public ObItem.ItemState[] stateTotalNum;
 
-	// 当前点击物品的type
+    public GameObject correspondingOB; //当前物品的Ob的reference
+
     [SerializeField]
-	private InSceneItem.ItemTypes itemtype;
+	private InSceneItem.ItemTypes itemtype; // 当前点击物品的type
 
     [HideInInspector]
     public GameObject transferToBackpackItemOB;
-
-    // public GraphicRaycaster raycaster;
-    // PointerEventData pointerData;
-    // public EventSystem eventSystem;
-
-    // Start is called before the first frame update
     void Start()
     {
         go = GameObject.Find("GameObjectManager").GetComponent<GOManagement>();
         go.ob.SetActive(false);
         transferToBackpackItemOB = GameObject.Find("TestOB");
-
-        // raycaster = GetComponent<GraphicRaycaster>();
-        // eventSystem = GetComponent<EventSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // //Check if the left Mouse button is clicked
-        // if (raycaster == null) {
-
-        // }
-        // else if (Input.GetMouseButtonDown(0)) { //按鼠标左键
-        //     //Set up the new Pointer Event
-        //     pointerData = new PointerEventData(eventSystem);
-        //     pointerData.position = Input.mousePosition;
-        //     List<RaycastResult> results = new List<RaycastResult>();
-            
-        //     //Raycast using the Graphics Raycaster and mouse click position
-        //     raycaster.Raycast(pointerData, results);
-
-        //     int resultSize = 0;
-
-        //     //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-        //     foreach (RaycastResult result in results) {
-        //         resultSize += 1;
-        //         string name = result.gameObject.name;
-        //         string tag = result.gameObject.tag;
-                
-        //         if (tag.CompareTo("WellMatrixStar") == 0) {
-        //             result.gameObject.GetComponent<WellMatrixStar>().Activate();
-        //         }
-        //     }
-        // }
     }
 
     public void OpenOb() {

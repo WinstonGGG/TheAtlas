@@ -227,7 +227,7 @@ public class ClickManagement : MonoBehaviour
                 // 各种OB逻辑从此开始：
                 else if (tag.CompareTo("WellMatrixStar") == 0) {
                     print("click on star");
-                    result.gameObject.GetComponent<WellMatrixStar>().Activate();
+                    result.gameObject.GetComponent<WellMatrixStar>().Click();
                 }
             }
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
