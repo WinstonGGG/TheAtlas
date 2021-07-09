@@ -324,7 +324,34 @@ public class TalismanManager : MonoBehaviour {
     //显示元素名文本框
     public void DispTextBox(bool display, TalisDrag.Elements e, Vector2 position) {
         textbox.SetActive(display);
-        eleName.text = e.ToString();
+        if (e.ToString() == "EARTH") {
+            eleName.text = "土";
+        } 
+        else if (e.ToString() == "WATER") {
+            eleName.text = "水";
+        } 
+        else if (e.ToString() == "FIRE") {
+            eleName.text = "火";
+        }  
+        else if (e.ToString() == "METAL") {
+            eleName.text = "金";
+        }  
+        else if (e.ToString() == "WOOD") {
+            eleName.text = "木";
+        } 
+        else if (e.ToString() == "THUNDER") {
+            eleName.text = "雷";
+        }  
+        else if (e.ToString() == "SUN") {
+            eleName.text = "日";
+        }
+        else if (e.ToString() == "WIND") {
+            eleName.text = "风";
+        } 
+        else if (e.ToString() == "MOON") {
+            eleName.text = "月";
+        }
+        // eleName.text = e.ToString();
         textbox.GetComponent<TalisTextboxScaler>().UpdateBoxSize();
         textbox.transform.position = position + new Vector2(50, -50);
     }
