@@ -135,8 +135,6 @@ public class ClickManagement : MonoBehaviour
                 resultSize += 1;
                 string name = result.gameObject.name;
                 string tag = result.gameObject.tag;
-
-                print("click: " + name);
                 
                 if (name.CompareTo("TalismanIcon") == 0 && canAct) {
                     pick.descShow = false;

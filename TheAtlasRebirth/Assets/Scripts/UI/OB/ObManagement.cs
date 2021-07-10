@@ -51,6 +51,8 @@ public class ObManagement : MonoBehaviour
         else {
             GetObItemData(clickObject.GetComponent<ObItem>());
             // correspondingObject = clickObject;
+            print(itemtype);
+            print(correspondingOB);
         	OpenOb();
         }
     }

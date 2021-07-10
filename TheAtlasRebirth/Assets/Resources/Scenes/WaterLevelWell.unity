@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 28779023}
   - component: {fileID: 28779025}
   - component: {fileID: 28779024}
+  - component: {fileID: 28779026}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Untagged
@@ -195,6 +196,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28779022}
   m_CullTransparentMesh: 0
+--- !u!114 &28779026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28779022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8012f6e89e471b8899840faaae913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &32905640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,34 +1301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65e04acac6fd4f61b62984e1d70bf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctStars:
-  - {fileID: 337839352}
-  - {fileID: 1628270942}
-  - {fileID: 1176944797}
-  - {fileID: 340908819}
-  - {fileID: 1893651857}
-  - {fileID: 1776406284}
-  - {fileID: 1575504873}
-  wrongStars:
-  - {fileID: 489855949}
-  - {fileID: 400895693}
-  - {fileID: 1715970241}
-  - {fileID: 1809590462}
-  - {fileID: 1666345043}
-  - {fileID: 1591029129}
-  - {fileID: 1545853763}
-  - {fileID: 284026085}
-  - {fileID: 1924443319}
-  - {fileID: 1551214789}
-  - {fileID: 934159431}
-  - {fileID: 1899748453}
-  - {fileID: 662189826}
-  - {fileID: 1540448255}
-  - {fileID: 1340065828}
-  - {fileID: 516778873}
-  - {fileID: 168687778}
-  - {fileID: 1606045611}
-  fall: {fileID: 1169662644}
+  seasonLogos:
+  - {fileID: 28779022}
+  - {fileID: 2112870803}
+  - {fileID: 1031208387}
+  - {fileID: 1169662644}
+  ob: {fileID: 0}
 --- !u!1 &287523004
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,6 +3477,7 @@ GameObject:
   - component: {fileID: 1031208388}
   - component: {fileID: 1031208391}
   - component: {fileID: 1031208390}
+  - component: {fileID: 1031208389}
   m_Layer: 0
   m_Name: Winter
   m_TagString: Untagged
@@ -3512,6 +3504,18 @@ RectTransform:
   m_AnchoredPosition: {x: 5.1, y: -218.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1031208389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031208387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8012f6e89e471b8899840faaae913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1031208390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3782,6 +3786,7 @@ GameObject:
   - component: {fileID: 1169662645}
   - component: {fileID: 1169662648}
   - component: {fileID: 1169662647}
+  - component: {fileID: 1169662646}
   m_Layer: 0
   m_Name: Fall
   m_TagString: Untagged
@@ -3808,6 +3813,18 @@ RectTransform:
   m_AnchoredPosition: {x: 231.7, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1169662646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169662644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8012f6e89e471b8899840faaae913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1169662647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7126,6 +7143,7 @@ GameObject:
   - component: {fileID: 2112870804}
   - component: {fileID: 2112870807}
   - component: {fileID: 2112870806}
+  - component: {fileID: 2112870805}
   m_Layer: 0
   m_Name: Summer
   m_TagString: Untagged
@@ -7152,6 +7170,18 @@ RectTransform:
   m_AnchoredPosition: {x: 5.1, y: 229.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2112870805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112870803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8012f6e89e471b8899840faaae913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2112870806
 MonoBehaviour:
   m_ObjectHideFlags: 0
