@@ -312,10 +312,10 @@ public class Backpack : MonoBehaviour
                 }
 
                 if (currPageNumber % 2 == 1) {
-                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 180), 0.5f);
+                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 181), 0.5f);
                 }
                 else {
-                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 360), 0.5f);
+                    LeanTween.rotate(go.itemHolder, new Vector3(0, 0, 361), 0.5f);
                 }
 
                 // Hide Backpack Items in the next page
