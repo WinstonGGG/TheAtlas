@@ -33,7 +33,7 @@ public class ObManagement : MonoBehaviour
     	go.ob.SetActive(true);
         correspondingOB.SetActive(true);
         if(correspondingOB.name.CompareTo("DoorLockPuzzle")==0){
-            correspondingOB.GetComponent<DoorLockReference>().childHead.GetComponent<disappear_1s>().Wait();
+            correspondingOB.GetComponent<DoorLockReference>().childHead.GetComponent<Fadeout>().Wait();
         }
     }
 

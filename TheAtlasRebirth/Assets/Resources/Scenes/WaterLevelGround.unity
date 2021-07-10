@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 245144680}
   - component: {fileID: 245144681}
   m_Layer: 0
-  m_Name: invisable_interactive_object
+  m_Name: InvisableObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1664,6 +1664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094cabd30b71e3246a3bc7b4d4c2443a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitTime: 1.5
 --- !u!1 &1215323906
 GameObject:
   m_ObjectHideFlags: 0
