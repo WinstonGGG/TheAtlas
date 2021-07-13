@@ -20,25 +20,30 @@ public class DoorLockPuzzle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private void Update(){
         if (Input.GetMouseButtonDown(0)){
            // screenPos = myCam.WorldToScreenPoint(transform.position);
-       Vector3 vec4 =Input.mousePosition;
-       angleOffset=(Mathf.Atan2(vec4.y-transform.position.y,vec4.x-transform.position.x))*Mathf.Rad2Deg;
-       print("angle  is :");
+        Vector3 vec4 =Input.mousePosition;
+        angleOffset=(Mathf.Atan2(vec4.y-transform.position.y,vec4.x-transform.position.x))*Mathf.Rad2Deg;
+        print("angle  is :");
         print(transform.eulerAngles);
-      // print("vec4 is :");
-      // print(vec4);
-       //print("transform is :");
-      //  print(transform.position);
+        angleOffset=transform.eulerAngles.z-angleOffset;
+        // print("vec4 is :");
+        // print(vec4);
+        //print("transform is :");
+        //  print(transform.position);
         }
          
        if(isDraging){
-           Vector3 vec3 =Input.mousePosition;
-         float angle =(Mathf.Atan2(vec3.y-transform.position.y,vec3.x-transform.position.x))*Mathf.Rad2Deg;
-         float temp=angle+angleOffset;
+        Vector3 vec3 =Input.mousePosition;
+        float angle =(Mathf.Atan2(vec3.y-transform.position.y,vec3.x-transform.position.x))*Mathf.Rad2Deg;
 
-        //print("vec3 is :   ");
-      // print(vec3);
-         transform.eulerAngles=new Vector3(0,0,angle+angleOffset);
-          print("the new angle  is :");
+        float temp=angle+angleOffset;
+
+        print("angle is :   ");
+        print(angle);
+        print("angle offset is ");
+        print(angleOffset);
+         
+        transform.eulerAngles=new Vector3(0,0,angle+angleOffset);
+        print("the new angle  is :");
         print(transform.eulerAngles);
        }
     }
