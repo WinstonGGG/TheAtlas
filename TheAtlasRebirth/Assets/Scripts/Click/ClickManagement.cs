@@ -303,7 +303,7 @@ public class ClickManagement : MonoBehaviour
                 }
             }
             else {
-                Debug.Log("SingleClick");
+                //Debug.Log("SingleClick");
                 if (clickName == "EquipmentState") {
                     Debug.Log("打开背包，定位装备");
                 }
