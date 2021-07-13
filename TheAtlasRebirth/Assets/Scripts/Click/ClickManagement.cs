@@ -231,6 +231,22 @@ public class ClickManagement : MonoBehaviour
                     print("click on star");
                     result.gameObject.GetComponent<WellMatrixStar>().Click();
                 }
+
+                else if(name.CompareTo("LockInner") == 0){
+                    print("this i sinner lock");
+                   // result.gameObject.GetComponent<DoorLockPuzzle>().test();
+                    break;
+                }
+                 else if(name.CompareTo("LockOuter") == 0){
+                    print("this LockOuter");
+                   // result.gameObject.GetComponent<DoorLockPuzzle>();
+                    break;
+                }
+                 else if(name.CompareTo("LockMedian") == 0){
+                    print("this LockMedian");
+                   // result.gameObject.GetComponent<DoorLockPuzzle>().test();
+                    break;
+                }
             }
             //如果没有物品在UI layer且在当前鼠标下，玩家试图在捡起物品
             if (resultSize == 0) {

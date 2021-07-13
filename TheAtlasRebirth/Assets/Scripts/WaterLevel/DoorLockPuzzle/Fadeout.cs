@@ -16,6 +16,7 @@ public class Fadeout : MonoBehaviour
         Debug.Log("before start");
         StartCoroutine(WaitAfterseconds(waitTime));
         Debug.Log("after start");
+        
     }
     //child head disappear after 1.5s 
     private IEnumerator WaitAfterseconds(float wait)
@@ -27,7 +28,6 @@ public class Fadeout : MonoBehaviour
                 img.color = new Color(1, 1, 1, i);
                 yield return null;
             }
-        
         //Debug.Log("after wait:" + wait);
 
     }
