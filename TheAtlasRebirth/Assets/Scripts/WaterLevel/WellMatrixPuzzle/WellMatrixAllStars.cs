@@ -8,6 +8,8 @@ public class WellMatrixAllStars : MonoBehaviour
     public GameObject[] seasonLogos;
     private GOManagement go;
     public GameObject ob;
+    public GameObject videoPlayer;
+    public GameObject state2;
 
     
     void Start()
@@ -41,6 +43,18 @@ public class WellMatrixAllStars : MonoBehaviour
         shineState.Add("Win4", false);
         shineState.Add("Win5", false);
         shineState.Add("Win6", false);
+    }
+
+    public void PlayState2() {
+        UnityEngine.Video.VideoPlayer player = videoPlayer.GetComponent<UnityEngine.Video.VideoPlayer>();
+        player.frame = 10;
+        player.Play();
+        StartCoroutine(AdjustLayer(0.5f, player));
+    }
+
+    IEnumerator AdjustLayer(float secs, UnityEngine.Video.VideoPlayer player) {
+        yield return new WaitForSeconds(secs);
+        state2.transform.SetSiblingIndex(1);
     }
 
 }

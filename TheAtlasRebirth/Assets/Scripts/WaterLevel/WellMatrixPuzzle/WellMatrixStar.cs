@@ -45,7 +45,8 @@ public class WellMatrixStar : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 if (i == 4) {
                     print("in Start");
                     print(allStarsInfo.ob.GetComponent<ObManagement>().correspondingOB);
-                    allStarsInfo.ob.GetComponent<ObManagement>().UpdateState(2);
+                    // allStarsInfo.ob.GetComponent<ObManagement>().UpdateState(2);
+                    allStarsInfo.PlayState2();
                 }
             } else {
                 allStarsInfo.seasonLogos[i-1].GetComponent<WellMatrixSeason>().Shrink();
