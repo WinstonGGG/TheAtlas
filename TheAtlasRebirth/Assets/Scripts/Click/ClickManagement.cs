@@ -233,8 +233,7 @@ public class ClickManagement : MonoBehaviour
                 }
 
                 else if(name.CompareTo("LockInner") == 0){
-                    print("this i sinner lock");
-                   // result.gameObject.GetComponent<DoorLockPuzzle>().test();
+                    //print("this i sinner lock");
                     break;
                 }
                  else if(name.CompareTo("LockOuter") == 0){
