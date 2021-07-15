@@ -349,7 +349,7 @@ public class TalismanManager : MonoBehaviour {
             eleName.text = "风";
         } 
         else if (e.ToString() == "MOON") {
-            eleName.text = "阴s";
+            eleName.text = "阴";
         }
         // eleName.text = e.ToString();
         textbox.GetComponent<TalisTextboxScaler>().UpdateBoxSize();
