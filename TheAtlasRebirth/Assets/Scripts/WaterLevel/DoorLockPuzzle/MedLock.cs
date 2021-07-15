@@ -24,6 +24,7 @@ public class MedLock : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     }
     private void Update(){
         if(MedLock.LockActionMed&&InnerLock.LockActionInner&&OuterLock.LockActionOuter){
+                
                 gameObject.SetActive(false);
         }
         else{

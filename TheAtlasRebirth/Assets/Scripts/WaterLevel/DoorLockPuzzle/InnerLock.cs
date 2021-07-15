@@ -30,6 +30,7 @@ public class InnerLock : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void Update(){
         if(MedLock.LockActionMed&&InnerLock.LockActionInner&&OuterLock.LockActionOuter){
             gameObject.SetActive(false);
+            //GameObject.Find("UnLockedOuter").GetComponent<LockUpdate>().setTrue();
         }
         else{
             if (Input.GetMouseButtonDown(0)){
