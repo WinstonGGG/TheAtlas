@@ -130,6 +130,9 @@ public class ClickManagement : MonoBehaviour
 
             int resultSize = 0;
 
+            print("mouse");
+            print(Input.mousePosition);
+
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results) {
                 resultSize += 1;
@@ -236,8 +239,24 @@ public class ClickManagement : MonoBehaviour
                     //print("this i sinner lock");
                     break;
                 }
-                 else if(name.CompareTo("LockOuter") == 0){
-                    print("this LockOuter");
+                else if(name.CompareTo("LockOuter") == 0){
+                    Image lockOuter = result.gameObject.GetComponent<Image>();
+                    Texture2D texture = lockOuter.sprite.texture;
+                    Vector2 size = lockOuter.rectTransform.sizeDelta;
+                    Vector2 lossyScale = lockOuter.transform.lossyScale;
+                    Vector2 position = lockOuter.transform.position;
+                    float sizeX = lossyScale.x * size.x;
+                    float sizeY = lossyScale.y * size.y;
+                    print(position);
+                    print("texture:" + texture.width + ", " + texture.height);
+                    int x = (int)((Input.mousePosition.x - position.x + sizeX/2) / sizeX * texture.width);
+                    int y = (int)((Input.mousePosition.y - position.y + sizeY/2) / sizeY * texture.height);
+                    print("x, y: " + x + ", " + y);
+                    Color pixelColor = texture.GetPixel(x, y);
+                    print(pixelColor);
+                    if (pixelColor.a == 0) {
+                        print("this transparent");
+                    }
                    // result.gameObject.GetComponent<DoorLockPuzzle>();
                     break;
                 }
