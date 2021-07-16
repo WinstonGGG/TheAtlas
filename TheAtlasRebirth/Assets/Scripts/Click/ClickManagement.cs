@@ -240,23 +240,7 @@ public class ClickManagement : MonoBehaviour
                     break;
                 }
                 else if(name.CompareTo("LockOuter") == 0){
-                    Image lockOuter = result.gameObject.GetComponent<Image>();
-                    Texture2D texture = lockOuter.sprite.texture;
-                    Vector2 size = lockOuter.rectTransform.sizeDelta;
-                    Vector2 lossyScale = lockOuter.transform.lossyScale;
-                    Vector2 position = lockOuter.transform.position;
-                    float sizeX = lossyScale.x * size.x;
-                    float sizeY = lossyScale.y * size.y;
-                    print(position);
-                    print("texture:" + texture.width + ", " + texture.height);
-                    int x = (int)((Input.mousePosition.x - position.x + sizeX/2) / sizeX * texture.width);
-                    int y = (int)((Input.mousePosition.y - position.y + sizeY/2) / sizeY * texture.height);
-                    print("x, y: " + x + ", " + y);
-                    Color pixelColor = texture.GetPixel(x, y);
-                    print(pixelColor);
-                    if (pixelColor.a == 0) {
-                        print("this transparent");
-                    }
+                    
                    // result.gameObject.GetComponent<DoorLockPuzzle>();
                     break;
                 }
@@ -369,6 +353,25 @@ public class ClickManagement : MonoBehaviour
             }
         }
     } 
+    private bool ClickOnTransparent(GameObject clicking, Vector3 mousePosition) {
+        Image clickingImg = clicking.GetComponent<Image>();
+        Texture2D texture = clickingImg.sprite.texture;
+        Vector2 size = clickingImg.rectTransform.sizeDelta;
+        Vector2 lossyScale = clickingImg.transform.lossyScale;
+        Vector2 position = clickingImg.transform.position;
+        float sizeX = lossyScale.x * size.x;
+        float sizeY = lossyScale.y * size.y;
+        // print(position);
+        // print("texture:" + texture.width + ", " + texture.height);
+        int x = (int)((mousePosition.x - position.x + sizeX/2) / sizeX * texture.width);
+        int y = (int)((mousePosition.y - position.y + sizeY/2) / sizeY * texture.height);
+        // print("x, y: " + x + ", " + y);
+        Color pixelColor = texture.GetPixel(x, y);
+        // print(pixelColor);
+        return (pixelColor.a == 0);
+        
+    }
+
 
     //如果你打开一个功能（如符箓、技能书等），对应的Icon会消失；关闭此功能，Icon会重新显示；配合talismanmanager的ToggleIcons()使用
     public void ToggleTalis(bool isShow) {
