@@ -130,14 +130,15 @@ public class ClickManagement : MonoBehaviour
 
             int resultSize = 0;
 
-            print("mouse");
-            print(Input.mousePosition);
+            // print("mouse");
+            // print(Input.mousePosition);
 
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results) {
                 resultSize += 1;
-                string name = result.gameObject.name;
-                string tag = result.gameObject.tag;
+                GameObject currObj = result.gameObject;
+                string name = currObj.name;
+                string tag = currObj.tag;
                 
                 if (name.CompareTo("TalismanIcon") == 0 && canAct) {
                     pick.descShow = false;
@@ -146,7 +147,7 @@ public class ClickManagement : MonoBehaviour
                     else 
                         talisDisp.CloseDisplay();
                 }
-                else if (name.CompareTo("BackpackIcon") == 0 && canAct){
+                else if (name.CompareTo("BackpackIcon") == 0 && canAct && !ClickOnTransparent(currObj, Input.mousePosition)){
                     backpackDisp.backpackOpen = !backpackDisp.backpackOpen;
                     backpackDisp.Show(backpackDisp.backpackOpen);
                 }
@@ -367,7 +368,7 @@ public class ClickManagement : MonoBehaviour
         int y = (int)((mousePosition.y - position.y + sizeY/2) / sizeY * texture.height);
         // print("x, y: " + x + ", " + y);
         Color pixelColor = texture.GetPixel(x, y);
-        // print(pixelColor);
+        print(pixelColor);
         return (pixelColor.a == 0);
         
     }
