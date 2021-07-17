@@ -224,10 +224,10 @@ public class ClickManagement : MonoBehaviour
                 else if (name.CompareTo("OBQuitButton") == 0) {
                     ob.CloseOb();
                 }
-                else if (name.CompareTo("EquipmentState") == 0) {
+                else if (name.CompareTo("CurrentEquipIcon") == 0) {
                     if(clickCounter == 1) {
                         firstClickTime = Time.time;
-                        clickName = "EquipmentState";
+                        clickName = "CurrentEquipIcon";
                     }
                 }
                 // 各种OB逻辑从此开始：
@@ -312,8 +312,8 @@ public class ClickManagement : MonoBehaviour
         if (clickCounter > 0) {
             if (Time.time - firstClickTime < timeBetweenClicks) {
                 if (clickCounter >= 2) {
-                    Debug.Log("DoubleClick");
-                    if (clickName == "EquipmentState") {
+                    //Debug.Log("DoubleClick");
+                    if (clickName == "CurrentEquipIcon") {
                         Debug.Log("卸下装备");
                     }
                     clickCounter = 0;
@@ -323,7 +323,7 @@ public class ClickManagement : MonoBehaviour
             }
             else {
                 //Debug.Log("SingleClick");
-                if (clickName == "EquipmentState") {
+                if (clickName == "CurrentEquipIcon") {
                     Debug.Log("打开背包，定位装备");
                 }
                 clickCounter = 0;

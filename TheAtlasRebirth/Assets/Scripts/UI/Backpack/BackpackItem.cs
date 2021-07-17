@@ -131,7 +131,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
                 GameObject dragOnObject = result.gameObject;
                 int position = ((int)x + 680) / 80;
 
-                if (canEquip && dragOnObject.name.CompareTo("EquipmentState") == 0 && equipmentState.isEquiped == false) { //装备新物品于装备栏
+                if (canEquip && dragOnObject.name.CompareTo("CurrentEquipIcon") == 0 && equipmentState.isEquiped == false) { //装备新物品于装备栏
                     placed = true;
                     equipmentState.equip(draggedItem);
                     print("make sure it exist" + draggedItem.GetComponent<ObItem>());
@@ -140,7 +140,7 @@ public class BackpackItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
                     ObItem targetOb;
                     string targetName;
                     InSceneItem inSceneProperty = null;
-                    if (dragOnObject.name.CompareTo("EquipmentState") == 0 && equipmentState.isEquiped == true) { //与装备栏里的物品交互
+                    if (dragOnObject.name.CompareTo("CurrentEquipIcon") == 0 && equipmentState.isEquiped == true) { //与装备栏里的物品交互
                         targetOb = equipmentState.equipedItemOb;
                         targetName = equipmentState.currentEquipmentName;
                         print(draggedItem.name + ", on to equipment: " + equipmentState.currentEquipmentName);
