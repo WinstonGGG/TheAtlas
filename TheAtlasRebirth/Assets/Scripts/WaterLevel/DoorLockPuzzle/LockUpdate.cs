@@ -1,21 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LockUpdate : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Image img1;
+ 
     void Start()
     {
-       // gameObject.SetActive(false);
+        //hide the outerUnlock image
+        img1.enabled=false;
     }
-
-    // Update is called once per frame
-   public void setTrue(){
-
-    
-            GameObject.Find("UnLockedOuter").SetActive(true);
-    }
+ 
+    void Update() 
+    {
+        //if all locks are unlocked, set the image to true
+        if(MedLock.LockActionMed&&InnerLock.LockActionInner&&OuterLock.LockActionOuter){
+            img1.enabled=true;
+        }
+       
         
+    }
     
 }

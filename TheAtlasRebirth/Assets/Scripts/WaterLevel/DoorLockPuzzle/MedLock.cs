@@ -7,12 +7,13 @@ public class MedLock : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
  
 {
  
-
+    //the variable will be the same as innerlock
     private float angleOffset;
     private bool isDraging;
 
     public float CheckAngle;
     public static bool LockActionMed;
+    //thie will check if user roate the circle counterclockwise
     public bool CounterClockWise;
     public int RotatedCircle;
 

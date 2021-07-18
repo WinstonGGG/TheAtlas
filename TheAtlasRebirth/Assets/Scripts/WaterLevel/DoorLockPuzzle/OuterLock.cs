@@ -7,12 +7,13 @@ public class OuterLock : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
  
 {
  
-
+    // record the current angle of the object
     private float angleOffset;
+    //detect if user are dragging 
     private bool isDraging;
-
+    //this lock is set to false and it will be true if user solve the puzzle
     public static bool LockActionOuter;
-
+    //this lock is used to dectect if user is moving the circle into wrong direction
     public bool OLock;
 
     public int RotatedCircle;
@@ -57,6 +58,7 @@ public class OuterLock : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnDrag(PointerEventData data)
     
     {
+        //check if user violate the rule
         isDraging=true;
         float currentAngle=360-transform.eulerAngles.z;
         float gap=CheckAngle-currentAngle;
